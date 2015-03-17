@@ -1,0 +1,62 @@
+<table>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <th>Participant</th>
+          <th>Computer ID</th>
+          <th>Status</th>
+          <th>Connection</th>
+        </tr>
+
+        <% $user_data.each do |row| %>
+          <tr>
+            <td><%= row[:id] %></td>
+            <td><%= row[:computer_id] %></td>
+            <td><%= row[:status] %></td>
+            <% if row[:computer_id] == "nil" %>
+
+              <td><input id="" type="button" value="enable" disabled="disabled" /></td>
+            <% else %>
+
+              <td><input id="" type="button" value="enable" onclick="change_status('<%= row[:computer_id] %>')" /></td>
+            <% end %>
+  <%#*<td><input id="timebutton" type="button" value="enable" /></td>%>
+          </tr>
+        <% end %>
+      </table>
+    </td>
+
+    <td>
+      <table>
+        <tr>
+          <td>
+            <div id="timebox">
+              <div id="timelabel">Time</div>
+              <div id="timevalue">&nbsp;</div>
+              <input id="timebutton" type="button" value="Change Duration" />
+            </div><br /><br />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>
+                <% if $experiment_status == "stop"%>
+              <input id="" type="button" value="Start Experiment"  onclick="change_experiment_status('start')" /><br />
+                  <input id="" type="button" value="Stop Experiment" disabled="disabled" />
+                <input id="" type="button" value="Reset Experiment" disabled="disabled" />
+              <% end %>
+              <% if $experiment_status == "start"%>
+                <input id="" type="button" value="Start Experiment" disabled="disabled" /><br />
+                <input id="" type="button" value="Stop Experiment" onclick="change_experiment_status('stop')" />
+                <input id="" type="button" value="Reset Experiment" onclick="change_experiment_status('reset')" />
+              <% end %>
+            </div>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>

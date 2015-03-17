@@ -1,0 +1,13 @@
+<div id="experiment" >
+
+
+
+  <% if @page == "waiting" and $experiment_status == "stop" %>
+    <%= render :partial => 'participant/waiting' %>
+  <% end %>
+
+
+  <% if $experiment_status == "start" %>
+    <%= render :partial => 'participant/sample_video' %>
+  <% end %>
+</div>

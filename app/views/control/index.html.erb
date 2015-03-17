@@ -1,0 +1,70 @@
+<div id="control_dashboard" >
+<%= render :partial => 'users'%>
+</div>
+
+<table>
+  <div id="quizdatabox">
+    <div id="quizdatalabel"></div>
+    <div id="quizdatabutton" type="button" value="Upload Quiz data" />
+  </div>
+</table>
+
+<table>
+  <%= link_to "download sample data", export_sample_csv_path  %>
+</table>
+
+
+
+<div class="container">
+  <h2>Bootstrap 3.1.0 - Modal Demo</h2>
+
+  <div class="row text-center">
+      <h3>The Basic Modal</h3>
+      <a href="#" class="btn btn-lg btn-success" data-toggle="modal" data-target="#quizdata">Click to open Modal</a>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+  $("#timevalue").html(<%= $gConfigData.time %>);
+  $((function () {
+    $("#timebutton").click(function(){
+      var currentvalue = $("#timevalue").html();
+      var answer = prompt("Enter new time",currentvalue);
+      if(answer != null){
+        answer = jQuery.trim(answer);
+        if(answer != currentvalue){
+          changetime(answer);
+        }
+      }
+    });
+  })
+);
+
+
+  function changetime(newtime){
+    var time = newtime;
+    values = "time=" + time;
+    alert(values);
+    $.ajax({
+      url: "/changetime",
+      data: values,
+      type: 'get',
+      success: function(html){
+        $("#timevalue").html(newtime);
+      }
+    });
+  }
+
+</script>
+
+<%= render :partial => "popup" %>
+
+<style type="text/css">
+  #timebox{
+    width: 100%;
+    height: 40px;
+  }
+
+</style>

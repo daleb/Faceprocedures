@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FacesProcedures</title>
+   <%= stylesheet_link_tag  'application',  media: 'all', 'data-turbolinks-track' => true %>
+      <%= javascript_include_tag 'application', 'recordrtc', 'data-turbolinks-track' => true %>
+  <%#= stylesheet_link_tag  'application', "bootstrap", "bootstrap.min", media: 'all', 'data-turbolinks-track' => true %>
+  <%#= javascript_include_tag 'application', "jquery_v1.11.2", "bootstrap", "bootstrap.min", 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>

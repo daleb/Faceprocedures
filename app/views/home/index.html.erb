@@ -1,0 +1,25 @@
+<div>
+  <img src="<%= asset_path 'loader.gif' %>" class="loaderimg" />
+</div>
+<div class="container">
+  <%= button_to "Start", root_path, :class => "button", :method => :get  %>
+</div>
+
+
+
+<style type="text/css">
+  img.loaderimg{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 250px;
+  }
+
+  div.container {
+    min-height: 10em;
+    padding-left: 615px;
+    padding-top: 25px;
+    vertical-align: bottom;
+  }
+
+</style>
