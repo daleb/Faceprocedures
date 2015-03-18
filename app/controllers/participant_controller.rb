@@ -3,7 +3,7 @@ class ParticipantController < ApplicationController
   require "user"
   respond_to :html, :js, :json
   def index
-     unless  $user_data.inject([]){|arr,h| arr << h[:computer_id]}.include?("#{cookies[:computerid]}")
+    unless  $user_data.inject([]){|arr,h| arr << h[:computer_id]}.include?("#{cookies[:computerid]}")
       $user_data.select do |user|
         if user[:id] == $user_count
           user[:computer_id] = "#{cookies[:computerid]}"
@@ -11,11 +11,13 @@ class ParticipantController < ApplicationController
         end
       end
     end
-   
-    if $user_data.select{|user| user[:connection] == "enabled"}
-      @page = "waiting"
-    else
+    @user = $user_data.select{|user| user[:computer_id] == "#{cookies[:computerid]}"}
+    if @user[0][:connection] == "enabled"
+      @page = "adjust webcam"
+    elsif $experiment_status == "start"
       @page = "quiz"
+    else
+      @page = "waiting"
     end
     respond_to do|format|
 			format.js
@@ -27,50 +29,5 @@ class ParticipantController < ApplicationController
 
 
 
-
-
-
-
-
-
-
-
-  #  @userdata = Array.new(24)
-
-
-
-  #    def authorize()
-  #    ##############################################################################
-  #    @mycomputerid = getcomputerid()
-  #    validuser = validateuser()
-  #    if validuser
-  #      @mysession = getmysession()
-  #      @myuserid =  @mysession.nil? ?  0:@mysession[:myuserid]
-  #      @mygroup =  @mysession.nil? ?  0:@mysession[:group]
-  #    else
-  #      Rails.logger.info("*** Invalid User Request Rejected")
-  #      redirect_to "/login"
-  #    end
-  #
-  #    #       Rails.logger.warn("instantiate_controller_and_action_names - @myuserid = " + @myuserid.to_s)
-  #
-  #  end
-  #
-  #      def validateuser()
-  #  ##############################################################################
-  #    validuser = false
-  #    computerid = getcomputerid()
-  #    sessionid = getmysessionid()
-  #
-  #        @userconnections = Connections.new()
-  #
-  #    validuser = $gExperiment.userconnections.valid(sessionid, computerid)
-  #    unless validuser
-  #      Rails.logger.warn("Failed validation of computerid = [" + computerid.inspect + "]    sessionid = [" + sessionid.inspect + "]")
-  #    end
-  #    return validuser
-  #  end
-
-
-
+ 
 end

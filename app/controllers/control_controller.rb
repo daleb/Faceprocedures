@@ -52,7 +52,7 @@ class ControlController < ApplicationController
     computer_id  = params[:computer_id]
     $user_data.select do |user|
       if user[:computer_id] == computer_id
-        user[:conntection] = "enabled"
+        user[:connection] = "enabled"
       end
     end
     render json:{},status: :ok

@@ -2,12 +2,12 @@
 
 
 
-  <% if @page == "waiting" and $experiment_status == "stop" %>
+  <% if @page == "waiting" %>
     <%= render :partial => 'participant/waiting' %>
   <% end %>
 
 
-  <% if $experiment_status == "start" %>
+  <% if $experiment_status == "stop" and  @page == "adjust webcam"%>
     <%= render :partial => 'participant/sample_video' %>
   <% end %>
 </div>
