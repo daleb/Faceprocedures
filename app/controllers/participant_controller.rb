@@ -12,7 +12,7 @@ class ParticipantController < ApplicationController
       end
     end
     @user = $user_data.select{|user| user[:computer_id] == "#{cookies[:computerid]}"}
-    if @user[0][:connection] == "enabled"
+    if @user[0][:connection] == "enabled" && $experiment_status!="start"
       @page = "adjust webcam"
     elsif $experiment_status == "start"
       @page = "quiz"

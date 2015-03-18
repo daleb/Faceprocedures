@@ -94,7 +94,6 @@ class ApplicationController < ActionController::Base
 
   def create_userdata
     if cookies[:computerid].nil?
-      debugger
      mycomputerid = genseratecomputerid()
       $user_count =  $user_count + 1
     end
