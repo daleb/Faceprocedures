@@ -37,7 +37,6 @@ function change_status(id){
 
 function change_experiment_status(status){
     var exp_status = status
-    alert(exp_status);
     $.ajax({
         url: "/start_experiment?status="+exp_status,
         type: 'get'

@@ -29,7 +29,13 @@ Rails.application.routes.draw do
 
   get "reset_experiment" => 'control#reset_experiment'
 
-   post 'save_quiz_answers' => 'questions#save_quiz_answers', :as => :save_quiz_answers
+  post 'save_quiz_answers' => 'questions#save_quiz_answers', :as => :save_quiz_answers
+   
+  get 'quiz' => 'questions#index'
+  
+  get 'statements' => 'statements#index'
+  
+  get '/participant/sample_video' => 'participant#sample_video'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

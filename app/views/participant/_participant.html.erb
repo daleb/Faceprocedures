@@ -8,6 +8,13 @@
 
 
   <% if $experiment_status == "stop" and  @page == "adjust webcam"%>
-    <%= render :partial => 'participant/sample_video' %>
+    <%= render :partial => 'participant/adjust_screen' %>
   <% end %>
+  
+  <%if @page=="quiz"%>
+  <script type="text/javascript">
+    window.location.href="/quiz"  // put your correct path in a string here
+  </script>
+  <%end%>
+  
 </div>

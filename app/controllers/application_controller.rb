@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   $control_password = "qazplm123"
   $valid_control = false if $valid_control.nil?
   $user_count = 0 if $user_count.nil?
-  $experiment_status = STOP
+  $experiment_status = STOP if $experiment_status.nil?
 
   require "computerid"
   include Computerid
@@ -93,7 +93,7 @@ class ApplicationController < ActionController::Base
 
 
   def create_userdata
-    if cookies[:computerid].nil?
+    if cookies[:computerid].blank?
      mycomputerid = genseratecomputerid()
       $user_count =  $user_count + 1
     end
