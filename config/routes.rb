@@ -36,6 +36,8 @@ Rails.application.routes.draw do
   get 'statements' => 'statements#index'
   
   get '/participant/sample_video' => 'participant#sample_video'
+  
+  post 'upload'=>'control#save_upload'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

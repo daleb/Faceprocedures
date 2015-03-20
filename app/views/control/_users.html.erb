@@ -8,7 +8,6 @@
           <th>Status</th>
           <th>Connection</th>
         </tr>
-
         <% $user_data.each do |row| %>
           <tr class="users">
             <td><%= row[:id] %></td>
@@ -19,7 +18,7 @@
               <td><input id="" type="button" value="enable" disabled="disabled" /></td>
             <% else %>
 
-              <td><input id="" type="button" value="enable" onclick="change_status('<%= row[:computer_id] %>')" /></td>
+              <td><input id="" type="button" value="active" onclick="change_status('<%= row[:computer_id] %>')" /></td>
             <% end %>
   <%#*<td><input id="timebutton" type="button" value="enable" /></td>%>
           </tr>
@@ -64,8 +63,17 @@
 <style>
 .users {
    border: 1px solid black;
+   table-layout: auto;
+   text-align: center;
+   border-collapse: separate;
+   border-spacing: 5px;
 } 
 .control{
 	margin-left: 500px;
 }
+
+tr:nth-child(even) {
+    background-color: #F0F0F0;
+}
+
 </style>

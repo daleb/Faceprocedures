@@ -1,7 +1,7 @@
 require 'csv'
 class ControlController < ApplicationController
 
-  before_filter :check_valid_control, :except => [:login, :validatecontroller]
+  #before_filter :check_valid_control, :except => [:login, :validatecontroller]
   respond_to :html, :js, :json
   
   def index
@@ -52,7 +52,7 @@ class ControlController < ApplicationController
     computer_id  = params[:computer_id]
     $user_data.select do |user|
       if user[:computer_id] == computer_id
-        user[:connection] = "enabled"
+        user[:connection] = "active"
       end
     end
     render json:{},status: :ok
