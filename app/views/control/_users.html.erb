@@ -1,16 +1,16 @@
 <table>
   <tr>
     <td>
-      <table>
+      <table class="users">
         <tr>
-          <th>Participant</th>
+          <th>Participant</th></br>
           <th>Computer ID</th>
           <th>Status</th>
           <th>Connection</th>
         </tr>
 
         <% $user_data.each do |row| %>
-          <tr>
+          <tr class="users">
             <td><%= row[:id] %></td>
             <td><%= row[:computer_id] %></td>
             <td><%= row[:status] %></td>
@@ -28,7 +28,7 @@
     </td>
 
     <td>
-      <table>
+      <table class="control">
         <tr>
           <td>
             <div id="timebox">
@@ -60,3 +60,12 @@
     </td>
   </tr>
 </table>
+
+<style>
+.users {
+   border: 1px solid black;
+} 
+.control{
+	margin-left: 500px;
+}
+</style>

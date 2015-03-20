@@ -15,14 +15,25 @@
 
 
 
-<div class="container">
+<!--div class="container">
   <h2>Bootstrap 3.1.0 - Modal Demo</h2>
 
   <div class="row text-center">
       <h3>The Basic Modal</h3>
       <a href="#" class="btn btn-lg btn-success" data-toggle="modal" data-target="#quizdata">Click to open Modal</a>
   </div>
-</div>
+</div-->
+
+</br></br></br>
+<b><h3>Upload File</h3></b>
+<%= form_tag 'upload', { :multipart => true } do %>
+    <p>
+    <%= file_field_tag 'upload[file]' %>
+    </p>
+    <p>
+    	<%= submit_tag "Upload" %>
+    </p>
+<% end %>
 
 
 
