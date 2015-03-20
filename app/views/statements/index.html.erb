@@ -1,4 +1,4 @@
-<div>Statements </div>
+<h3><div>Statements </div></h3>
 <%= form_tag(save_quiz_answers_path, :method => "POST") do %>
   <section class="demo">
     <div class="container">
@@ -7,8 +7,9 @@
       <% end %>
     </div>
   </section>
+  </br></br>
   <button class="split" type="button">Split</button>
-  <div class="prev">
+  <div class="takeall">
     <%= submit_tag "Take All" %>
   </div>
 <% end %>
@@ -39,11 +40,11 @@
   }
 
   .split {
-    left: 650px;
+    left: 620px;
   }
 
-  .prev {
-    left: 5px;
+  .takeall {
+    margin-left: 680px;
   }
 </style>
 

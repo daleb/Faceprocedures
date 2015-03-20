@@ -1,4 +1,4 @@
-<div>Quiz </div>
+<h3><div>Quiz </div></h3>
 <%= form_tag(save_quiz_answers_path, :method => "POST") do %>
   <section class="demo">
     <div class="container">
@@ -19,7 +19,7 @@
     </div>
   </section>
   <button class="next" type="button">Next</button>
-  <div>
+  <div class="save_button">
     <%= submit_tag "Save" %>
   </div>
 <% end %>
@@ -55,6 +55,9 @@
 
   .prev {
     left: 5px;
+  }
+  .save_button{
+  	margin-left: 600px;
   }
 </style>
 <script type="text/javascript">
