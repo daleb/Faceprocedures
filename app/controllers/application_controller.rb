@@ -42,6 +42,7 @@ class ApplicationController < ActionController::Base
 
   def initapplication()
     $gConfigData = ConfigData.new if $gConfigData.nil?
+    $gUserLimitData = UserLimit.new if $gUserLimitData.nil?
     $gExperiment = FaceExperiment.new()
   end
 

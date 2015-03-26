@@ -47,23 +47,11 @@ function change_experiment_status(status){
 
 }
 
+function enable_users(status){
+	var enable_status = status
+	$.ajax({
+        url: "/change_enable_status?status="+enable_status,
+        type: 'get'
+    });
+}
 
-//
-//setInterval(function(){
-// $.ajax({
-//        url: "/participant",
-//        type: 'get'
-//    })
-//
-//
-//    
-//
-//}, 10000);
-//
-//
-//setInterval(function(){
-//     $.ajax({
-//        url: "/control",
-//        type: 'get'
-//    })
-//}, 10000);

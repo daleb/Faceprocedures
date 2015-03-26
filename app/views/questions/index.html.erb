@@ -24,42 +24,6 @@
   </div>
 <% end %>
 
-
-
-<style type="text/css">
-  .container {
-    max-width: 400px;
-    background-color: black;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-  }
-  .container div {
-    background-color: white;
-    width: 100%;
-    display: inline-block;
-    display: none;
-  }
-  .container img {
-    width: 100%;
-    height: auto;
-  }
-
-  button {
-    position: absolute;
-  }
-
-  .next {
-    left: 650px;
-  }
-
-  .prev {
-    left: 5px;
-  }
-  .save_button{
-  	margin-left: 600px;
-  }
-</style>
 <script type="text/javascript">
 
   var currentIndex = -1;
@@ -72,14 +36,6 @@
     item.css('display','inline-block');
   }
 
-<%#*var autoSlide = setInterval(function() {%>
-<%#*currentIndex += 1;%>
-<%#*if (currentIndex > itemAmt - 1) {%>
-<%#*currentIndex = 0;%>
-<%#*}%>
-<%#*cycleItems();%>
-<%#*}, 3000);%>
-
   $('.next').click(function() {
 <%#*clearInterval(autoSlide);%>
     currentIndex += 1;
@@ -89,12 +45,4 @@
     cycleItems();
   });
 
-<%#*$('.prev').click(function() {%>
-<%#*clearInterval(autoSlide);%>
-<%#*currentIndex -= 1;%>
-<%#*if (currentIndex < 0) {%>
-<%#*currentIndex = itemAmt - 1;%>
-<%#*}%>
-<%#*cycleItems();%>
-<%#*});%>
 </script>

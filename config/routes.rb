@@ -38,6 +38,10 @@ Rails.application.routes.draw do
   get '/participant/sample_video' => 'participant#sample_video'
   
   post 'upload'=>'control#save_upload'
+  
+  get 'change_enable_status' => 'control#change_enable_status'
+  
+  get 'changelimit' => 'control#changelimit'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
