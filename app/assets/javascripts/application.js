@@ -13,11 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery_v1.11.2
+//= require_tree .
 // require recordrtc
 //= require bootstrap
 //= require bootstrap.min
 //= require turbolinks
-//= require_tree .
+
 
 
 
