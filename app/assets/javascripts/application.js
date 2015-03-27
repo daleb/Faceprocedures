@@ -16,7 +16,7 @@
 // require recordrtc
 //= require bootstrap
 //= require bootstrap.min
-//= require turbolinks
+
 //= require_tree .
 
 
