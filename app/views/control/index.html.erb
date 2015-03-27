@@ -54,10 +54,29 @@
 );
 
 
+$("#uservalue").html(<%= $gUserLimitData.limit %>);
+  $((function () {
+    $("#userlimitbutton").click(function(){
+      var currentvalue = $("#uservalue").html();
+      var answer = prompt("Enter new Value",currentvalue);
+      if(answer != null && answer <=24){
+        answer = jQuery.trim(answer);
+        if(answer != currentvalue){
+          changeuserlimits(answer);
+        }
+      }
+      else
+      {
+      	alert("Please enter Valid input amount.. i.e < 24")
+      }
+    });
+  })
+);
+
+
   function changetime(newtime){
     var time = newtime;
     values = "time=" + time;
-    alert(values);
     $.ajax({
       url: "/changetime",
       data: values,
@@ -67,15 +86,20 @@
       }
     });
   }
+  
+  function changeuserlimits(newlimit){
+    var limit = newlimit;
+    values = "limit=" + limit;
+    $.ajax({
+      url: "/changelimit",
+      data: values,
+      type: 'get',
+      success: function(html){
+        $("#uservalue").html(newlimit);
+      }
+    });
+  }
 
 </script>
 
 <%= render :partial => "popup" %>
-
-<style type="text/css">
-  #timebox{
-    width: 100%;
-    height: 40px;
-  }
-
-</style>
