@@ -51,19 +51,12 @@
         <tr>
           <td>
           	<div>
-          		<input id="" type="button" value="Enable Connections" onclick="enable_users('enable')" />
+          		<input id="enable" type="button" value="Enable Connections" onclick="enable_users('enable')" />
           	</div>
             <div>
-                <% if $experiment_status == "stop"%>
-              <input id="" type="button" value="Start Experiment"  onclick="change_experiment_status('start')" /><br />
-                  <input id="" type="button" value="Stop Experiment" disabled="disabled" />
-                <input id="" type="button" value="Reset Experiment" disabled="disabled" />
-              <% end %>
-              <% if $experiment_status == "start"%>
-                <input id="" type="button" value="Start Experiment" disabled="disabled" /><br />
-                <input id="" type="button" value="Stop Experiment" onclick="change_experiment_status('stop')" />
-                <input id="" type="button" value="Reset Experiment" onclick="change_experiment_status('reset')" />
-              <% end %>
+                <input id="start" type="button" value="Start Experiment"  onclick="change_experiment_status('start')" /><br />
+                <input id="stop" type="button" value="Stop Experiment" onclick="change_experiment_status('stop')" />
+                <input id="reset" type="button" value="Reset Experiment" onclick="change_experiment_status('reset')" />
             </div>
           </td>
         </tr>

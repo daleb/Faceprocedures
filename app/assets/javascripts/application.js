@@ -38,6 +38,21 @@ function change_status(id){
 
 function change_experiment_status(status){
     var exp_status = status
+    if(exp_status == "start"){
+    	$("#start").attr("disabled", "disabled");
+    	$("#stop").removeAttr("disabled");
+    	$("#reset").removeAttr("disabled");
+    }
+    else if(exp_status == "stop"){
+    	$("#stop").attr("disabled", "disabled");
+    	$("#reset").removeAttr("disabled");
+    	$("#start").removeAttr("disabled");
+    }
+    else{
+    	$("#reset").attr("disabled", "disabled");
+    	$("#start").removeAttr("disabled");
+    	$("#stop").removeAttr("disabled");
+    }
     $.ajax({
         url: "/start_experiment?status="+exp_status,
         type: 'get'
@@ -55,4 +70,23 @@ function enable_users(status){
         type: 'get'
     });
 }
+
+
+
+setInterval(function(){
+$.ajax({
+       url: "/participant",
+       type: 'get'
+   })
+
+}, 10000);
+
+
+setInterval(function(){
+    $.ajax({
+       url: "/control",
+       type: 'get'
+   })
+}, 10000);
+
 

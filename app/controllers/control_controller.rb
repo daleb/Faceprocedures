@@ -6,7 +6,7 @@ class ControlController < ApplicationController
   
   def index
     respond_to do|format|
-			format.js
+			#format.js
       format.html
       format.json
 		end
@@ -77,6 +77,7 @@ class ControlController < ApplicationController
       $user_data.select do |user|
         user[:connection] = "enabled"
       end      
+      $status= nil
     end
     redirect_to control_path
   end

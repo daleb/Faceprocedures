@@ -12,11 +12,12 @@ class ParticipantController < ApplicationController
       end
     end
     @user = $user_data.select{|user| user[:computer_id] == "#{cookies[:computerid]}"}
-    if @user[0][:connection] == "enabled" && $experiment_status!="start" && params["from"] != "adjust_page"
+    #$status=nil
+    if @user[0][:connection] == "enabled" && $experiment_status!="start" && params["from"] != "adjust_page" && $status !="adjusted"
       @page = "adjust webcam"
+      $status="adjusted"
     elsif $experiment_status == "start"
       @page = "quiz"
-      # redirect_to quiz_path
     else
       @page = "waiting"
     end
