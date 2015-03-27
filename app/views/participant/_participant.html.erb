@@ -7,7 +7,7 @@
   <% end %>
 
 
-  <% if $experiment_status == "stop" and  @page == "adjust webcam"%>
+  <% if $experiment_status != "start" and  @page == "adjust webcam"%>
     <%= render :partial => 'participant/adjust_screen' %>
   <% end %>
   
