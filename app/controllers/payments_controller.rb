@@ -4,7 +4,7 @@ class PaymentsController < ApplicationController
   def calculate
     option=params["value"]
     statement=params["statement_id"]
-    file = CSV.open("score_details_#{Date.today}.csv", "r")
+    file = begin CSV.open("score_details_#{Date.today}.csv", "r") rescue nil end
     if file
       CSV.open("score_details_#{Date.today}.csv", "a+") do |csv|
       csv << [cookies[:computerid], statement, option]
