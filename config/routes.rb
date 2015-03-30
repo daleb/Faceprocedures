@@ -42,6 +42,8 @@ Rails.application.routes.draw do
   get 'change_enable_status' => 'control#change_enable_status'
   
   get 'changelimit' => 'control#changelimit'
+  
+  get 'payments'=> 'payments#calculate'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

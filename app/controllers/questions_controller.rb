@@ -15,6 +15,10 @@ skip_before_action :verify_authenticity_token, :only => :upload
 
   def save_quiz_answers
     ### save the quiz answer details
+    ### perform pairing
+    computer_ids= $user_data.collect{|data|data[:computer_id]}
+    $paired_users=computer_ids.each_slice(2).to_a
+    ###
     redirect_to statements_path
   end
 
