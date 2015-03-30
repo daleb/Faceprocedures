@@ -5,7 +5,6 @@ class ControlController < ApplicationController
   respond_to :html, :js, :json
   
   def index
-    
     respond_to do|format|
 			format.js
       format.html
@@ -71,6 +70,21 @@ class ControlController < ApplicationController
     File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
     flash[:notice] = "File uploaded"
     redirect_to control_path
+  end
+  
+  def change_enable_status
+    if params["status"] == "enable"
+      $user_data.select do |user|
+        user[:connection] = "enabled"
+      end      
+    end
+    redirect_to control_path
+  end
+  
+  def changelimit
+    newlimit = params[:limit].to_i
+    $limit = $gUserLimitData.newlimit(newlimit.to_i)
+    render json:{limit: $gUserLimitData.limit},status: :ok
   end
 
   

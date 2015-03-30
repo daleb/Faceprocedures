@@ -13,11 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery_v1.11.2
+//= require_tree .
 // require recordrtc
 //= require bootstrap
 //= require bootstrap.min
-//= require turbolinks
-//= require_tree .
+
+
 
 
 
@@ -47,23 +48,11 @@ function change_experiment_status(status){
 
 }
 
+function enable_users(status){
+	var enable_status = status
+	$.ajax({
+        url: "/change_enable_status?status="+enable_status,
+        type: 'get'
+    });
+}
 
-//
-//setInterval(function(){
-// $.ajax({
-//        url: "/participant",
-//        type: 'get'
-//    })
-//
-//
-//    
-//
-//}, 10000);
-//
-//
-//setInterval(function(){
-//     $.ajax({
-//        url: "/control",
-//        type: 'get'
-//    })
-//}, 10000);

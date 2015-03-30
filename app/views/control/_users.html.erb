@@ -6,20 +6,20 @@
           <th>Participant</th></br>
           <th>Computer ID</th>
           <th>Status</th>
-          <th>Connection</th>
+          <!--th>Connection</th-->
         </tr>
         <% $user_data.each do |row| %>
           <tr class="users">
             <td><%= row[:id] %></td>
             <td><%= row[:computer_id] %></td>
             <td><%= row[:status] %></td>
-            <% if row[:computer_id] == "nil" %>
+            <%# if row[:computer_id] == "nil" %>
 
-              <td><input id="" type="button" value="enable" disabled="disabled" /></td>
-            <% else %>
+              <!--td><input id="" type="button" value="enable" disabled="disabled" /></td>
+            <%# else %>
 
-              <td><input id="" type="button" value="active" onclick="change_status('<%= row[:computer_id] %>')" /></td>
-            <% end %>
+              <td><input id="" type="button" value="active" onclick="change_status('<%= row[:computer_id] %>')" /></td-->
+            <%# end %>
   <%#*<td><input id="timebutton" type="button" value="enable" /></td>%>
           </tr>
         <% end %>
@@ -37,8 +37,22 @@
             </div><br /><br />
           </td>
         </tr>
+        
         <tr>
           <td>
+            <div id="userlimit">
+              <div id="timelabel">No of users</div>
+              <div id="uservalue">&nbsp;</div>
+              <input id="userlimitbutton" type="button" value="Change Limit" />
+            </div><br /><br />
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+          	<div>
+          		<input id="" type="button" value="Enable Connections" onclick="enable_users('enable')" />
+          	</div>
             <div>
                 <% if $experiment_status == "stop"%>
               <input id="" type="button" value="Start Experiment"  onclick="change_experiment_status('start')" /><br />
@@ -60,20 +74,3 @@
   </tr>
 </table>
 
-<style>
-.users {
-   border: 1px solid black;
-   table-layout: auto;
-   text-align: center;
-   border-collapse: separate;
-   border-spacing: 5px;
-} 
-.control{
-	margin-left: 500px;
-}
-
-tr:nth-child(even) {
-    background-color: #F0F0F0;
-}
-
-</style>
