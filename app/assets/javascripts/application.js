@@ -73,21 +73,21 @@ function enable_users(status){
 
 
 
-// setInterval(function(){
-// $.ajax({
-       // url: "/participant",
-       // type: 'get'
-   // })
-// 
-// }, 10000);
-// 
-// 
-// setInterval(function(){
-    // $.ajax({
-       // url: "/control",
-       // type: 'get'
-   // })
-// }, 10000);
+setInterval(function(){
+$.ajax({
+       url: "/participant",
+       type: 'get'
+   })
+
+}, 10000);
+
+
+setInterval(function(){
+    $.ajax({
+       url: "/control",
+       type: 'get'
+   })
+}, 10000);
 
 setTimeout(function() {
     $('.animated_image').fadeOut('fast');
