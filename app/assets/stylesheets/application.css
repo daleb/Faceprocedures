@@ -203,5 +203,52 @@ margin:0px auto;
     margin-left: 680px;
   }
   
+.animated_image{
+	margin-left: 450px;
+}
+
+.score
+{
+color: rgb(255, 255, 255);
+font-size: 50px;
+margin-left: 505px;
+margin-top: 175px;
+text-shadow: rgb(255, 255, 255) 0px -1px 4px, rgb(255, 255, 0) 0px -2px 10px, rgb(255, 128, 0) 0px -10px 20px, rgb(255, 0, 0) 0px -18px 40px;
+text-decoration: blink;
+}
+
+.score {   
+  animation-duration: 600ms;
+  animation-name: blink;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.results,.exit {
+ display: block;
+ background: #62869b;
+ width: 200px;
+ height: 100px;
+ text-align: center;
+ padding: 0px 0 0 0;
+ font: 1.2em/12px -moz-fixed,Arial,menu,sans-serif;
+ color: #fff;
+ text-decoration: none;
+ -webkit-border-radius: 15px;
+ -moz-border-radius: 15px;
+ border-radius: 15px;
+ margin-left: 581px;
+ margin-top: 154px;
+ }
 
 

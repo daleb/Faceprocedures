@@ -1,0 +1,19 @@
+<div style="margin-left: 200px">
+<h4>Please fill below form!</h4>
+<%= form_tag 'save_user_info' do %>
+Age:<br>
+<input type="text" name="age">
+<br></br></br>
+First Language:<br>
+<input type="text" name="firstlanguage">
+</br></br>
+<input type="radio" name="sex" value="male" checked>Male
+<br>
+<input type="radio" name="sex" value="female">Female
+</br></br>
+English Fluency:<br>
+<%=select_tag "fluency", options_for_select(["Beginner","Intermediate","Advanced"],"Intermediate")%>
+</br></br></br>
+<%= submit_tag "Save" %>
+<%end%>
+</div>

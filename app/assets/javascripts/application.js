@@ -73,20 +73,26 @@ function enable_users(status){
 
 
 
-setInterval(function(){
-$.ajax({
-       url: "/participant",
-       type: 'get'
-   })
+// setInterval(function(){
+// $.ajax({
+       // url: "/participant",
+       // type: 'get'
+   // })
+// 
+// }, 10000);
+// 
+// 
+// setInterval(function(){
+    // $.ajax({
+       // url: "/control",
+       // type: 'get'
+   // })
+// }, 10000);
 
-}, 10000);
-
-
-setInterval(function(){
-    $.ajax({
-       url: "/control",
-       type: 'get'
-   })
+setTimeout(function() {
+    $('.animated_image').fadeOut('fast');
+    $('.score').show();
+    $('.exit_button').show();
 }, 10000);
 
 

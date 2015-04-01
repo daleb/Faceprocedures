@@ -44,6 +44,14 @@ Rails.application.routes.draw do
   get 'changelimit' => 'control#changelimit'
   
   get 'payments'=> 'payments#calculate'
+  
+  get 'results'=> 'payments#results'
+  
+  post '/participant/save' => 'participant#save'
+  
+  get 'get_participant_info'=> 'participant#get_information'
+  
+  post 'save_user_info'=>'participant#save_user_information'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
