@@ -17,7 +17,7 @@
 */
 #waitmsg{
     height: 220px;
-    left: 200px;
+    left: 270px;
     position: absolute;
     top: 220px;
     width: 782px;
@@ -184,7 +184,7 @@ margin:0px auto;
   }
 
   .next {
-    left: 650px;
+    left: 680px;
   }
 
   .prev {
@@ -205,6 +205,7 @@ margin:0px auto;
   
 .animated_image{
 	margin-left: 450px;
+	background-color: #FFFFE0;
 }
 
 .score
@@ -250,5 +251,33 @@ text-decoration: blink;
  margin-left: 581px;
  margin-top: 154px;
  }
+ 
+ #downloadanswers,#downloademotions{
+ 	margin-left: 452px;
+ 	width: 200px;
+ 	height: 40px;
+ 	color: red;
+ }
+ 
+#enable,#start,#stop,#reset,#timebutton,#userlimitbutton{
+ 	width: 200px;
+ 	height: 40px;
+ 	color: green;
+}
+#timebutton,#userlimitbutton{
+	width: 200px;
+ 	height: 40px;
+ 	color: blue;
+}
+
+#user_div{
+	background-color: #FFFFE0;
+}
+
+#submit{
+	width: 180px;
+ 	height: 40px;
+ 	color: blue;
+}
 
 
