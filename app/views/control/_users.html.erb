@@ -31,7 +31,7 @@
         <tr>
           <td>
             <div id="timebox">
-              <div id="timelabel">Time</div>
+              <div id="timelabel"><b>Time:-</b></div>
               <div id="timevalue">&nbsp;</div>
               <input id="timebutton" type="button" value="Change Duration" />
             </div><br /><br />
@@ -41,11 +41,15 @@
         <tr>
           <td id="user_div">
             <div id="userlimit">
-              <div id="timelabel">No of users</div>
+              <div id="timelabel"><b>No of users :-</b></div>
               <div id="uservalue">&nbsp;</div>
               <input id="userlimitbutton" type="button" value="Change Limit" />
             </div><br /><br />
           </td>
+        </tr>
+        <%= render :partial => "datafilesbutton" %>
+        <tr>
+        	
         </tr>
         
         <tr>

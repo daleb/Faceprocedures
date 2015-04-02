@@ -6,8 +6,7 @@
     <script src="app.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css"/>
   </head>
-<h3>Please Adjust your Webcam</h3>
-<%$status="adjusted"%>
+<h3 align="center">Please Adjust your Webcam</h3>
   <body>
     <!-- Wrapper for video elements -->
     <div id='players'>
@@ -15,6 +14,7 @@
       <audio class="recorder" autoplay loop muted></audio>
     </div>
     <!-- Control buttons -->
+   </br></br>
     <button id='adjust'>Adjustment Done!!!</button>
   </body>
 
@@ -25,7 +25,10 @@ $("#adjust").on('click', function(){
      $.ajax({
      	type: 'GET',
      	url: "/participant", 
-     	data : {"from" : "adjust_page"}
+     	data : {"from" : "adjust_page"},
+     	success:function(data) {
+           '<%=$status =="adjusted"%>'
+         }
      	});
 })
 </script>

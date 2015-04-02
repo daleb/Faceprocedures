@@ -27,7 +27,7 @@ class ParticipantController < ApplicationController
     
     if  params["from"] == "adjust_page"
       @page = "waiting"
-      user[:status] = "On waiting screen"
+      user_status = "On waiting screen"
     end
     
     $user_data.select do |user|

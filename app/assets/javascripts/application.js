@@ -79,7 +79,7 @@ $.ajax({
        type: 'get'
    })
 
-}, 10000);
+}, 20000);
 
 
 setInterval(function(){

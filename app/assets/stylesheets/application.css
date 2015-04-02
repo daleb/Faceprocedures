@@ -253,7 +253,7 @@ text-decoration: blink;
  }
  
  #downloadanswers,#downloademotions{
- 	margin-left: 452px;
+ 	margin-left: 152px;
  	width: 200px;
  	height: 40px;
  	color: red;
@@ -280,4 +280,10 @@ text-decoration: blink;
  	color: blue;
 }
 
+#players{
+	margin-left: 360px;
+}
 
+#adjust{
+	margin-left: 600px;
+}

@@ -60,6 +60,12 @@ class ControlController < ApplicationController
 
   def start_experiment
     $experiment_status = params[:status]
+    if ["stop","reset"].include?(params[:status])
+      $status = ""
+      $user_data.each do |user|
+       user[:connection]="disabled"
+      end
+    end
     render json:{},status: :ok
   end
   
