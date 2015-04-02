@@ -49,28 +49,16 @@ class ParticipantController < ApplicationController
  end
 
 def save
- 
   uuid = UUID.generate
   video_type ="webm"# params['video'].content_type.split("/").last
-
-File.open("public/uploads/#{uuid}.#{video_type}", "w") { |f| f.write(File.read(params['video-blob'].tempfile)) }
+  video_name="#{cookies[:computerid]}_emotion.#{video_type}"
+  File.open("public/uploads/#{video_name}", "w") { |f| f.write(File.read(params['video-blob'].tempfile)) }
 
     
     `ffmpeg -i public/uploads/#{uuid}.webm public/uploads/#{uuid}.mp4`
     `ffmpeg -i public/uploads/#{uuid}.mp4 -i public/uploads/#{uuid}.wav -c:v copy -c:a aac -strict experimental public/videos/#{uuid}.mp4`
 
     uuid
-    
-    sdfsdfsdfsdf
-  raise params.inspect
-   name = params["video-filename"]#.original_filename
-    directory = "public/csv"
-    path = File.join(directory, name)
-   File.open(path, 'wb') do |f|
-    f.write params["video-blob"]
-  end
-    flash[:notice] = "File uploaded"
-  params.save!
 end
 
 def get_information

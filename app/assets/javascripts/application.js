@@ -94,5 +94,3 @@ setTimeout(function() {
     $('.score').show();
     $('.exit_button').show();
 }, 10000);
-
-
