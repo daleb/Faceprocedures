@@ -146,7 +146,8 @@
    border-spacing: 5px;
 } 
 .control{
-	margin-left: 500px;
+	margin-left: 150px;
+	margin-top: 40px;
 }
 
 tr:nth-child(even) {
@@ -253,7 +254,7 @@ text-decoration: blink;
  }
  
  #downloadanswers,#downloademotions{
- 	margin-left: 152px;
+ 	margin-left: 800px;
  	width: 200px;
  	height: 40px;
  	color: red;
@@ -286,4 +287,11 @@ text-decoration: blink;
 
 #adjust{
 	margin-left: 600px;
+}
+#r_buttons{
+	height: 500px;
+}
+
+#upload{
+	margin-left: 500px;
 }

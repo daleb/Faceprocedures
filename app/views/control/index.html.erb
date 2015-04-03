@@ -8,23 +8,11 @@
   </div>
 </table>
 </br></br></br>
-<table>
+<table id="upload">
   <%= link_to "click here ", export_sample_csv_path  %> <b>to download file to upload your questions</b>
-</table>
-
-
-
-<!--div class="container">
-  <h2>Bootstrap 3.1.0 - Modal Demo</h2>
-
-  <div class="row text-center">
-      <h3>The Basic Modal</h3>
-      <a href="#" class="btn btn-lg btn-success" data-toggle="modal" data-target="#quizdata">Click to open Modal</a>
-  </div>
-</div-->
 
 </br></br></br>
-<b><h3>Upload File</h3></b>
+<b><h3>Upload Your Questions Here!</h3></b>
 <%= form_tag 'upload', { :multipart => true } do %>
     <p>
     <%= file_field_tag 'upload[file]' %>
@@ -33,6 +21,7 @@
     	<%= submit_tag "Upload" %>
     </p>
 <% end %>
+</table>
 
 
 
@@ -58,15 +47,15 @@ $("#uservalue").html(<%= $gUserLimitData.limit %>);
     $("#userlimitbutton").click(function(){
       var currentvalue = $("#uservalue").html();
       var answer = prompt("Enter new Value",currentvalue);
-      if(answer != null && answer <=24){
-        answer = jQuery.trim(answer);
+      answer = jQuery.trim(answer);
+      if(answer != '' && answer <=24 && answer>=0){
         if(answer != currentvalue){
           changeuserlimits(answer);
         }
       }
       else
       {
-      	alert("Please enter Valid input amount.. i.e < 24")
+      	alert("Please enter Valid input amount.. i.e 1 to 24")
       }
     });
   })

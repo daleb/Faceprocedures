@@ -16,9 +16,15 @@ skip_before_action :verify_authenticity_token, :only => :upload
   def save_quiz_answers
     ### save the quiz answer details
     answers= params.select{|key,val| key.include?("question")}
-    CSV.open("public/csv/#{cookies[:computerid]}_answers.csv", "wb") do |csv|
-    answers.each do |ans|
-     csv << ans
+    ans_collection = [cookies[:computerid]] << answers.collect{|ans|ans[1]}
+    file = begin CSV.open("public/csv/quiz_answers_#{Date.today}.csv", "r") rescue nil end
+    if file
+     CSV.open("public/csv/quiz_answers_#{Date.today}.csv", "a+") do |csv|
+      csv << ans_collection.flatten  
+     end
+    else
+     CSV.open("public/csv/quiz_answers_#{Date.today}.csv", "wb") do |csv|
+     csv << ans_collection.flatten
     end
     end
     ### save the quiz answer details
