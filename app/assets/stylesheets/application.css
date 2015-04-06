@@ -254,7 +254,7 @@ text-decoration: blink;
  }
  
  #downloadanswers,#downloademotions{
- 	margin-left: 800px;
+ 	margin-left: 148px;
  	width: 200px;
  	height: 40px;
  	color: red;
@@ -293,5 +293,5 @@ text-decoration: blink;
 }
 
 #upload{
-	margin-left: 500px;
+	margin-left: 198px;
 }

@@ -1,3 +1,6 @@
+<table>
+	<tr>
+		<td>
 <div id="control_dashboard" >
 <%= render :partial => 'users'%>
 </div>
@@ -8,7 +11,9 @@
   </div>
 </table>
 </br></br></br>
-<table id="upload">
+</td>
+<td>
+	<div id="upload">
   <%= link_to "click here ", export_sample_csv_path  %> <b>to download file to upload your questions</b>
 
 </br></br></br>
@@ -21,6 +26,9 @@
     	<%= submit_tag "Upload" %>
     </p>
 <% end %>
+</div>
+</td>
+</tr>
 </table>
 
 

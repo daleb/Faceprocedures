@@ -35,60 +35,6 @@ function change_status(id){
 }
 
 
-
-function change_experiment_status(status){
-    var exp_status = status
-    if(exp_status == "start"){
-    	$("#start").attr("disabled", "disabled");
-    	$("#stop").removeAttr("disabled");
-    	$("#reset").removeAttr("disabled");
-    }
-    else if(exp_status == "stop"){
-    	$("#stop").attr("disabled", "disabled");
-    	$("#reset").removeAttr("disabled");
-    	$("#start").removeAttr("disabled");
-    }
-    else{
-    	$("#reset").attr("disabled", "disabled");
-    	$("#start").removeAttr("disabled");
-    	$("#stop").removeAttr("disabled");
-    }
-    $.ajax({
-        url: "/start_experiment?status="+exp_status,
-        type: 'get'
-    //        success: function(html){
-    //            $("#dispaly_user_message_"+user_id).html(html);
-    //        }
-    });
-
-}
-
-function enable_users(status){
-	var enable_status = status
-	$.ajax({
-        url: "/change_enable_status?status="+enable_status,
-        type: 'get'
-    });
-}
-
-
-
-setInterval(function(){
-$.ajax({
-       url: "/participant",
-       type: 'get'
-   })
-
-}, 20000);
-
-
-setInterval(function(){
-    $.ajax({
-       url: "/control",
-       type: 'get'
-   })
-}, 10000);
-
 setTimeout(function() {
     $('.animated_image').fadeOut('fast');
     $('.score').show();

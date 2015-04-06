@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   
   post "validatecontroller" => 'control#validatecontroller', as: :validatecontroller
 
-  get "control" => "control#index"
+  match "control" => "control#index", via: [:get, :post]
 
   get "changetime" => 'control#changetime'
 
@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   get 'change_status' => 'control#change_status'
 
-  get "participant" => 'participant#index'
+  match "participant" => 'participant#index', via: [:get, :post]
 
   get "start_experiment" => 'control#start_experiment'
 
