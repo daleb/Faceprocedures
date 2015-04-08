@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   get 'change_status' => 'control#change_status'
 
-  match "participant" => 'participant#index', via: [:get, :post]
+  get "participant" => 'participant#index'
 
   get "start_experiment" => 'control#start_experiment'
 
@@ -56,7 +56,11 @@ Rails.application.routes.draw do
   get '/getanswers'=> 'data#index'
   
   get '/getemotions'=> 'data#download_videos' 
-
+  
+  match 'control/pageupdate'=> 'control#pageupdate', via: [:get, :post]
+  
+  get '/calculate_round'=>'payments#calculate_round'
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

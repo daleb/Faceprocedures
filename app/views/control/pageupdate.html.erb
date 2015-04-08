@@ -1,0 +1,14 @@
+ <table class="users_table">
+        <tr>
+          <th>Participant</th></br>
+          <th>Computer ID</th>
+          <th>Status</th>
+        </tr>
+        <% $user_data.each do |row| %>
+          <tr class="users">
+            <td><%= row[:id] %></td>
+            <td><%= row[:computer_id] %></td>
+            <td><%= row[:status] %></td>
+          </tr>
+        <% end %>
+      </table>

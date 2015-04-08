@@ -138,7 +138,7 @@
     height: 40px;
   }
   
-.users {
+.users_table {
    border: 1px solid black;
    table-layout: auto;
    text-align: center;

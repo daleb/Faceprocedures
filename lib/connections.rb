@@ -48,14 +48,14 @@ class Connections
   end
 
 
-  def createnewuser(group)
-    ##############################################################################
-    mysession = nil
-    mysessionid = getmysessionid()
-    mycomputerid = genseratecomputerid()
-    mysession = $gExperiment.newuser(mysessionid, mycomputerid,group)
-    return mysession
-  end
+  # def createnewuser(group)
+    # ##############################################################################
+    # mysession = nil
+    # mysessionid = getmysessionid()
+ # #   mycomputerid = genseratecomputerid()
+    # mysession = $gExperiment.newuser(mysessionid, mycomputerid,group)
+    # return mysession
+  # end
 
 
 end

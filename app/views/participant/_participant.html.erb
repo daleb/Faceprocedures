@@ -1,7 +1,6 @@
 <div id="experiment" >
 
 
-
   <% if @page == "waiting" %>
     <%= render :partial => 'participant/waiting' %>
   <% end %>
@@ -14,6 +13,10 @@
   <%if @page=="quiz"%>
   <script type="text/javascript">
     window.location.href="/quiz"  // put your correct path in a string here
+  </script>
+  <%elsif @page=="statement"%>
+  <script type="text/javascript">
+    window.location.href="/statements"  // put your correct path in a string here
   </script>
   <%end%>
   

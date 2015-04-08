@@ -30,3 +30,9 @@ $('.split, .takeall').click(function() {
     items.hide();
     item.css('display','inline-block');
   }
+
+$(document).ready(function(){
+$('.record').click(function() {
+	window.location.href="participant/sample_video";
+});
+});

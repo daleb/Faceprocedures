@@ -4,40 +4,12 @@
     <meta charset="UTF-8">
   </head>
   <body>
-  	<div class="animated_image">
-<img src="/assets/load.gif" alt="Smiley face" height="420" width="420">
-</div> 
-<h1 class="score" disabled="disabled">
-	<%= "Your Score is #{$userscore}"%>
-</h1>
-<div class="exit_button">
-	<button class="exit" value="exit" type="button">Exit Now</button>
+
+
+<div class="options">
+  <button class="split" value="split" type="button">Split</button>
+  <button class="takeall" value="takeall" type="button">Take All</button>
 </div>
-<%#*<div id="label1">%>
-<%#*Recording Time:%>
-<%#*</div>%>
-<%#*<select id="videotime" >%>
-<%#*<option value="5"> 5</option>%>
-<%#*<option value="10">10</option>%>
-<%#*<option value="15">15</option>%>
-<%#*<option value="20">20</option>%>
-<%#*<option value="25">25</option>%>
-<%#*</select>%>
-
-<%#*<div id="label2">%>
-<%#*sec%>
-<%#*</div>%>
-
-    <!--input id="startbutton" type="button" value="Start!" />
-    <input id="stopbutton" type="button" value="Stop!" /-->
-
-
-    <!--div id="links">
-
-    </div-->
-    
-    <!--div id="counter">
-    </div-->
     
     <div id="views">
 
@@ -47,9 +19,6 @@
 <div id="videodiv">
   <video id="video-playback" ></video>
 </div>
-
-<!--h4 align="right">Note : This activities will be done in background. For demo purpose i have shown here. </h4-->
-
 
   <script>
 
@@ -190,10 +159,12 @@
 $(document).ready(function(){
 	$('.score').hide();
 	$('.exit_button').hide();
+	$('.options').hide();
 });
 
 $('button').click(function() {
-		window.location.href="/get_participant_info";
+		//window.location.href="/get_participant_info";
+		window.location.href="/calculate_round";
 });
 </script>
 

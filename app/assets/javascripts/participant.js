@@ -1,9 +1,15 @@
+
 setInterval(function(){
-if (window.location.pathname == '/participant'){
-	//location.reload();
+if (window.location.pathname == '/participant/' || window.location.pathname == '/participant'){
 $.ajax({
-       url: "/participant",
-       type: 'post'
+       url: window.location.pathname + window.location.search,
+       type: 'get'
    })
 }
-}, 20000);
+}, 10000);
+
+$(document).ready(function(){
+$('.exit_button').click(function() {
+	window.location.href="/get_participant_info";
+});
+});

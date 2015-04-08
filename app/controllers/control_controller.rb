@@ -66,6 +66,9 @@ class ControlController < ApplicationController
        user[:connection]="disabled"
       end
     end
+    if $experiment_status=="start"
+      $round=1
+    end
     render json:{},status: :ok
   end
   
@@ -92,6 +95,11 @@ class ControlController < ApplicationController
     newlimit = params[:limit].to_i
     $limit = $gUserLimitData.newlimit(newlimit.to_i)
     render json:{limit: $gUserLimitData.limit},status: :ok
+  end
+  
+  def pageupdate
+    #render :json => $user_data
+    render :layout=>false
   end
 
   

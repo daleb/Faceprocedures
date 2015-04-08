@@ -83,7 +83,7 @@ class ApplicationController < ActionController::Base
     if Rails.env == "development"
       yoursession = $gExperiment.sessions.mysession(mysessionid)
     else
-      mycomputerid = getcomputerid()
+     # mycomputerid = getcomputerid()
       #      Rails.logger.warn("mycomputerid = " + mycomputerid.inspect)
       yoursession = $gExperiment.sessions.mysession(mysessionid)
     end
@@ -95,7 +95,9 @@ class ApplicationController < ActionController::Base
 
 
   def create_userdata
-    if cookies[:computerid].blank?
+    if session[:computerid].blank? && !request.url.split("/").include?("control")
+      puts "i am creating #{session[:computerid]}"
+      puts session[:computerid] 
      mycomputerid = genseratecomputerid()
       $user_count =  $user_count + 1
     end

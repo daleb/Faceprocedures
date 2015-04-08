@@ -36,7 +36,8 @@ function change_status(id){
 
 
 setTimeout(function() {
-    $('.animated_image').fadeOut('fast');
-    $('.score').show();
-    $('.exit_button').show();
+    //$('.animated_image').fadeOut('fast');
+    //$('.score').show();
+    //$('.exit_button').show();
+    $('.options').show();
 }, 10000);

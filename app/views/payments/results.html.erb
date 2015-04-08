@@ -1,8 +1,22 @@
 <button class="results" value="results" type="button">See Result</button>
- 
+
+<h1 class="score" disabled="disabled">
+	<%= "Your Score is #{$userscore}"%>
+</h1>
+
+<div class="exit_button">
+	<button class="exit" value="exit" type="button">Exit Now</button>
+</div> 
 
 <script>
 	$('button').click(function() {
-		window.location.href="/participant/sample_video";
+       $('.score').show();
+	   $('.exit_button').show();
+	   $('.results').hide();
 	});
+	
+	$(document).ready(function(){
+	$('.score').hide();
+	$('.exit_button').hide();
+});
 </script>

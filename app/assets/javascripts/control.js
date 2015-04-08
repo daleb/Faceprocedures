@@ -11,8 +11,12 @@ $((function (){
 setInterval(function(){
 	if (window.location.pathname == '/control'){
     $.ajax({
-       url: "/control",
-       type: 'post'
+       url: "/control/pageupdate",
+       type: 'get',
+       success: function(data){
+       	 $('.users_table').html(data);
+          
+        }
    })
   // location.reload();
   }
