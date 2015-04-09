@@ -6,6 +6,7 @@ class HomeController < ApplicationController
     $userscore = 0
     $round=0
     @from=params[:from]
+    session[:computerid]=nil
   end
 
   def experiment
