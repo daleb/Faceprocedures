@@ -31,7 +31,7 @@ class ParticipantController < ApplicationController
       user_status = "On waiting screen"
     end
     #raise [$user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length , $user_count].inspect
-    if 1==1#$user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count
+    if $user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count
        @page = "statement"
        user_status = "On statement page"
     end

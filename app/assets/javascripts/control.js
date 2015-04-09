@@ -29,6 +29,7 @@ function change_experiment_status(status){
     	$("#start").attr("disabled", "disabled");
     	$("#stop").removeAttr("disabled");
     	$("#reset").attr("disabled", "disabled");
+    	$("#start").prop("value", "Experiment Started");
     }
     else if(exp_status == "stop"){
     	$("#stop").attr("disabled", "disabled");
@@ -59,6 +60,7 @@ function enable_users(status){
         type: 'get',
         success: function(html){
         	$("#enable").attr('disabled','disabled');
+        	$("#enable").prop('value', 'Connections are enabled');
         }
     });
 }

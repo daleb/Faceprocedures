@@ -198,10 +198,19 @@ margin:0px auto;
   
   .split {
     left: 620px;
+    width: 100px;
+ 	height: 40px;
+ 	color: green;
+ 	margin-left: 89px;
+ 	margin-top: 100px;
   }
 
   .takeall {
-    margin-left: 680px;
+    margin-left: 558px;
+    width: 100px;
+ 	height: 40px;
+ 	color: green;
+ 	margin-top: 100px;
   }
   
 .animated_image{
@@ -254,7 +263,6 @@ text-decoration: blink;
  }
  
  #downloadanswers,#downloademotions{
- 	margin-left: 148px;
  	width: 200px;
  	height: 40px;
  	color: red;
@@ -293,5 +301,12 @@ text-decoration: blink;
 }
 
 #upload{
-	margin-left: 198px;
+	margin-left: -27px;
+}
+
+.record{
+	width: 200px;
+ 	height: 40px;
+ 	color: blue;
+ 	margin-left: 585px;
 }

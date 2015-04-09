@@ -4,6 +4,7 @@ class HomeController < ApplicationController
     $user_count = 0
     $status=nil
     $userscore = 0
+    $round=0
     @from=params[:from]
   end
 

@@ -14,9 +14,6 @@
 </td>
 <td>
 	<div id="upload">
-  <%= link_to "click here ", export_sample_csv_path  %> <b>to download file to upload your questions</b>
-
-</br></br></br>
 <b><h3>Upload Your Questions Here!</h3></b>
 <%= form_tag 'upload', { :multipart => true } do %>
     <p>
@@ -26,6 +23,8 @@
     	<%= submit_tag "Upload" %>
     </p>
 <% end %>
+</br>
+<%= link_to "click here ", export_sample_csv_path  %> <b>to download sample questions file</b>
 </div>
 </td>
 </tr>
