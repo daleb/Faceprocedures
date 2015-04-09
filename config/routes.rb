@@ -61,6 +61,10 @@ Rails.application.routes.draw do
   
   get '/calculate_round'=>'payments#calculate_round'
   
+  get '/getstatements'=> 'data#download_statement_answers'
+  
+  get '/getpairing'=> 'data#get_pairing_details'
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

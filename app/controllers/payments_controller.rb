@@ -3,16 +3,15 @@ class PaymentsController < ApplicationController
 
   def calculate
     option=params["value"]
-    statement=params["statement_id"]
     file = begin CSV.open("public/csv/score_details_#{Date.today}.csv", "r") rescue nil end
     if file
       CSV.open("public/csv/score_details_#{Date.today}.csv", "a+") do |csv|
-      csv << [session[:computerid], statement, option]
+      csv << [session[:computerid], $round, option]
       end
     else
     CSV.open("public/csv/score_details_#{Date.today}.csv", "wb") do |csv|
-    csv << ["computer_id", "statement_id", "option"]
-    csv << [session[:computerid], statement, option]
+    csv << ["computer_id", "round", "option"]
+    csv << [session[:computerid], $round, option]
     end  
     end
     render json:{},status: :ok

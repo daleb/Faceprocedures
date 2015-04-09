@@ -18,7 +18,8 @@ class ParticipantController < ApplicationController
     if @user[0] && @user[0][:connection] == "enabled" && $experiment_status!="start" && params["from"] != "adjust_page" && $status !="adjusted"
       @page = "adjust webcam"
       user_status = "Adjusting Camera"
-    elsif $experiment_status == "start" && params["from"]!="quiz"
+      $status ="adjusted"
+    elsif $experiment_status == "start" && params["from"]!="quiz" && $round==1
       @page = "quiz"
       user_status = "Doing Quiz"
     else

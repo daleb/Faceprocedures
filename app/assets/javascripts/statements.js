@@ -4,19 +4,19 @@ $('.split, .takeall').click(function() {
 	//window.location.href="/participant/sample_video";
 	//window.location.href="/payments?value=split";
 	value = ($(this).attr("value"));
-	val= "#statement_" + (currentIndex + 1) + "_id"
-	statement_id = ($(val).val())
+	//val= "#statement_" + '<%$round.to_s%>' + "_round"
+	//statement_id = ($(val).val())
 	  $.ajax({
         url: "/payments",
-        data: { value: value, statement_id: statement_id},
+        data: { value: value},
         type: 'get', 
         success: function(result){
-             currentIndex += 1;
-    if (currentIndex > itemAmt - 1) {
-      currentIndex = 0;
+          //   currentIndex += 1;
+  //  if (currentIndex > itemAmt - 1) {
+    //  currentIndex = 0;
       window.location.href="/results";
-    }
-    cycleItems();
+   // }
+   // cycleItems();
     }
         });
     });

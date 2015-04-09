@@ -262,7 +262,7 @@ text-decoration: blink;
  margin-top: 154px;
  }
  
- #downloadanswers,#downloademotions{
+ #downloadanswers,#downloademotions,#downloadstatements,#watchpairing{
  	width: 200px;
  	height: 40px;
  	color: red;
