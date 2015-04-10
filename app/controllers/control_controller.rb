@@ -61,7 +61,7 @@ class ControlController < ApplicationController
   def start_experiment
     $experiment_status = params[:status]
     if ["stop","reset"].include?(params[:status])
-      $status = ""
+      session[:status] = nil
       $user_data.each do |user|
        user[:connection]="disabled"
       end
@@ -86,7 +86,7 @@ class ControlController < ApplicationController
       $user_data.select do |user|
         user[:connection] = "enabled"
       end      
-      $status= nil
+      session[:status]= nil
     end
     redirect_to control_path
   end
@@ -105,6 +105,7 @@ class ControlController < ApplicationController
         id=data[1][ext_row - 1][:id]
         $user_data[id - 1][:computer_id]=nil
         $user_data[id - 1][:status]="not login"
+        $user_count = $user_count - 1
         end
       end
     end

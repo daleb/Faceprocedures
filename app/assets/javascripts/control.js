@@ -80,6 +80,8 @@ function enable_users(status){
 }
 
 $(document).ready(function(){
+	$("#timebutton").removeAttr("disabled");
+    $("#userlimitbutton").removeAttr("disabled");
 	$("#reset").attr("disabled", "disabled");
     $("#start").attr("disabled", "disabled");
     $("#stop").attr("disabled", "disabled");

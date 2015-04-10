@@ -65,6 +65,8 @@ Rails.application.routes.draw do
   
   get '/getpairing'=> 'data#get_pairing_details'
   
+  get '/save_survey_details'=>'participant#save_survey_results'
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

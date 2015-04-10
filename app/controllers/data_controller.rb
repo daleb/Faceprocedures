@@ -25,6 +25,8 @@ class DataController < ApplicationController
     @path = "csv"
     Dir.chdir("public/csv"){
       @statements = Dir.glob("*score_details*")
+      @statements << Dir.glob("*survey_results*")
+      @statements=@statements.flatten
       @statements.sort!.reverse!
     }
     @rowcount = @statements.length - 1

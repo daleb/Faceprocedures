@@ -27,7 +27,7 @@ $("#adjust").on('click', function(){
      	url: "/participant", 
      	data : {"from" : "adjust_page"},
      	success:function(data) {
-           '<%=$status =="adjusted"%>'
+           '<%=session[:status]="adjusted"%>'
          }
      	});
 })

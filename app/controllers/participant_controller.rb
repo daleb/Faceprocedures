@@ -14,10 +14,10 @@ class ParticipantController < ApplicationController
       end
     end
     @user = $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}
-    if @user[0] && @user[0][:connection] == "enabled" && $experiment_status!="start" && params["from"] != "adjust_page" && $status !="adjusted"
+    if @user[0] && @user[0][:connection] == "enabled" && $experiment_status!="start" && params["from"] != "adjust_page" && session[:status] !="adjusted"
       @page = "adjust webcam"
       user_status = "Adjusting Camera"
-      $status ="adjusted"
+      session[:status] ="adjusted"
     elsif $experiment_status == "start" && params["from"]!="quiz" && $round==1
       @page = "quiz"
       user_status = "Doing Quiz"
@@ -50,7 +50,25 @@ class ParticipantController < ApplicationController
   end
 
  def sample_video
-   
+    @survey =  []
+    csv_que = CSV::parse(File.open('public/csv/survey.csv', 'r') {|f| f.read })
+    @survey = csv_que.collect{|f| f}[$round - 1]
+ end
+ 
+ def save_survey_results
+   option=params["value"]
+   file = begin CSV.open("public/csv/survey_results_#{Date.today}.csv", "r") rescue nil end
+    if file
+      CSV.open("public/csv/survey_results_#{Date.today}.csv", "a+") do |csv|
+      csv << [session[:computerid], $round, option]
+      end
+    else
+    CSV.open("public/csv/survey_results_#{Date.today}.csv", "wb") do |csv|
+    csv << ["computer_id", "round", "option"]
+    csv << [session[:computerid], $round, option]
+    end  
+    end
+    render json:{},status: :ok
  end
 
 def save
