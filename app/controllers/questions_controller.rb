@@ -47,23 +47,11 @@ skip_before_action :verify_authenticity_token, :only => :upload
 
     audio_type = params['audio'].content_type.split("/").last
 
-#    audio_file = File.new("public/uploads/#{uuid}.#{audio_type}", "w")
-
-
-#    File.open("public/uploads/#{uuid}.#{audio_type}", "w") do |f|
-#      f.write(params['audio'].tempfile.read)
-#    end
-
-
     File.open("public/uploads/#{uuid}.#{audio_type}", "w") { |f| f.write(File.read(params['audio'].tempfile)) }
 
     video_type = params['video'].content_type.split("/").last
 
-#     video_file = File.new("uploads/#{uuid}.#{video_type}", "w")
 
-#    File.open("public/uploads/#{uuid}.#{video_type}", "w") do |f|
-#      f.write(params['video'].tempfile.read)
-#    end
 File.open("public/uploads/#{uuid}.#{video_type}", "w") { |f| f.write(File.read(params['video'].tempfile)) }
 
     
