@@ -49,7 +49,7 @@
   })
 );
 
-$("#uservalue").html("<b>No of users:- </b><span id=usercount>" + <%= $gUserLimitData.limit %>+ "</span>");
+$("#uservalue").html("<b>No of users:- </b><span id=usercount>" + <%= $gUserLimitData.limit.nil? ? 2 :  $gUserLimitData.limit%>+ "</span>");
   $((function () {
     $("#userlimitbutton").click(function(){
       var currentvalue = $("#usercount").html();

@@ -105,7 +105,6 @@ class ControlController < ApplicationController
         id=data[1][ext_row - 1][:id]
         $user_data[id - 1][:computer_id]=nil
         $user_data[id - 1][:status]="not login"
-        $user_count = $user_count - 1
         end
       end
     end
