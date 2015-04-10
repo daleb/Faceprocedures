@@ -25,7 +25,6 @@ setInterval(function(){
        type: 'get',
        success: function(data){
        	 $('.users_table').html(data);
-          
         }
    })
   // location.reload();
@@ -51,6 +50,8 @@ function change_experiment_status(status){
     	$("#start").removeAttr("disabled");
     	$("#stop").attr("disabled", "disabled");
     	$("#enable").removeAttr("disabled");
+    	$("#timebutton").removeAttr("disabled");
+    	$("#userlimitbutton").removeAttr("disabled");
     }
     $.ajax({
         url: "/start_experiment?status="+exp_status,
@@ -71,6 +72,23 @@ function enable_users(status){
         success: function(html){
         	$("#enable").attr('disabled','disabled');
         	$("#enable").prop('value', 'Connections are enabled');
+        	$("#timebutton").attr("disabled", "disabled");
+    	    $("#userlimitbutton").attr("disabled", "disabled");
+    	    $("#start").removeAttr("disabled");
         }
     });
 }
+
+$(document).ready(function(){
+	$("#reset").attr("disabled", "disabled");
+    $("#start").attr("disabled", "disabled");
+    $("#stop").attr("disabled", "disabled");
+    if ($("#usercount").html() != $("#user_limit").val()){
+    	$("#enable").attr("disabled", "disabled");
+    }
+    else
+    {
+    	$("#enable").removeAttr("disabled");
+    }
+
+});

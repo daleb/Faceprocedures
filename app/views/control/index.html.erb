@@ -4,6 +4,7 @@
 <div id="control_dashboard" >
 <%= render :partial => 'users'%>
 </div>
+<%=hidden_field 'user','limit',:value=>$user_count%>
 <table>
   <div id="quizdatabox">
     <div id="quizdatalabel"></div>
@@ -33,10 +34,10 @@
 
 
 <script type="text/javascript">
-  $("#timevalue").html(<%= $gConfigData.time %>);
+  $("#timevalue").html("<b>Time:- </b><span id=timecount>" + <%= $gConfigData.time %>+"</span>");
   $((function () {
     $("#timebutton").click(function(){
-      var currentvalue = $("#timevalue").html();
+      var currentvalue = $("#timecount").html();
       var answer = prompt("Enter new time",currentvalue);
       if(answer != null){
         answer = jQuery.trim(answer);
@@ -48,11 +49,10 @@
   })
 );
 
-
-$("#uservalue").html(<%= $gUserLimitData.limit %>);
+$("#uservalue").html("<b>No of users:- </b><span id=usercount>" + <%= $gUserLimitData.limit %>+ "</span>");
   $((function () {
     $("#userlimitbutton").click(function(){
-      var currentvalue = $("#uservalue").html();
+      var currentvalue = $("#usercount").html();
       var answer = prompt("Enter new Value",currentvalue);
       answer = jQuery.trim(answer);
       if(answer != '' && answer <=24 && answer>=0){
@@ -62,7 +62,7 @@ $("#uservalue").html(<%= $gUserLimitData.limit %>);
       }
       else
       {
-      	alert("Please enter Valid input amount.. i.e 1 to 24")
+      	alert("Please enter Valid input.. i.e 1 to 24")
       }
     });
   })
@@ -77,7 +77,7 @@ $("#uservalue").html(<%= $gUserLimitData.limit %>);
       data: values,
       type: 'get',
       success: function(html){
-        $("#timevalue").html(newtime);
+        $("#timevalue").html("<b>Time:- </b><span id=timecount>" +newtime+"</span>");
       }
     });
   }
@@ -90,7 +90,10 @@ $("#uservalue").html(<%= $gUserLimitData.limit %>);
       data: values,
       type: 'get',
       success: function(html){
-        $("#uservalue").html(newlimit);
+        $("#uservalue").html("<b>No of users:- </b><span id=usercount>"+newlimit+"</span>");
+        if (newlimit == $("#user_limit").val()){
+    	  $("#enable").removeAttr("disabled");
+         }
       }
     });
   }

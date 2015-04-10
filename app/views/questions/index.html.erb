@@ -7,11 +7,11 @@
         <% ques = question[1].select {|n| n["ref"].to_i == 0 } %>
         <% options = question[1].select {|n| n["ref"].to_i != 0 } %>
         <div >
-          <p>Question</p>
+          <b><p>Question</p></b>
           <br />
-          <%= ques[0]["data"] %><br />
+          <h3><b><%= ques[0]["data"] %></b></h3></br></br></br>
           <% options.each do |opt| %>
-            <%= radio_button_tag("question_#{opt['qid']}", opt["ref"].to_i) %> <%= label_tag(opt["qid"], opt["data"]) %> <br />
+            <%= radio_button_tag("question_#{opt['qid']}", opt["ref"].to_i) %><%= label_tag(opt["qid"], opt["data"]) %></br></br>
           <% end %>
           <br />
         </div>
@@ -21,7 +21,7 @@
   </br></br>
   <button class="next" type="button">Next</button>
   <div class="save_button">
-    <%= submit_tag "Save" %>
+    <%= submit_tag "Next" %>
   </div>
 <% end %>
 
@@ -29,4 +29,5 @@
 var currentIndex = 0;
   items = $('.container div');
   itemAmt = items.length;
+  $('.save_button').hide();
  </script>

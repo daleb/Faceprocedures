@@ -7,8 +7,9 @@ $(document).ready(function(){
   		return false;
   	}
     currentIndex += 1;
-    if (currentIndex > itemAmt - 2) {
-      currentIndex = 0;
+    if (currentIndex > itemAmt - 3) {
+    	$('.save_button').show();
+    	$('.next').hide();
     }
     var item = $('.container div').eq(currentIndex);
     items.hide();

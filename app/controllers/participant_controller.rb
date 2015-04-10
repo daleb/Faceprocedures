@@ -13,7 +13,6 @@ class ParticipantController < ApplicationController
         end
       end
     end
-    
     @user = $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}
     if @user[0] && @user[0][:connection] == "enabled" && $experiment_status!="start" && params["from"] != "adjust_page" && $status !="adjusted"
       @page = "adjust webcam"
@@ -31,7 +30,7 @@ class ParticipantController < ApplicationController
       @page = "waiting"
       user_status = "On waiting screen"
     end
-    if $user_count > 0 && $user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count
+    if (($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count) || ($user_count > 0 && $user_data.select{|user|user[:status]=="Waiting for Round 2"}.length == $user_count))
        @page = "statement"
        user_status = "On statement page"
     end

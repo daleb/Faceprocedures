@@ -163,11 +163,12 @@ margin:0px auto;
 }
 
 .container {
-    max-width: 400px;
+    max-width: 800px;
     background-color: black;
     margin: 0 auto;
     text-align: center;
     position: relative;
+    font-weight:normal;
   }
   .container div {
     background-color: white;
@@ -190,10 +191,6 @@ margin:0px auto;
 
   .prev {
     left: 5px;
-  }
-  
-  .save_button{
-  	margin-left: 600px;
   }
   
   .split {
@@ -309,4 +306,24 @@ text-decoration: blink;
  	height: 40px;
  	color: blue;
  	margin-left: 585px;
+}
+
+.next{
+	margin-left: -49px;
+    width: 100px;
+ 	height: 40px;
+ 	color: green;
+ 	margin-top: 35px;
+}
+
+input[type=submit] {
+    border-radius: 5px;
+    border: 0;
+    width: 100px;
+    height:40px;
+    margin-left: 633px;
+    width: 100px;
+ 	height: 40px;
+ 	color: green;
+ 	margin-top: 35px;
 }
