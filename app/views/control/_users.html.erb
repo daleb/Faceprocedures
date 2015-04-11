@@ -1,26 +1,17 @@
 <table>
   <tr>
     <td>
-      <table class="users">
+      <table class="users_table">
         <tr>
           <th>Participant</th></br>
           <th>Computer ID</th>
           <th>Status</th>
-          <!--th>Connection</th-->
         </tr>
         <% $user_data.each do |row| %>
           <tr class="users">
             <td><%= row[:id] %></td>
             <td><%= row[:computer_id] %></td>
             <td><%= row[:status] %></td>
-            <%# if row[:computer_id] == "nil" %>
-
-              <!--td><input id="" type="button" value="enable" disabled="disabled" /></td>
-            <%# else %>
-
-              <td><input id="" type="button" value="active" onclick="change_status('<%= row[:computer_id] %>')" /></td-->
-            <%# end %>
-  <%#*<td><input id="timebutton" type="button" value="enable" /></td>%>
           </tr>
         <% end %>
       </table>
@@ -31,7 +22,6 @@
         <tr>
           <td>
             <div id="timebox">
-              <div id="timelabel">Time</div>
               <div id="timevalue">&nbsp;</div>
               <input id="timebutton" type="button" value="Change Duration" />
             </div><br /><br />
@@ -39,34 +29,35 @@
         </tr>
         
         <tr>
-          <td>
+          <td id="user_div">
             <div id="userlimit">
-              <div id="timelabel">No of users</div>
               <div id="uservalue">&nbsp;</div>
               <input id="userlimitbutton" type="button" value="Change Limit" />
             </div><br /><br />
           </td>
         </tr>
+       
         
         <tr>
           <td>
           	<div>
-          		<input id="" type="button" value="Enable Connections" onclick="enable_users('enable')" />
+          		<input id="enable" type="button" title="Enable connections for all the users" value="Enable Connections" onclick="enable_users('enable')" />
           	</div>
             <div>
-                <% if $experiment_status == "stop"%>
-              <input id="" type="button" value="Start Experiment"  onclick="change_experiment_status('start')" /><br />
-                  <input id="" type="button" value="Stop Experiment" disabled="disabled" />
-                <input id="" type="button" value="Reset Experiment" disabled="disabled" />
-              <% end %>
-              <% if $experiment_status == "start"%>
-                <input id="" type="button" value="Start Experiment" disabled="disabled" /><br />
-                <input id="" type="button" value="Stop Experiment" onclick="change_experiment_status('stop')" />
-                <input id="" type="button" value="Reset Experiment" onclick="change_experiment_status('reset')" />
-              <% end %>
+                <input id="start" type="button" title="Click to start experiment once the connection is set" value="Start Experiment"  onclick="change_experiment_status('start')" /><br />
+                <input id="stop" type="button" title="Click to stop experiment" value="Stop Experiment" onclick="change_experiment_status('stop')" /><br />
+                <input id="reset" type="button" title="Click to reset experiment" value="Reset Experiment" onclick="change_experiment_status('reset')" />
             </div>
           </td>
         </tr>
+        
+       <tr>
+        <%= render :partial => "datafilesbutton" %>
+       </tr>
+       
+       <tr>
+        <%= render :partial => "statementsandpairing" %>
+       </tr>
 
       </table>
 

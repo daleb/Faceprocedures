@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   
   post "validatecontroller" => 'control#validatecontroller', as: :validatecontroller
 
-  get "control" => "control#index"
+  match "control" => "control#index", via: [:get, :post]
 
   get "changetime" => 'control#changetime'
 
@@ -42,7 +42,31 @@ Rails.application.routes.draw do
   get 'change_enable_status' => 'control#change_enable_status'
   
   get 'changelimit' => 'control#changelimit'
-
+  
+  get 'payments'=> 'payments#calculate'
+  
+  get 'results'=> 'payments#results'
+  
+  post '/participant/save' => 'participant#save'
+  
+  get 'get_participant_info'=> 'participant#get_information'
+  
+  post 'save_user_info'=>'participant#save_user_information'
+  
+  get '/getanswers'=> 'data#index'
+  
+  get '/getemotions'=> 'data#download_videos' 
+  
+  match 'control/pageupdate'=> 'control#pageupdate', via: [:get, :post]
+  
+  get '/calculate_round'=>'payments#calculate_round'
+  
+  get '/getstatements'=> 'data#download_statement_answers'
+  
+  get '/getpairing'=> 'data#get_pairing_details'
+  
+  get '/save_survey_details'=>'participant#save_survey_results'
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

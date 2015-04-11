@@ -1,0 +1,12 @@
+
+
+<div id="guesscol" >
+  <% count=0 %>
+<% for statement in @statements  %>
+  <a class="line<%=count%2%>" href="<%=@path + "/" + statement%>"><%=statement%></a><br /><br />
+    <% count+=1 %>
+
+<% end %>
+</div>
+
+

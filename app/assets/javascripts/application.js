@@ -35,24 +35,9 @@ function change_status(id){
 }
 
 
-
-function change_experiment_status(status){
-    var exp_status = status
-    $.ajax({
-        url: "/start_experiment?status="+exp_status,
-        type: 'get'
-    //        success: function(html){
-    //            $("#dispaly_user_message_"+user_id).html(html);
-    //        }
-    });
-
-}
-
-function enable_users(status){
-	var enable_status = status
-	$.ajax({
-        url: "/change_enable_status?status="+enable_status,
-        type: 'get'
-    });
-}
-
+setTimeout(function() {
+    //$('.animated_image').fadeOut('fast');
+    //$('.score').show();
+    //$('.exit_button').show();
+    $('.options').show();
+}, 10000);

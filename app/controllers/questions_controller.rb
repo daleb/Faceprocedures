@@ -9,13 +9,33 @@ skip_before_action :verify_authenticity_token, :only => :upload
     fields = csv_que.shift
     @questions = csv_que.collect { |record| Hash[*fields.zip(record).flatten ] }
     @questions = @questions.group_by { |d| d["qid"].to_i } 
+    $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Doing Quiz"
   end
 
   
 
   def save_quiz_answers
     ### save the quiz answer details
-    redirect_to statements_path
+    answers= params.select{|key,val| key.include?("question")}
+    ans_collection = [session[:computerid]] << answers.collect{|ans|ans[1]}
+    file = begin CSV.open("public/csv/quiz_answers_#{Date.today}.csv", "r") rescue nil end
+    if file
+     CSV.open("public/csv/quiz_answers_#{Date.today}.csv", "a+") do |csv|
+      csv << ans_collection.flatten  
+     end
+    else
+     CSV.open("public/csv/quiz_answers_#{Date.today}.csv", "wb") do |csv|
+     csv << ans_collection.flatten
+    end
+    end
+    ### save the quiz answer details
+    ### perform pairing
+    computer_ids= $user_data.collect{|data|data[:computer_id]}.shuffle
+    $paired_users=computer_ids.each_slice(2).to_a
+    ###
+   $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Completed Quiz And Waiting"
+   redirect_to participant_path(:from=>"quiz")
+   # redirect_to statements_path
   end
 
 
@@ -27,23 +47,11 @@ skip_before_action :verify_authenticity_token, :only => :upload
 
     audio_type = params['audio'].content_type.split("/").last
 
-#    audio_file = File.new("public/uploads/#{uuid}.#{audio_type}", "w")
-
-
-#    File.open("public/uploads/#{uuid}.#{audio_type}", "w") do |f|
-#      f.write(params['audio'].tempfile.read)
-#    end
-
-
     File.open("public/uploads/#{uuid}.#{audio_type}", "w") { |f| f.write(File.read(params['audio'].tempfile)) }
 
     video_type = params['video'].content_type.split("/").last
 
-#     video_file = File.new("uploads/#{uuid}.#{video_type}", "w")
 
-#    File.open("public/uploads/#{uuid}.#{video_type}", "w") do |f|
-#      f.write(params['video'].tempfile.read)
-#    end
 File.open("public/uploads/#{uuid}.#{video_type}", "w") { |f| f.write(File.read(params['video'].tempfile)) }
 
     

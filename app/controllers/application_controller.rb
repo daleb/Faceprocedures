@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session
   STOP = "stop"
   START = "start"
   RESET = "reset"
@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   $control_password = "qazplm123"
   $valid_control = false if $valid_control.nil?
   $user_count = 0 if $user_count.nil?
+  $userscore = 0 if $userscore.nil?
   $experiment_status = STOP if $experiment_status.nil?
 
   require "computerid"
@@ -82,7 +83,7 @@ class ApplicationController < ActionController::Base
     if Rails.env == "development"
       yoursession = $gExperiment.sessions.mysession(mysessionid)
     else
-      mycomputerid = getcomputerid()
+     # mycomputerid = getcomputerid()
       #      Rails.logger.warn("mycomputerid = " + mycomputerid.inspect)
       yoursession = $gExperiment.sessions.mysession(mysessionid)
     end
@@ -94,7 +95,9 @@ class ApplicationController < ActionController::Base
 
 
   def create_userdata
-    if cookies[:computerid].blank?
+    if session[:computerid].blank? && !request.url.split("/").include?("control")
+      puts "i am creating #{session[:computerid]}"
+      puts session[:computerid] 
      mycomputerid = genseratecomputerid()
       $user_count =  $user_count + 1
     end

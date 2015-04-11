@@ -1,0 +1,12 @@
+
+
+<div id="guesscol" >
+  <% count=0 %>
+<% for emo in @emotions  %>
+  <a class="line<%=count%2%>" href="<%=@path + "/" + emo%>"><%=emo%></a><br /><br />
+    <% count+=1 %>
+
+<% end %>
+</div>
+
+

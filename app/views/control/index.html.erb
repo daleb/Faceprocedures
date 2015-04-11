@@ -1,7 +1,10 @@
+<table>
+	<tr>
+		<td>
 <div id="control_dashboard" >
 <%= render :partial => 'users'%>
 </div>
-
+<%=hidden_field 'user','limit',:value=>$user_count%>
 <table>
   <div id="quizdatabox">
     <div id="quizdatalabel"></div>
@@ -9,39 +12,32 @@
   </div>
 </table>
 </br></br></br>
-<table>
-  <%= link_to "click here ", export_sample_csv_path  %> <b>to download file to upload your questions</b>
-</table>
-
-
-
-<!--div class="container">
-  <h2>Bootstrap 3.1.0 - Modal Demo</h2>
-
-  <div class="row text-center">
-      <h3>The Basic Modal</h3>
-      <a href="#" class="btn btn-lg btn-success" data-toggle="modal" data-target="#quizdata">Click to open Modal</a>
-  </div>
-</div-->
-
-</br></br></br>
-<b><h3>Upload File</h3></b>
+</td>
+<td>
+	<div id="upload">
+<b><h3>Upload Your Questions Here!</h3></b>
 <%= form_tag 'upload', { :multipart => true } do %>
     <p>
     <%= file_field_tag 'upload[file]' %>
     </p>
-    <p>
+    <p id="submit">
     	<%= submit_tag "Upload" %>
     </p>
 <% end %>
+</br>
+<%= link_to "click here ", export_sample_csv_path  %> <b>to download sample questions file</b>
+</div>
+</td>
+</tr>
+</table>
 
 
 
 <script type="text/javascript">
-  $("#timevalue").html(<%= $gConfigData.time %>);
+  $("#timevalue").html("<b>Time:- </b><span id=timecount>" + <%= $gConfigData.time %>+"</span>");
   $((function () {
     $("#timebutton").click(function(){
-      var currentvalue = $("#timevalue").html();
+      var currentvalue = $("#timecount").html();
       var answer = prompt("Enter new time",currentvalue);
       if(answer != null){
         answer = jQuery.trim(answer);
@@ -53,21 +49,20 @@
   })
 );
 
-
-$("#uservalue").html(<%= $gUserLimitData.limit %>);
+$("#uservalue").html("<b>No of users:- </b><span id=usercount>" + <%= $gUserLimitData.limit.nil? ? 2 :  $gUserLimitData.limit%>+ "</span>");
   $((function () {
     $("#userlimitbutton").click(function(){
-      var currentvalue = $("#uservalue").html();
+      var currentvalue = $("#usercount").html();
       var answer = prompt("Enter new Value",currentvalue);
-      if(answer != null && answer <=24){
-        answer = jQuery.trim(answer);
+      answer = jQuery.trim(answer);
+      if(answer != '' && answer <=24 && answer>=0){
         if(answer != currentvalue){
           changeuserlimits(answer);
         }
       }
       else
       {
-      	alert("Please enter Valid input amount.. i.e < 24")
+      	alert("Please enter Valid input.. i.e 1 to 24")
       }
     });
   })
@@ -82,7 +77,7 @@ $("#uservalue").html(<%= $gUserLimitData.limit %>);
       data: values,
       type: 'get',
       success: function(html){
-        $("#timevalue").html(newtime);
+        $("#timevalue").html("<b>Time:- </b><span id=timecount>" +newtime+"</span>");
       }
     });
   }
@@ -95,7 +90,10 @@ $("#uservalue").html(<%= $gUserLimitData.limit %>);
       data: values,
       type: 'get',
       success: function(html){
-        $("#uservalue").html(newlimit);
+        $("#uservalue").html("<b>No of users:- </b><span id=usercount>"+newlimit+"</span>");
+        if (newlimit == $("#user_limit").val()){
+    	  $("#enable").removeAttr("disabled");
+         }
       }
     });
   }

@@ -16,8 +16,7 @@ class FaceExperiment
 #  def userdata
 #    @userdata = Array.new
 #  end
-
-  $user_data = Array.new if $user_data.blank?
+  $user_data = Array.new if $user_data.blank? || $user_data.nil?
     (1..24).each do |user|
        $user_data << {:id => user, :computer_id => "nil",:status => "not login" , :round => 0, :connection => "disabled" }
     end

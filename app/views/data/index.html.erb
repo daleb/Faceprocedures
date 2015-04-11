@@ -1,0 +1,12 @@
+
+
+<div id="guesscol" >
+  <% count=0 %>
+<% for answer in @answers  %>
+  <a class="line<%=count%2%>" href="<%=@path + "/" + answer%>"><%=answer%></a><br /><br />
+    <% count+=1 %>
+
+<% end %>
+</div>
+
+

@@ -1,10 +1,14 @@
+<h4 align="center">Welcome to Faces Procedures</h4>
+
+<%if @from=="exit"%>
+<h1 class="score" disabled="disabled">
+	<%= "Your Earning is #{$userscore}"%>
+</h1>
+<%end%>
+
 <div>
   <img src="<%= asset_path 'loader.gif' %>" class="loaderimg" />
 </div>
-<div class="container">
-  <%= button_to "Start", root_path, :class => "button", :method => :get  %>
-</div>
-
 
 
 <style type="text/css">

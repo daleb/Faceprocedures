@@ -6,7 +6,7 @@ class ControlController < ApplicationController
   
   def index
     respond_to do|format|
-			format.js
+			#format.js
       format.html
       format.json
 		end
@@ -60,6 +60,15 @@ class ControlController < ApplicationController
 
   def start_experiment
     $experiment_status = params[:status]
+    if ["stop","reset"].include?(params[:status])
+      session[:status] = nil
+      $user_data.each do |user|
+       user[:connection]="disabled"
+      end
+    end
+    if $experiment_status=="start"
+      $round=1
+    end
     render json:{},status: :ok
   end
   
@@ -77,6 +86,7 @@ class ControlController < ApplicationController
       $user_data.select do |user|
         user[:connection] = "enabled"
       end      
+      session[:status]= nil
     end
     redirect_to control_path
   end
@@ -85,6 +95,20 @@ class ControlController < ApplicationController
     newlimit = params[:limit].to_i
     $limit = $gUserLimitData.newlimit(newlimit.to_i)
     render json:{limit: $gUserLimitData.limit},status: :ok
+  end
+  
+  def pageupdate
+    userdata=$user_data.group_by{|user|user[:computer_id]}.delete_if{|u|u.nil? || !u.include?("PART")}
+    userdata.each do |data|
+      if data[1].length > 1
+        (2 .. data[1].length.to_i).to_a.each do |ext_row|
+        id=data[1][ext_row - 1][:id]
+        $user_data[id - 1][:computer_id]=nil
+        $user_data[id - 1][:status]="not login"
+        end
+      end
+    end
+    render :layout=>false
   end
 
   

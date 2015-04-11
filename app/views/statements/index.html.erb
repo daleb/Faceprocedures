@@ -1,16 +1,22 @@
-<h3><div>Statements </div></h3>
+<h3><div align="center">Statements </div></h3></br></br>
 <%= form_tag(save_quiz_answers_path, :method => "POST") do %>
   <section class="demo">
     <div class="container">
+    	<%i=0%>
       <%@statements.each do |statement|%>
-      <%=statement%>
+      <div >
+      	<%=hidden_field 'statement','id', :value=>statement[0], :index=>i+=1%>
+         <%=statement[1]%>
+      </div>
       <% end %>
     </div>
   </section>
   </br></br>
-  <button class="split" type="button">Split</button>
-  <div class="takeall">
-    <%= submit_tag "Take All" %>
+  <button class="record" value="record" type="button">Record Video</button>
+  <!--button class="split" value="split" type="button">Split</button>
+  <button class="takeall" value="takeall" type="button">Take All</button-->
+  <div class="record_s">
+    <%= submit_tag "Record Video" %>
   </div>
 <% end %>
 
@@ -25,3 +31,9 @@
     position: relative;
   }
 </style>
+<script type="text/javascript">
+var currentIndex = 0;
+  items = $('.container div');
+  itemAmt = items.length;
+  $(".record_s").hide();
+ </script>
