@@ -24,7 +24,7 @@
     	<%= submit_tag "Upload" %>
     </p>
 <% end %>
-</br>
+</br></br>
 <%= link_to "click here ", export_sample_csv_path  %> <b>to download sample questions file</b>
 </div>
 </td>
@@ -99,5 +99,19 @@ $("#uservalue").html("<b>No of users:- </b><span id=usercount>" + <%= $gUserLimi
   }
 
 </script>
+
+<style>
+	input[type="submit"] {
+		 border-radius: 5px;
+    border: 0;
+    width: 100px;
+    height:40px;
+    width: 100px;
+ 	height: 40px;
+ 	color: green;
+ 	margin-top: 28px;
+ 	margin-left: 1px;
+	}
+</style>
 
 <%= render :partial => "popup" %>
