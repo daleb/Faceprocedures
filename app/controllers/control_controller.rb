@@ -68,6 +68,9 @@ class ControlController < ApplicationController
     end
     if $experiment_status=="start"
       $round=1
+    elsif $experiment_status=="reset"
+      $user_count = 0
+      $user_data = []
     end
     render json:{},status: :ok
   end
@@ -102,16 +105,16 @@ class ControlController < ApplicationController
   end
   
   def pageupdate
-    userdata=$user_data.group_by{|user|user[:computer_id]}.delete_if{|u|u.nil? || !u.include?("PART")}
-    userdata.each do |data|
-      if data[1].length > 1
-        (2 .. data[1].length.to_i).to_a.each do |ext_row|
-        id=data[1][ext_row - 1][:id]
-        $user_data[id - 1][:computer_id]=nil
-        $user_data[id - 1][:status]="not login"
-        end
-      end
-    end
+    # userdata=$user_data.group_by{|user|user[:computer_id]}.delete_if{|u|u.nil? || !u.include?("PART")}
+    # userdata.each do |data|
+      # if data[1].length > 1
+        # (2 .. data[1].length.to_i).to_a.each do |ext_row|
+        # id=data[1][ext_row - 1][:id]
+        # $user_data[id - 1][:computer_id]=nil
+        # $user_data[id - 1][:status]="not login"
+        # end
+      # end
+    # end
     render :layout=>false
   end
 

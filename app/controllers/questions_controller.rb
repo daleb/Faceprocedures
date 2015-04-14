@@ -9,7 +9,7 @@ skip_before_action :verify_authenticity_token, :only => :upload
     fields = csv_que.shift
     @questions = csv_que.collect { |record| Hash[*fields.zip(record).flatten ] }
     @questions = @questions.group_by { |d| d["qid"].to_i } 
-    $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Doing Quiz"
+    #$user_data.select{|user| user[:computer_id] == "#{cookies[:computerid]}"}[0][:status]="Doing Quiz"
   end
 
   
@@ -17,7 +17,7 @@ skip_before_action :verify_authenticity_token, :only => :upload
   def save_quiz_answers
     ### save the quiz answer details
     answers= params.select{|key,val| key.include?("question")}
-    ans_collection = [session[:computerid]] << answers.collect{|ans|ans[1]}
+    ans_collection = [cookies[:computerid]] << answers.collect{|ans|ans[1]}
     file = begin CSV.open("public/csv/quiz_answers_#{Date.today}.csv", "r") rescue nil end
     if file
      CSV.open("public/csv/quiz_answers_#{Date.today}.csv", "a+") do |csv|
@@ -33,7 +33,8 @@ skip_before_action :verify_authenticity_token, :only => :upload
     computer_ids= $user_data.collect{|data|data[:computer_id]}.shuffle
     $paired_users=computer_ids.each_slice(2).to_a
     ###
-   $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Completed Quiz And Waiting"
+    raise $user_data.inspect
+   $user_data.select{|user| user[:computer_id] == "#{cookies[:computerid]}"}[0][:status]="Completed Quiz And Waiting"
    redirect_to participant_path(:from=>"quiz")
    # redirect_to statements_path
   end

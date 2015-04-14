@@ -6,6 +6,7 @@
     <script src="app.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css"/>
   </head>
+  <%=hidden_field 'adjusting','camera',:value=>from%>
 <h3 align="center">Please Adjust your Webcam</h3>
   <body>
     <!-- Wrapper for video elements -->
@@ -25,10 +26,7 @@ $("#adjust").on('click', function(){
      $.ajax({
      	type: 'GET',
      	url: "/participant", 
-     	data : {"from" : "adjust_page"},
-     	success:function(data) {
-           '<%=session[:status]="adjusted"%>'
-         }
+     	data : {"from" : "adjust_page"}
      	});
 })
 </script>

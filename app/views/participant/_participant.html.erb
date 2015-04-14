@@ -7,7 +7,7 @@
 
 
   <% if $experiment_status != "start" and  @page == "adjust webcam"%>
-    <%= render :partial => 'participant/adjust_screen' %>
+    <%= render :partial => 'participant/adjust_screen', :locals => { :from => "adjsut_cam" } %>
   <% end %>
   
   <%if @page=="quiz"%>
