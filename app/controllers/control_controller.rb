@@ -71,6 +71,7 @@ class ControlController < ApplicationController
     elsif $experiment_status=="reset"
       $user_count = 0
       $user_data = []
+      reset_session
     end
     render json:{},status: :ok
   end
@@ -105,6 +106,7 @@ class ControlController < ApplicationController
   end
   
   def pageupdate
+    @userdata = $user_data
     # userdata=$user_data.group_by{|user|user[:computer_id]}.delete_if{|u|u.nil? || !u.include?("PART")}
     # userdata.each do |data|
       # if data[1].length > 1

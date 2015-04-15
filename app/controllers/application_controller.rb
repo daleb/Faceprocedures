@@ -99,7 +99,6 @@ class ApplicationController < ActionController::Base
       puts "i am creating #{session[:computerid]}"
       puts session[:computerid] 
      mycomputerid = genseratecomputerid()
-      $user_count =  $user_count + 1
     end
   end
 

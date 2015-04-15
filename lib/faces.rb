@@ -7,8 +7,8 @@ require "configdata"
 require "userlimit"
 #require "participant"
 require "controller"
-require "connections"
-require "user"
+#require "connections"
+#require "user"
 #include Datasave
 
 

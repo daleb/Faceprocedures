@@ -2,6 +2,7 @@
 setInterval(function(){
 if ($("#adjusting_camera").val() !="adjsut_cam" && (window.location.pathname == '/participant/' || window.location.pathname == '/participant')){
 $.ajax({
+	   data: { coming_from: "page_update"},
        url: window.location.pathname + window.location.search,
        type: 'get'
    })

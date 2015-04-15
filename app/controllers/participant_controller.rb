@@ -4,13 +4,16 @@ class ParticipantController < ApplicationController
   require "user"
   respond_to :html, :js, :json
   def index
-    unless  $user_data.inject([]){|arr,h| arr << h[:computer_id]}.include?("#{session[:computerid]}")
-      $user_data.select do |user|
-        if user[:id] == $user_count
+    if params["coming_from"] == "page_update"
+      session[:computerid]=session[:computerid]
+      $user_count = $user_count
+    else
+      ids=$user_data.collect{|ud|ud[:computer_id] if ud[:computer_id]!="nil"}.compact
+      if !ids.include?(session[:computerid])
+        user=$user_data.select{|ud|ud[:computer_id]=="nil"}.first
           user[:computer_id] = "#{session[:computerid]}"
           user[:status] = "online"
           user_status="online"
-        end
       end
     end
     @user = $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}
@@ -34,14 +37,7 @@ class ParticipantController < ApplicationController
        @page = "statement"
        user_status = "On statement page"
     end
-    
-    $user_data.select do |user|
-        if user[:id] == $user_count
-          user[:computer_id] = "#{session[:computerid]}"
-          user[:status] = user_status ? user_status : "not login"
-        end
-      end
-    
+    $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]=user_status ? user_status : "not login"
     respond_to do|format|
 			format.js
       format.html
