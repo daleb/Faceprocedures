@@ -90,7 +90,7 @@ $(document).ready(function(){
     //}
     //else
     //{
-    	//$("#enable").removeAttr("disabled");
+    $("#enable").removeAttr("disabled");
     //}
 
 });

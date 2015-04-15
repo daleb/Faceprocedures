@@ -306,8 +306,7 @@ input[type=submit] {
 	color: green;
 	margin-top: 35px;
 }
-.survey {
-	margin-left: 500px;
+#survey {
 	margin-top: 200px;
 }
 .submit {
@@ -332,3 +331,10 @@ img.loaderimg{
     margin-right: auto;
     padding-top: 250px;
   }
+  
+.part_info{
+	font: bold;
+	position: absolute;
+    top: 50px;
+    right: 118px;
+}

@@ -4,22 +4,22 @@
 <h1 class="score text-center" disabled="disabled">
 	<%= "Your Score is #{$userscore}"%>
 </h1>
-</div>
-</div>
+
 <%=hidden_field 'com','from',:value=>@from%>
 <%=hidden_field 'exit','flag',:value=>@flag%>
 <div class="exit_button">
 	<button class="exit" value="exit" type="button">Exit Now</button>
 </div> 
 
-<div class="survey">
+<div class="survey text-center" id="survey">
     	<h2><%=@survey[1]%></h2>
     	<input type="radio" id="strongly_agree" value="Strongly Agree" name="user_option"><label for="user_option" class="light">Strongly Agree</label>&nbsp;&nbsp;&nbsp;&nbsp;
         <input type="radio" id="mostly_agree" value="Mostly Agree" name="user_option"><label for="user_option" class="light">Mostly Agree</label>&nbsp;&nbsp;&nbsp;&nbsp;
         <input type="radio" id="strongly_disagree" value="Strongly Disagree" name="user_option"><label for="user_option" class="light">Strongly Disagree</label>&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
         <button class="submit" value="submit" type="button">Continue</button>
     </div>
-
+</div>
+</div>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
 	$('button').click(function() {
@@ -43,3 +43,16 @@
 		}
 });
 </script>
+<style>
+.submit {
+	border-radius: 5px;
+	border: 0;
+	width: 100px;
+	height: 40px;
+	width: 100px;
+	height: 40px;
+	color: blue;
+	margin-top: 35px;
+	margin-left: -53px;
+}
+</style>

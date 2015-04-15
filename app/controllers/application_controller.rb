@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   $valid_control = false if $valid_control.nil?
   $user_count = 0 if $user_count.nil?
   $userscore = 0 if $userscore.nil?
+  $round = 0 if $round.nil?
   $experiment_status = STOP if $experiment_status.nil?
 
   require "faces"

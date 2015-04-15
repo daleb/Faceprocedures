@@ -1,4 +1,7 @@
 <div id="waitmsgone">
+</div>
+
+<div id="experiment" >
 	<% if @page == "waiting" %>
 	<%= render :partial => 'participant/waiting' %>
 	<% end %>
@@ -6,6 +9,7 @@
 	<%= render :partial => 'participant/adjust_screen' %>
 	<% end %>
 	<%if @page=="quiz"%>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript">
 		window.location.href = "/quiz" // put your correct path in a string here
 	</script>

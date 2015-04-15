@@ -143,9 +143,9 @@ $("#uservalue").html("<b>No of users:- </b><span id=usercount>" + <%= $gUserLimi
 			type : 'get',
 			success : function(html) {
 				$("#uservalue").html("<b>No of users:- </b><span id=usercount>" + newlimit + "</span>");
-				if (newlimit == $("#user_limit").val()) {
-					$("#enable").removeAttr("disabled");
-				}
+				//if (newlimit == $("#user_limit").val()) {
+				//	$("#enable").removeAttr("disabled");
+				//}
 			}
 		});
 	}

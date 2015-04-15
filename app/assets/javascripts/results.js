@@ -26,7 +26,6 @@ $('button').click(function() {
         data: { value: option},
         type: 'get', 
         success: function(result){
-        	alert("hii")
            window.location.href="/calculate_round";
     }
         });
