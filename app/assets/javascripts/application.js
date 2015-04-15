@@ -39,5 +39,5 @@ setTimeout(function() {
     //$('.animated_image').fadeOut('fast');
     //$('.score').show();
     //$('.exit_button').show();
-    $('.options').show();
+    $('#video-btn').show();
 }, 10000);

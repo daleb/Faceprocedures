@@ -39,7 +39,7 @@ class ParticipantController < ApplicationController
       @page = "waiting"
       user_status = "On waiting screen"
     end
-    if (($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count) || ($user_count > 0 && $user_data.select{|user|user[:status]=="Waiting for Round 2"}.length == $user_count))
+    if ((($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count) || ($user_count > 0 && $user_data.select{|user|user[:status]=="Waiting for Round 2"}.length == $user_count)) || $user_data.select{|user|user[:status]=="On statement page"}.length >= 1)
        @page = "statement"
        user_status = "On statement page"
     end
