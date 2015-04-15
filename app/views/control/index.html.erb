@@ -115,7 +115,9 @@ $("#uservalue").html("<b>No of users:- </b><span id=usercount>" + <%= $gUserLimi
 					changeuserlimits(answer);
 				}
 			} else {
+				if (answer!=''){
 				alert("Please enter Valid input.. i.e 1 to 24")
+				}
 			}
 		});
 	}));
