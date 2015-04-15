@@ -20,6 +20,10 @@ class PaymentsController < ApplicationController
   def results
     @from=params["from"]
     @userdata=[]
+    @survey =  []
+    @flag=params["flag"]
+    csv_que = CSV::parse(File.open('public/csv/survey.csv', 'r') {|f| f.read })
+    @survey = csv_que.collect{|f| f}[$round - 1]
     current_user = session[:computerid]
     partner_id = $paired_users.select{|pu| pu[0] == current_user || pu[1] == current_user}
     partner_id = partner_id.flatten.delete_if{|id| id == current_user}[0]
@@ -58,7 +62,7 @@ class PaymentsController < ApplicationController
       redirect_to participant_path
       else
         $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
-        redirect_to results_path
+        redirect_to results_path(:flag=>"exit_poll")
       end
     elsif $round==2
       if (1..16).to_a.sample == 10
@@ -67,7 +71,7 @@ class PaymentsController < ApplicationController
        redirect_to participant_path 
       else
         $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
-        redirect_to results_path
+        redirect_to results_path(:flag=>"exit_poll")
       end
     else $round==3
       if (1..64).to_a.sample == 44
@@ -76,7 +80,7 @@ class PaymentsController < ApplicationController
        redirect_to participant_path
       else
         $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
-        redirect_to results_path
+        redirect_to results_path(:flag=>"exit_poll")
       end
     end
   end

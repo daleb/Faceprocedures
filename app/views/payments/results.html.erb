@@ -1,12 +1,25 @@
 <button class="results" value="results" type="button">See Result</button>
-
-<h1 class="score" disabled="disabled">
+<div class="row">
+<div class="col-md-12">
+<h1 class="score text-center" disabled="disabled">
 	<%= "Your Score is #{$userscore}"%>
 </h1>
+</div>
+</div>
 <%=hidden_field 'com','from',:value=>@from%>
+<%=hidden_field 'exit','flag',:value=>@flag%>
 <div class="exit_button">
 	<button class="exit" value="exit" type="button">Exit Now</button>
 </div> 
+
+<div class="survey">
+    	<h2><%=@survey[1]%></h2>
+    	<input type="radio" id="strongly_agree" value="Strongly Agree" name="user_option"><label for="user_option" class="light">Strongly Agree</label>&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="mostly_agree" value="Mostly Agree" name="user_option"><label for="user_option" class="light">Mostly Agree</label>&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="strongly_disagree" value="Strongly Disagree" name="user_option"><label for="user_option" class="light">Strongly Disagree</label>&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
+        <button class="submit" value="submit" type="button">Continue</button>
+    </div>
+
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
 	$('button').click(function() {
@@ -21,7 +34,12 @@
 	if($('#com_from').val()=="vdo"){
 	        $('.results').hide();
 	        $('.score').show();
-	        $('.exit_button').show();
+		}
+		else if($('#exit_flag').val()=="exit_poll"){
+	       $('.score').hide();
+	       $('.results').hide();
+	       $('.exit_button').show();
+	       $('.survey').hide();		
 		}
 });
 </script>

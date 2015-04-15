@@ -7,7 +7,8 @@ $('#split, #takeall').click(function() {
         data: { value: value},
         type: 'get', 
         success: function(result){
-        window.location.href="/calculate_round";
+        //window.location.href="/calculate_round";
+        window.location.href="/results";
         //$('.options').hide();
 	    //$('.survey').show();
     }

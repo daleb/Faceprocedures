@@ -53,9 +53,6 @@ class ParticipantController < ApplicationController
 
  def sample_video
     @from=params["from"]
-    @survey =  []
-    csv_que = CSV::parse(File.open('public/csv/survey.csv', 'r') {|f| f.read })
-    @survey = csv_que.collect{|f| f}[$round - 1]
  end
  
  def save_survey_results
@@ -77,7 +74,7 @@ class ParticipantController < ApplicationController
 def save
   uuid = UUID.generate
   video_type ="webm"# params['video'].content_type.split("/").last
-  video_name="#{session[:computerid]}_emotion.#{video_type}"
+  video_name="#{session[:computerid]}_emotion_#{$round}.#{video_type}"
   File.open("public/uploads/#{video_name}", "w") { |f| f.write(File.read(params['video-blob'].tempfile)) }
 
     
