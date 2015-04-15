@@ -1,15 +1,15 @@
  $(document).ready(function(){
 $('.container div').eq(0).css('display','inline-block');
-$('.split, .takeall').click(function() {
+$('#split, #takeall').click(function() {
 	value = ($(this).attr("value"));
 	  $.ajax({
         url: "/payments",
         data: { value: value},
         type: 'get', 
         success: function(result){
-      //window.location.href="/results";
-        $('.options').hide();
-	    $('.survey').show();
+        window.location.href="/calculate_round";
+        //$('.options').hide();
+	    //$('.survey').show();
     }
         });
     });
@@ -25,7 +25,10 @@ $('.split, .takeall').click(function() {
   }
 
 $(document).ready(function(){
-$('.record').click(function() {
+$('#record').click(function() {
 	window.location.href="participant/sample_video";
+});
+$('.results').click(function() {
+	window.location.href="participant/sample_video?from=result";
 });
 });

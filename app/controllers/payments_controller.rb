@@ -18,6 +18,7 @@ class PaymentsController < ApplicationController
   end
   
   def results
+    @from=params["from"]
     @userdata=[]
     current_user = session[:computerid]
     partner_id = $paired_users.select{|pu| pu[0] == current_user || pu[1] == current_user}

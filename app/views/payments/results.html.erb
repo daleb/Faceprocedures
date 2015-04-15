@@ -3,11 +3,11 @@
 <h1 class="score" disabled="disabled">
 	<%= "Your Score is #{$userscore}"%>
 </h1>
-
+<%=hidden_field 'com','from',:value=>@from%>
 <div class="exit_button">
 	<button class="exit" value="exit" type="button">Exit Now</button>
 </div> 
-
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
 	$('button').click(function() {
        $('.score').show();
@@ -18,5 +18,10 @@
 	$(document).ready(function(){
 	$('.score').hide();
 	$('.exit_button').hide();
+	if($('#com_from').val()=="vdo"){
+	        $('.results').hide();
+	        $('.score').show();
+	        $('.exit_button').show();
+		}
 });
 </script>

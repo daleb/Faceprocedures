@@ -1,36 +1,20 @@
-<h3><div align="center">Statements </div></h3></br></br>
 <%= form_tag(save_quiz_answers_path, :method => "POST") do %>
-  <section class="demo">
-    <div class="container">
-    	<%i=0%>
-      <%@statements.each do |statement|%>
-      <div >
-      	<%=hidden_field 'statement','id', :value=>statement[0], :index=>i+=1%>
-         <%=statement[1]%>
-      </div>
-      <% end %>
-    </div>
-  </section>
-  </br></br>
-  <button class="record" value="record" type="button">Record Video</button>
-  <!--button class="split" value="split" type="button">Split</button>
-  <button class="takeall" value="takeall" type="button">Take All</button-->
-  <div class="record_s">
-    <%= submit_tag "Record Video" %>
-  </div>
+ <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<h3 class="text-center">Statements</h3>
+			<div class="col-md-6 col-md-offset-3" id="statements">
+				<p>Statement 1</p>
+			</div>
+			
+		</div>
+		<div class="text-center">
+			<a href="#" class="btn btn-default btn-primary btn-lg record-btn" id="record"> Record Video</a>
+		</div>
+	</div>
+	</div>
 <% end %>
-
-
-
-<style type="text/css">
-  .container {
-    max-width: 400px;
-    background-color: yellow;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-  }
-</style>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
 var currentIndex = 0;
   items = $('.container div');

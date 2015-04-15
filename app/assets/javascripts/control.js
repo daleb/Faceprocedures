@@ -24,7 +24,7 @@ setInterval(function(){
        url: "/control/pageupdate",
        type: 'get',
        success: function(data){
-       	 $('.users_table').html(data);
+       	 $('.table').html(data);
         }
    })
   // location.reload();
@@ -85,12 +85,12 @@ $(document).ready(function(){
 	$("#reset").attr("disabled", "disabled");
     $("#start").attr("disabled", "disabled");
     $("#stop").attr("disabled", "disabled");
-    if ($("#usercount").html() != $("#user_limit").val()){
-    	$("#enable").attr("disabled", "disabled");
-    }
-    else
-    {
-    	$("#enable").removeAttr("disabled");
-    }
+   // if ($("#usercount").html() != $("#user_limit").val()){
+    //	$("#enable").attr("disabled", "disabled");
+    //}
+    //else
+    //{
+    	//$("#enable").removeAttr("disabled");
+    //}
 
 });

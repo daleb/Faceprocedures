@@ -40,3 +40,10 @@ body {
 	position: relative;
 	top: 24px;
 }
+#video-btn {
+	position: relative;
+	top:140px;
+}
+#video-btn a {
+	padding:10px 30px;
+}

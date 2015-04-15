@@ -2,7 +2,13 @@ require "csv"
 require "uuid"
 class ParticipantController < ApplicationController
   require "user"
+  require "computerid"
+  include Computerid
   respond_to :html, :js, :json
+  
+  before_filter :create_userdata
+  
+  
   def index
     if params["coming_from"] == "page_update"
       session[:computerid]=session[:computerid]
@@ -46,6 +52,7 @@ class ParticipantController < ApplicationController
   end
 
  def sample_video
+    @from=params["from"]
     @survey =  []
     csv_que = CSV::parse(File.open('public/csv/survey.csv', 'r') {|f| f.read })
     @survey = csv_que.collect{|f| f}[$round - 1]
@@ -98,6 +105,14 @@ def save_user_information
     end
     redirect_to root_path(:from=>"exit")
 end
+
+ def create_userdata
+    if session[:computerid].blank? && !request.url.split("/").include?("control")
+      puts "i am creating #{session[:computerid]}"
+      puts session[:computerid] 
+     mycomputerid = genseratecomputerid()
+    end
+  end
 
  
 end

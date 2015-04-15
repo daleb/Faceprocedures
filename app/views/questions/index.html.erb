@@ -1,33 +1,53 @@
-<h3><div align="center">Quiz </div></h3></br></br>
+<div align="center">
+	<h3>Quiz</h3>
+</div>
 <%= form_tag(save_quiz_answers_path, :method => "POST") do %>
-  <section class="demo">
-    <div class="container">
-      <%@questions.each do |question|%>
-      <%#raise question[1].inspect%>
-        <% ques = question[1].select {|n| n["ref"].to_i == 0 } %>
-        <% options = question[1].select {|n| n["ref"].to_i != 0 } %>
-        <div >
-          <b><p>Question</p></b>
-          <br />
-          <h3><b><%= ques[0]["data"] %></b></h3></br></br></br>
-          <% options.each do |opt| %>
-            <%= radio_button_tag("question_#{opt['qid']}", opt["ref"].to_i) %><%= label_tag(opt["qid"], opt["data"]) %></br></br>
-          <% end %>
-          <br />
-        </div>
-      <% end %>
-    </div>
-  </section>
-  </br></br>
-  <button class="next" type="button">Next</button>
+<section class="demo">
+	<div class="container">
+		<%@questions.each do |question|%>
+		<% ques = question[1].select {|n| n["ref"].to_i == 0 } %>
+		<% options = question[1].select {|n| n["ref"].to_i != 0 } %>
+		<div>
+			<p>
+				<b>Question</b>
+			</p>
+			<h3><b><%= ques[0]["data"] %></b></h3>
+			<ul class="que-ans">
+			<% options.each do |opt| %>
+				<li>
+					<%= radio_button_tag("question_#{opt['qid']}", opt["ref"].to_i, :class=>'question-label') %><%= label_tag(opt["qid"], opt["data"],:class=>'ans-label') %>
+				</li>
+			
+			<% end %>
+			</ul>
+		</div>
+		<% end %>
+	</div>
+</section>
+ <button class="next" type="button">Next</button>
   <div class="save_button">
     <%= submit_tag "Next" %>
   </div>
 <% end %>
-
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
 var currentIndex = 0;
-  items = $('.container div');
-  itemAmt = items.length;
-  $('.save_button').hide();
- </script>
+items = $('.container div');
+itemAmt = items.length;
+$('.save_button').hide();
+</script>
+
+<style>
+input[type="submit"],.next {
+border-radius: 5px;
+border: 0;
+width: 100px;
+height:40px;
+width: 100px;
+height: 40px;
+color: green;
+/*#margin-top: 28px;
+#margin-left: 551px;*/
+margin: 1% 45%
+}
+</style>
