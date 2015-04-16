@@ -22,7 +22,7 @@ class ParticipantController < ApplicationController
           user_status="online"
       end
     end
-    $user_count=1
+    
     @user = $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}
     if (params["from"]=="picked_action" || params["from"]=="Waiting after emotion survey")  
       @page="waiting"
