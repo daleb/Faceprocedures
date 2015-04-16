@@ -44,6 +44,8 @@ function change_experiment_status(status){
     	$("#stop").attr("disabled", "disabled");
     	$("#reset").removeAttr("disabled");
     	$("#start").removeAttr("disabled");
+    	$("#stop").prop("value", "Experiment Stopped");
+    	$("#start").prop("value", "Start Experiment");
     }
     else{
     	$("#reset").attr("disabled", "disabled");
@@ -52,6 +54,7 @@ function change_experiment_status(status){
     	$("#enable").removeAttr("disabled");
     	$("#timebutton").removeAttr("disabled");
     	$("#userlimitbutton").removeAttr("disabled");
+    	$("#stop").prop("value", "Stop Experiment");
     }
     $.ajax({
         url: "/start_experiment?status="+exp_status,
