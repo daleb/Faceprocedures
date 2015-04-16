@@ -2,6 +2,7 @@ class PaymentsController < ApplicationController
   require "csv"
 
   def calculate
+    $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On statement page"
     option=params["value"]
     file = begin CSV.open("public/csv/score_details_#{Date.today}.csv", "r") rescue nil end
     if file
@@ -19,7 +20,6 @@ class PaymentsController < ApplicationController
   end
   
   def results
-    $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
     @from=params["from"]
     @userdata=[]
     @survey =  []

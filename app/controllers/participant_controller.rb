@@ -32,12 +32,15 @@ class ParticipantController < ApplicationController
       @from="adjsut_cam"
       user_status = "Adjusting Camera"
       session[:status] ="adjusted"
-    elsif $experiment_status == "start" && params["from"]!="quiz" && $round==2
+    elsif $experiment_status == "start" && params["from"]!="quiz" && session[:quiz_status]!="Quiz Completed"
       @page = "quiz"
+      session[:quiz_status]="Quiz Completed"
     else
       if params["from"]!="picked_action" && params["from"]!="Waiting after emotion survey"
       @page = "waiting"
+      if params["from"]!="Waiting after emotion survey" && @user[0][:status]!="Completed Emotion Survey And Waiting"
       user_status = params["from"]=="quiz" ? @user[0][:status] : "On waiting screen"
+      end
       end
     end
     
@@ -50,9 +53,9 @@ class ParticipantController < ApplicationController
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Picked Action And Waiting"}.length == $user_count)
        @page= "results"
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Emotion Survey And Waiting"}.length == $user_count)
+      sleep(5)
        @page= "calulate_round"
     elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("Waiting for Round")}.length == $user_count)
-      asdsadas
        @page= "statement"
     end
     

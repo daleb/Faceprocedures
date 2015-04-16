@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   $userscore = 0 if $userscore.nil?
   $round = 0 if $round.nil?
   $experiment_status = STOP if $experiment_status.nil?
+  $quiz_status="" if $quiz_status.nil?
 
   require "faces"
 
