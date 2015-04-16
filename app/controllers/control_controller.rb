@@ -70,6 +70,7 @@ class ControlController < ApplicationController
       $round=1
     elsif $experiment_status=="reset"
       $user_count = 0
+      $round=0
       $user_data.each do |user|
         user[0][:computer_id]=nil
         user[0][:computer_id]="online"

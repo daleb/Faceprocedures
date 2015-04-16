@@ -24,7 +24,7 @@ class ParticipantController < ApplicationController
     end
     $user_count=1
     @user = $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}
-    if (params["from"]=="picked_action" || params["from"]=="Waiting after exit survey")  
+    if (params["from"]=="picked_action" || params["from"]=="Waiting after emotion survey")  
       @page="waiting"
     end
     if @user[0] && @user[0][:connection] == "enabled" && $experiment_status!="start" && params["from"] != "adjust_page" && session[:status] !="adjusted"
@@ -32,10 +32,10 @@ class ParticipantController < ApplicationController
       @from="adjsut_cam"
       user_status = "Adjusting Camera"
       session[:status] ="adjusted"
-    elsif $experiment_status == "start" && params["from"]!="quiz" && $round==1
+    elsif $experiment_status == "start" && params["from"]!="quiz" && $round==2
       @page = "quiz"
     else
-      if params["from"]!="picked_action" && params["from"]!="Waiting after exit survey"
+      if params["from"]!="picked_action" && params["from"]!="Waiting after emotion survey"
       @page = "waiting"
       user_status = params["from"]=="quiz" ? @user[0][:status] : "On waiting screen"
       end
@@ -45,15 +45,18 @@ class ParticipantController < ApplicationController
       @page = "waiting"
       user_status = "On waiting screen"
     end
-    if (params["from"]!="picked_action" && (($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count) || ($user_count > 0 && $user_data.select{|user|user[:status]=="Waiting for Round 2"}.length == $user_count)) || $user_data.select{|user|user[:status]=="On statement page"}.length >= 1)
+    if (params["from"]!="picked_action" && (($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count) || ($user_count > 0 && $user_data.select{|user|user[:status]=="Waiting for Round 2"}.length == $user_count)))
        @page = "statement" 
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Picked Action And Waiting"}.length == $user_count)
        @page= "results"
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Emotion Survey And Waiting"}.length == $user_count)
        @page= "calulate_round"
+    elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("Waiting for Round")}.length == $user_count)
+      asdsadas
+       @page= "statement"
     end
     
-    if params["from"]!="picked_action" && params["from"]!="Waiting after exit survey"
+    if params["from"]!="picked_action" && params["from"]!="Waiting after emotion survey"
     $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]=user_status ? user_status : "not login"
     end
     
@@ -99,7 +102,7 @@ def save
 end
 
 def get_information
- # $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Exit Survey!"
+  $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Exit Survey!"
 end
 
 def save_user_information

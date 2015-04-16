@@ -30,7 +30,7 @@ skip_before_action :verify_authenticity_token, :only => :upload
     end
     ### save the quiz answer details
     ### perform pairing
-    computer_ids= $user_data.collect{|data|data[:computer_id]}.shuffle
+    computer_ids= $user_data.collect{|data|data[:computer_id] if data[:computer_id]!="nil"}.shuffle.compact
     $paired_users=computer_ids.each_slice(2).to_a
     ###
    $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Completed Quiz And Waiting"

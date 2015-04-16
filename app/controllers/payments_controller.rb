@@ -58,24 +58,28 @@ class PaymentsController < ApplicationController
   
    def calculate_round
     if $round==1
-      if (1..4).to_a.sample == 4
       $round = 2
+      $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$round}"
+      redirect_to participant_path
+    elsif $round==2
+      if (1..4).to_a.sample == 4
+      $round = 3
       $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$round}"
       redirect_to participant_path
       else
         $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
         redirect_to results_path(:flag=>"exit_poll")
       end
-    elsif $round==2
+    elsif $round==3
       if (1..16).to_a.sample == 10
-       $round = 3
+       $round = 4
        $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$round}"       
        redirect_to participant_path 
       else
         $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
         redirect_to results_path(:flag=>"exit_poll")
       end
-    else $round==3
+    else $round==4
       if (1..64).to_a.sample == 44
        $round = 4
        $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$round}"

@@ -33,7 +33,7 @@ $('button').click(function() {
         data: { value: option},
         type: 'get', 
         success: function(result){
-           window.location.href="/participant?from=Waiting after exit survey";
+           window.location.href="/participant?from=Waiting after emotion survey";
     }
         });
 	}
