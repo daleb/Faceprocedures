@@ -1,32 +1,22 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <script src="jquery-2.0.3.min.js"></script>
-    <script src="RecordRTC.js"></script>
-    <script src="app.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
-  </head>
+
   <%=hidden_field 'adjusting','camera',:value=>@from%>
-<h3 align="center">Please Adjust your Webcam</h3>
-  <body>
+
+  
     <!-- Wrapper for video elements -->
-    <div id='players'>
-      <video class='recorder' autoplay loop muted></video>
-      <audio class="recorder" autoplay loop muted></audio>
+    <div class="row" id='players'>
+    	<div class="col-md-4 col-md-offset-2">
+    		<h3 class="text-center">Please Adjust your Webcam</h3>
+	      <video class='recorder'  autoplay loop muted></video>
+	      <audio class="recorder"  autoplay loop muted></audio>
+	      <div class="text-center" id="adjust">
+   			<a href="#" class="btn btn-default btn-info" > Adjustment Done!!!</a>
+   		</div>	
+    	
+      	</div>
+      	<!-- Control buttons -->
+   		
     </div>
-    <!-- Control buttons -->
-   </br></br>
-    <button id='adjust'>Adjustment Done!!!</button>
-  </body>
+   <script src="/jquery-2.0.3.min.js"></script>
+    <script src="/RecordRTC.js"></script>
+    <script src="/app.js"></script> 
 
-</html>
-
-<script>
-$("#adjust").on('click', function(){
-     $.ajax({
-     	type: 'GET',
-     	url: "/participant", 
-     	data : {"from" : "adjust_page"}
-     	});
-})
-</script>

@@ -14,3 +14,11 @@ $('.exit_button').click(function() {
 	window.location.href="/get_participant_info";
 });
 });
+
+$("#adjust").on('click', function(){
+     $.ajax({
+     	type: 'GET',
+     	url: "/participant", 
+     	data : {"from" : "adjust_page"}
+     	});
+})

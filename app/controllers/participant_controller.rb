@@ -25,6 +25,7 @@ class ParticipantController < ApplicationController
     @user = $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}
     if @user[0] && @user[0][:connection] == "enabled" && $experiment_status!="start" && params["from"] != "adjust_page" && session[:status] !="adjusted"
       @page = "adjust webcam"
+      @from="adjsut_cam"
       user_status = "Adjusting Camera"
       session[:status] ="adjusted"
     elsif $experiment_status == "start" && params["from"]!="quiz" && $round==1

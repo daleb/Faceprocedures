@@ -9,13 +9,12 @@
 		<% options = question[1].select {|n| n["ref"].to_i != 0 } %>
 		<div>
 			<p>
-				<b>Question</b>
 			</p>
 			<h3><b><%= ques[0]["data"] %></b></h3>
 			<ul class="que-ans">
 			<% options.each do |opt| %>
 				<li>
-					<%= radio_button_tag("question_#{opt['qid']}", opt["ref"].to_i, :class=>'question-label') %><%= label_tag(opt["qid"], opt["data"],:class=>'ans-label') %>
+					<%= radio_button_tag("question_#{opt['qid']}", opt["ref"].to_i,checked =false, :class=>'question-label') %><%= label_tag(opt["qid"], opt["data"],:class=>'ans-label') %>
 				</li>
 			
 			<% end %>
@@ -29,7 +28,7 @@
     <%= submit_tag "Next" %>
   </div>
 <% end %>
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src='/jquery-2.0.3.min.js'></script>
 <script type="text/javascript">
 var currentIndex = 0;
 items = $('.container div');
