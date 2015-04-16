@@ -11,11 +11,19 @@
 	<%if @page=="quiz"%>
 	<script src='/jquery-2.0.3.min.js'></script>
 	<script type="text/javascript">
-		window.location.href = "/quiz" // put your correct path in a string here
+		window.location.href = "/quiz"
 	</script>
 	<%elsif @page=="statement"%>
 	<script type="text/javascript">
-		window.location.href = "/statements" // put your correct path in a string here
+		window.location.href = "/statements"
 	</script>
+	<%elsif @page=="results"%>
+	<script type="text/javascript">
+		window.location.href = "/results?from=waiting_after_pick"
+	</script>
+	<%elsif @page=="calulate_round"%>
+	<script type="text/javascript">
+		window.location.href = "/calculate_round?from=after_emo_suvey"
+	 </script>
 	<%end%>
 </div>

@@ -14,10 +14,12 @@ class PaymentsController < ApplicationController
     csv << [session[:computerid], $round, option]
     end  
     end
+    $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Picked Action And Waiting"
     render json:{},status: :ok
   end
   
   def results
+    $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
     @from=params["from"]
     @userdata=[]
     @survey =  []

@@ -1,9 +1,18 @@
-<button class="results" value="results" type="button">See Result</button>
 <div class="row">
 <div class="col-md-12">
+	<button class="results" value="results" type="button">See Result</button>
 <h1 class="score text-center" disabled="disabled">
 	<%= "Your Score is #{$userscore}"%>
 </h1>
+<%if @flag!="exit_poll"%>
+<h2 class="alert text-center" disabled="disabled">
+	<%= "Please sit straight and don't put your hand near face. Once you are ready click below button!"%>
+</h2>
+
+<div class="click_when_ready text-center col-md-11">
+	<button class="click" value="click_when_ready" type="button">Click When Ready </button>
+</div>
+<%end%>
 
 <%=hidden_field 'com','from',:value=>@from%>
 <%=hidden_field 'exit','flag',:value=>@flag%>
@@ -34,6 +43,8 @@
 	if($('#com_from').val()=="vdo"){
 	        $('.results').hide();
 	        $('.score').show();
+	        $('.click').hide();
+	        $('.alert').hide();
 		}
 		else if($('#exit_flag').val()=="exit_poll"){
 	       $('.score').hide();

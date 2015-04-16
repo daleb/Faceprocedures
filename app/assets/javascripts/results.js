@@ -1,20 +1,27 @@
 
 $(document).ready(function(){
 	$('.survey').hide();
+	$('.results').hide();
 });
 
 setTimeout(function() {
 		$('.score').hide();
 		if($('#exit_flag').val()=="exit_poll"){
-			alert("hii")
 			$('.exit_button').show();
 			$('.survey').hide();
 		}
 		else{
+        if($('#com_from').val()!="waiting_after_pick"){
 		$('.survey').show();
+		}
 		}
 }, 10000);
 
+$('.click').click(function() {
+	$('.results').show();
+	$('.click').hide();
+	$('.alert').hide();
+});
 
 $('button').click(function() {
 	$('.score').hide();
@@ -26,8 +33,22 @@ $('button').click(function() {
         data: { value: option},
         type: 'get', 
         success: function(result){
-           window.location.href="/calculate_round";
+           window.location.href="/participant?from=Waiting after exit survey";
     }
         });
 	}
+});
+
+$('input[type="submit"]').click(function() {
+	if($('#name').val()=='')
+	{
+		alert("Please enter atleast 4 characters for Name!")
+		return false;
+	}
+	else if($('#age').val()=='')
+	{
+		alert("Please Enter your age!")
+		return false;
+	}
+	
 });

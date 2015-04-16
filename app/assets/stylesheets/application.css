@@ -210,7 +210,6 @@ button {
 }
 .score, .thanks {
 	animation-duration: 600ms;
-	animation-name: blink;
 	animation-iteration-count: infinite;
 	animation-direction: alternate;
 }
@@ -271,12 +270,7 @@ to {
 #upload {
 	margin-left: -27px;
 }
-.record {
-	width: 200px;
-	height: 40px;
-	color: blue;
-	margin-left: 585px;
-}
+
 .next-btn {
 	width: 100px;
 	height: 40px;
