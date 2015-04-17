@@ -13,7 +13,6 @@ $(document).ready(function(){
 $('.exit_button').click(function() {
 	window.location.href="/get_participant_info";
 });
-});
 
 $("#adjust").on('click', function(){
      $.ajax({
@@ -22,3 +21,5 @@ $("#adjust").on('click', function(){
      	data : {"from" : "adjust_page"}
      	});
 })
+});
+

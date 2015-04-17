@@ -53,9 +53,27 @@ class ParticipantController < ApplicationController
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Picked Action And Waiting"}.length == $user_count)
        @page= "results"
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Emotion Survey And Waiting"}.length == $user_count)
-      sleep(5)
-       @page= "calulate_round"
-    elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("Waiting for Round")}.length == $user_count)
+      if session[:computerid]=="PART-001"
+      $result =calculate_round
+       if $result == "exit_poll"
+         #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
+         $user_data.select{|u|u[:computer_id]!="nil"}.each do |user|
+           user[:status]="On Result Page"
+         end
+         @page= "results"
+         @from="exit_poll"
+       elsif $result.class == Fixnum
+         #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$result}"
+         $user_data.select{|u|u[:computer_id]!="nil"}.each do |user|
+           user[:status]="Waiting for Round #{$result}"
+         end
+         @page= "statement"
+       end
+       end
+     elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("On Result Page")}.length == $user_count && $result="exit_poll")
+       @page= "results"
+       @from="exit_poll"
+     elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("Waiting for Round #{$round}")}.length == $user_count && $result="exit_poll")
        @page= "statement"
     end
     
@@ -128,6 +146,53 @@ end
       puts "i am creating #{session[:computerid]}"
       puts session[:computerid] 
      mycomputerid = genseratecomputerid()
+    end
+  end
+  
+  def calculate_round
+    $result=nil
+    if $round==1
+      $round = 2
+      session[$round]=nil
+      #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$round}"
+      #redirect_to participant_path
+      return $round
+    elsif $round==2
+      if (1..4).to_a.sample == 4
+      $round = 3
+      session[$round]=nil
+      #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$round}"
+      #redirect_to participant_path
+      return $round
+      else
+       # $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
+       # redirect_to results_path(:flag=>"exit_poll")
+       return "exit_poll"
+      end
+    elsif $round==3
+      if (1..16).to_a.sample == 10
+       $round = 4
+       session[$round]=nil
+       #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$round}"       
+       #redirect_to participant_path
+       return $round 
+      else
+        #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
+        #redirect_to results_path(:flag=>"exit_poll")
+        return "exit_poll"
+      end
+    else $round==4
+      if (1..64).to_a.sample == 44
+       $round = 4
+       session[$round]=nil
+       #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$round}"
+      # redirect_to participant_path
+      return $round
+      else
+        #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
+        #redirect_to results_path(:flag=>"exit_poll")
+        return "exit_poll"
+      end
     end
   end
 

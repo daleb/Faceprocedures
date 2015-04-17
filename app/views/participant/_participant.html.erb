@@ -18,9 +18,15 @@
 		window.location.href = "/statements"
 	</script>
 	<%elsif @page=="results"%>
+	<%if @from=="exit_poll"%>
+	<script type="text/javascript">
+		window.location.href = "/results?flag=exit_poll"
+	</script>
+	<%else%>
 	<script type="text/javascript">
 		window.location.href = "/results?from=waiting_after_pick"
 	</script>
+	<%end%>
 	<%elsif @page=="calulate_round"%>
 	<script type="text/javascript">
 		window.location.href = "/calculate_round?from=after_emo_suvey"

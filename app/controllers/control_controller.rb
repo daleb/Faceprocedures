@@ -68,6 +68,7 @@ class ControlController < ApplicationController
     end
     if $experiment_status=="start"
       $round=1
+      session[$round]=nil
     elsif $experiment_status=="reset"
       $user_count = 0
       $round=0

@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
+    @total_score = begin session["1"] + (session["2"].nil? ? 0 : session["2"])   + (session["3"].nil?? 0 : session["3"]) + (session["4"].nil?? 0 : session["4"]) + (session["5"].nil? ? 0 : session["5"]) rescue 0 end
     session[:status]=nil
     $userscore = 0
     $round=0

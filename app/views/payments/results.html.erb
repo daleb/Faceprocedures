@@ -2,7 +2,7 @@
 <div class="col-md-12">
 	<button class="results" value="results" type="button">See Result</button>
 <h1 class="score text-center" disabled="disabled">
-	<%= "Your Score is #{$userscore}"%>
+	<%= "Your Score is #{session[$round].to_i}"%>
 </h1>
 <%if @flag!="exit_poll"%>
 <h2 class="alert text-center" disabled="disabled">
