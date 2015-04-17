@@ -29,6 +29,10 @@ $('button').click(function() {
 	$('.exit_button').hide();
 	if ($(this).val() == "submit"){
 		var option=($('input[name=user_option]:checked').val());
+		if (option==undefined){
+			alert("Please choose an option to complete survey!")
+            return false;			
+		}
 		$.ajax({
         url: "/save_survey_details",
         data: { value: option},

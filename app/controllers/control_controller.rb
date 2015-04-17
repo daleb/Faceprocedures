@@ -74,7 +74,7 @@ class ControlController < ApplicationController
       $round=0
       $user_data.each do |user|
         user[0][:computer_id]=nil
-        user[0][:computer_id]="online"
+        user[0][:status]="online"
       end
       reset_session
     end
