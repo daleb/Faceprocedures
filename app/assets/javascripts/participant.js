@@ -7,7 +7,7 @@ $.ajax({
        type: 'get'
    })
 }
-}, 10000);
+}, 5000);
 
 $(document).ready(function(){
 $('.exit_button').click(function() {

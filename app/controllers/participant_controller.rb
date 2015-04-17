@@ -70,10 +70,10 @@ class ParticipantController < ApplicationController
          @page= "statement"
        end
        end
-     elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("On Result Page")}.length == $user_count && $result="exit_poll")
+     elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("On Result Page")}.length == $user_count && $result=="exit_poll")
        @page= "results"
        @from="exit_poll"
-     elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("Waiting for Round #{$round}")}.length == $user_count && $result="exit_poll")
+     elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("Waiting for Round #{$round}")}.length == $user_count)
        @page= "statement"
     end
     

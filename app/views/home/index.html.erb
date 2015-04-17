@@ -4,7 +4,7 @@
 
 <%if @from=="exit"%>
 <div class="col-md-12">
-<h1 class="score text-center">
+<h1 class="scores text-center">
 	<%= "Your Earning is #{@total_score}"%>
 </h1>
 
@@ -28,7 +28,7 @@ $(document).ready(function(){
 });
 
 	setTimeout(function() {
-		$('.score').hide();
+		$('.scores').hide();
 		$('.thanks').show();
 }, 10000);
 </script>

@@ -12,7 +12,7 @@ module Computerid
     computerid= "PART-#{(count + 1).to_s.rjust(3,'0')}"
   #  $user_data << {:id => $user_count, :computer_id => computerid,:status => "online" , :round => 0, :connection => "disabled" }
     session[:computerid] = computerid 
-    $user_count +=1
+    $user_count += 1
     return computerid
   end
   end

@@ -15,6 +15,10 @@ $((function (){
         window.open ("getpairing", "Data Files","resizable=1,scrollbars=1,width=900,height=600");
  });
  
+ $("#downloadpayments").click(function(){
+        window.open ("getpayments", "Data Files","resizable=1,scrollbars=1,width=900,height=600");
+ });
+ 
 }));
 
 
@@ -29,7 +33,7 @@ setInterval(function(){
    })
   // location.reload();
   }
-}, 10000);
+}, 5000);
 
 
 function change_experiment_status(status){
@@ -67,6 +71,10 @@ function change_experiment_status(status){
 }
 
 function enable_users(status){
+	//if ($("#usercount").html()  != $('#user_count').val()){
+		//alert("Expected no.of users are not logged in!");
+		//return false;
+	//}
 	var enable_status = status
 	status = alert("The connections are disabled. Do you want to enable it?")
 	$.ajax({

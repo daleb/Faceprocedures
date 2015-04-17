@@ -36,5 +36,15 @@ class DataController < ApplicationController
   def get_pairing_details
     
   end
+  
+  def download_payments
+    @path = "csv"
+    Dir.chdir("public/csv"){
+      @payments = Dir.glob("*payment_details*")
+      @payments.sort!.reverse!
+    }
+    @rowcount = @payments.length - 1
+    @rowcount = 0 if @rowcount < 0
+  end
  
 end

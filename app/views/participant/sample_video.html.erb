@@ -8,6 +8,7 @@
   <button class="takeall" value="takeall" type="button">Take All</button>
 </div>-->
 <div class="row">
+	<div class="action_note text-center"><b><h4>Press the button of the action you wish  to take.</h4></b></div>
 	<div class="col-md-6 col-md-offset-5" id="video-btn">
 		<a href="#" class="btn btn-success" id="split" value="split">Split</a> &nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="#" class="btn btn-success" id="takeall" value="takeall">Take All</a>
@@ -18,6 +19,10 @@
     <div id="views">
 
     </div>
+    
+    <h1 class="score text-center" disabled="disabled">
+	<%= "Your Score is #{session[$round].to_i}"%>
+   </h1>
 
 <div id="videodiv">
   <video id="video-playback" ></video>
@@ -164,6 +169,7 @@ $(document).ready(function(){
 	$('.exit_button').hide();
 	$('.options').hide();
 	$('.survey').hide();
+	$('#video-btn').hide();
 });
 
 $('button').click(function() {
@@ -179,6 +185,12 @@ $('button').click(function() {
         });
 	}
 });
+
+setTimeout(function() {
+    if ($('#coming_from').val() == "result"){
+        	$('.score').show();
+    }
+}, 5000);
 
 setTimeout(function() {
     if ($('#coming_from').val() == "result"){

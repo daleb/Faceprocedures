@@ -1,7 +1,8 @@
 
 $(document).ready(function(){
 	$('.survey').hide();
-	$('.results').hide();
+	$('.results').show();
+	$('.score').hide();
 });
 
 setTimeout(function() {
@@ -15,13 +16,13 @@ setTimeout(function() {
 		$('.survey').show();
 		}
 		}
-}, 10000);
+}, 100);
 
-$('.click').click(function() {
-	$('.results').show();
-	$('.click').hide();
-	$('.alert').hide();
-});
+// $('.click').click(function() {
+	// $('.results').show();
+	// $('.click').hide();
+	// $('.alert').hide();
+// });
 
 $('button').click(function() {
 	$('.score').hide();

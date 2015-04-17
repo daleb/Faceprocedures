@@ -15,6 +15,7 @@
 						<% $user_data.each do |row| %>
 						<tr class="users">
 							<td><%= row[:id] %></td>
+							<%=hidden_field 'user','count',:value=>$user_count%>
 							<td><%= row[:computer_id] %></td>
 							<td><%= row[:status] %></td>
 						</tr>
@@ -69,6 +70,9 @@
 						<li>
 							<input id="downloadstatements" type="button" value="Statement and Survey Results" />
 						</li>
+						<li>
+							<input id="downloadpayments" type="button" value="Download Payments" />
+						</li>
 					</ul>
 				</div>
 				<div class="col-md-8" id="upload-content">
@@ -110,13 +114,13 @@ $("#uservalue").html("<b>No of users:- </b><span id=usercount>" + <%= $gUserLimi
 			var currentvalue = $("#usercount").html();
 			var answer = prompt("Enter new Value", currentvalue);
 			answer = jQuery.trim(answer);
-			if (answer != '' && answer <= 24 && answer >= 0) {
+			if (answer != '' && answer <= 24 && answer >= 0 && (answer % 2) ==0) {
 				if (answer != currentvalue) {
 					changeuserlimits(answer);
 				}
 			} else {
 				if (answer!=''){
-				alert("Please enter Valid input.. i.e 1 to 24")
+				alert("Please enter Valid even number.. i.e 1 to 24")
 				}
 			}
 		});
