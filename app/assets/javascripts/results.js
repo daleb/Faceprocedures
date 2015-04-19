@@ -45,14 +45,18 @@ $('button').click(function() {
 });
 
 $('input[type="submit"]').click(function() {
-	if($('#name').val()=='')
+	if($('#name').val()=='' || $('#name').val().length< 4)
 	{
 		alert("Please enter atleast 4 characters for Name!")
 		return false;
 	}
-	else if($('#age').val()=='')
+	else if($('#age').val()=='' || $.isNumeric($('#age').val())==false)
 	{
-		alert("Please Enter your age!")
+		alert("Please Enter your age in Numeric!")
+		return false;
+	}
+	else if ($('#language').val()==''){
+		alert("Please enter your first language!")
 		return false;
 	}
 	
