@@ -52,7 +52,9 @@ class ParticipantController < ApplicationController
       @page = "statement" 
       Dir.chdir("public/csv"){
       @answers = Dir.glob("quiz_answers_#{Date.today}.csv")
-      File.rename(@answers.first, "quiz_answers_#{Time.now}.csv") if @answers
+      if @answers.length > 0
+      File.rename(@answers.first, "quiz_answers_#{Time.now}.csv")
+      end
       }
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Picked Action And Waiting"}.length == $user_count)
        @page= "results"

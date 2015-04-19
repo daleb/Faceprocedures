@@ -14,7 +14,9 @@ class HomeController < ApplicationController
     end
     Dir.chdir("public/csv"){
       @statements = Dir.glob("score_details_#{Date.today}.csv")
-      File.rename(@statements.first, "score_details_#{Time.now}.csv") if @statements
+      if @statements.length > 0
+      File.rename(@statements.first, "score_details_#{Time.now}.csv")
+      end 
     }
     session[:status]=nil
     $userscore = 0
