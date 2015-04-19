@@ -12,6 +12,12 @@ class HomeController < ApplicationController
     csv << [session[:computerid], @total_score]
     end  
     end
+    Dir.chdir("public/csv"){
+      @statements = Dir.glob("statement_results_#{Date.today}.csv")
+      if @statements.length > 0
+      File.rename(@statements.first, "statement_results_#{Time.now}.csv")
+      end 
+    }
     session[:status]=nil
     $userscore = 0
     $round=0

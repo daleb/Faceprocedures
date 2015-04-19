@@ -49,7 +49,13 @@ class ParticipantController < ApplicationController
       user_status = "On waiting screen"
     end
     if (params["from"]!="picked_action" && (($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count) || ($user_count > 0 && $user_data.select{|user|user[:status]=="Waiting for Round 2"}.length == $user_count)))
-       @page = "statement" 
+      @page = "statement" 
+      Dir.chdir("public/csv"){
+      @answers = Dir.glob("quiz_answers_#{Date.today}.csv")
+      if @answers.length > 0
+      File.rename(@answers.first, "quiz_answers_#{Time.now}.csv")
+      end
+      }
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Picked Action And Waiting"}.length == $user_count)
        @page= "results"
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Emotion Survey And Waiting"}.length == $user_count)
