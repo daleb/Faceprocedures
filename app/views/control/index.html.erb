@@ -1,103 +1,169 @@
-<table>
-	<tr>
-		<td>
-<div id="control_dashboard" >
-<%= render :partial => 'users'%>
+<div class="container-fluid">
+	<br>
+	<div class="row">
+		<div class="col-md-3" id="side-content">
+			<div class="table-responsive table-bordered table-hover">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Participant</th>
+							<th>Computer ID</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% $user_data.each do |row| %>
+						<tr class="users">
+							<td><%= row[:id] %></td>
+							<%=hidden_field 'user','count',:value=>$user_count%>
+							<td><%= row[:computer_id] %></td>
+							<td><%= row[:status] %></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-9" id="main-content">
+			<div class="row">
+				<div class="col-md-4">
+					<ul>
+						<li>
+							<div id="timevalue">
+								&nbsp;
+							</div>
+							<input id="timebutton" type="button" value="Change Duration" />
+						</li>
+						<li>
+							<div id="userlimit">
+								<div id="uservalue">
+									&nbsp;
+								</div>
+								<input id="userlimitbutton" type="button" value="Change Limit" />
+								</td>
+						</li>
+					</ul>
+					<ul>
+						<li>
+							<input id="enable" type="button" title="Enable connections for all the users" value="Enable Connections" onclick="enable_users('enable')" />
+						</li>
+						<li>
+							<input id="start" type="button" title="Click to start experiment once the connection is set" value="Start Experiment" onclick="change_experiment_status('start')" />
+						</li>
+						<li>
+							<input id="stop" type="button" title="Click to stop experiment" value="Stop Experiment" onclick="change_experiment_status('stop')" />
+						</li>
+						<li>
+							<input id="reset" type="button" title="Click to reset experiment" value="Reset Experiment" onclick="change_experiment_status('reset')" />
+						</li>
+					</ul>
+					<ul>
+						<li>
+							<input id="downloadanswers" type="button" value="Download Answers" />
+						</li>
+						<li>
+							<input id="downloademotions" type="button" value="Download Emotions" />
+						</li>
+						<li>
+							<input id="watchpairing" type="button" value="See Pairing" />
+						</li>
+						<li>
+							<input id="downloadstatements" type="button" value="Statement and Survey Results" />
+						</li>
+						<li>
+							<input id="downloadpayments" type="button" value="Download Payments" />
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-8" id="upload-content">
+					<h2>Upload Your Questions Here!</h2>
+					<%= form_tag 'upload', { :multipart => true } do %>
+					<p>
+						<%= file_field_tag 'upload[file]' %>
+					</p>
+					<p id="submit">
+						<%= submit_tag "Upload" %>
+					</p>
+					<% end %></br>
+					<h5><a href="<%=export_sample_csv_path%>">click here </a><b>to download sample questions file</b></h5>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<%=hidden_field 'user','limit',:value=>$user_count%>
-<table>
-  <div id="quizdatabox">
-    <div id="quizdatalabel"></div>
-    <div id="quizdatabutton" type="button" value="Upload Quiz data" />
-  </div>
-</table>
-</br></br></br>
-</td>
-<td>
-	<div id="upload">
-<b><h3>Upload Your Questions Here!</h3></b>
-<%= form_tag 'upload', { :multipart => true } do %>
-    <p>
-    <%= file_field_tag 'upload[file]' %>
-    </p>
-    <p id="submit">
-    	<%= submit_tag "Upload" %>
-    </p>
-<% end %>
-</br>
-<%= link_to "click here ", export_sample_csv_path  %> <b>to download sample questions file</b>
-</div>
-</td>
-</tr>
-</table>
-
-
-
+<script src='/jquery-2.0.3.min.js'></script>
 <script type="text/javascript">
-  $("#timevalue").html("<b>Time:- </b><span id=timecount>" + <%= $gConfigData.time %>+"</span>");
-  $((function () {
-    $("#timebutton").click(function(){
-      var currentvalue = $("#timecount").html();
-      var answer = prompt("Enter new time",currentvalue);
-      if(answer != null){
-        answer = jQuery.trim(answer);
-        if(answer != currentvalue){
-          changetime(answer);
-        }
-      }
-    });
-  })
-);
-
-$("#uservalue").html("<b>No of users:- </b><span id=usercount>" + <%= $gUserLimitData.limit.nil? ? 2 :  $gUserLimitData.limit%>+ "</span>");
-  $((function () {
-    $("#userlimitbutton").click(function(){
-      var currentvalue = $("#usercount").html();
-      var answer = prompt("Enter new Value",currentvalue);
-      answer = jQuery.trim(answer);
-      if(answer != '' && answer <=24 && answer>=0){
-        if(answer != currentvalue){
-          changeuserlimits(answer);
-        }
-      }
-      else
-      {
-      	alert("Please enter Valid input.. i.e 1 to 24")
-      }
-    });
-  })
-);
-
-
-  function changetime(newtime){
-    var time = newtime;
-    values = "time=" + time;
-    $.ajax({
-      url: "/changetime",
-      data: values,
-      type: 'get',
-      success: function(html){
-        $("#timevalue").html("<b>Time:- </b><span id=timecount>" +newtime+"</span>");
-      }
-    });
-  }
-  
-  function changeuserlimits(newlimit){
-    var limit = newlimit;
-    values = "limit=" + limit;
-    $.ajax({
-      url: "/changelimit",
-      data: values,
-      type: 'get',
-      success: function(html){
-        $("#uservalue").html("<b>No of users:- </b><span id=usercount>"+newlimit+"</span>");
-        if (newlimit == $("#user_limit").val()){
-    	  $("#enable").removeAttr("disabled");
+	$("#timevalue").html("<b>Time:- </b><span id=timecount>" + <%= $gConfigData.time %>+"</span>");
+    $((function () {
+        $("#timebutton").click(function(){
+        var currentvalue = $("#timecount").html();
+        var answer = prompt("Enter new time",currentvalue);
+        if(answer != null){
+         answer = jQuery.trim(answer);
+         if(answer != currentvalue){
+           changetime(answer);
+          }
          }
-      }
-    });
-  }
+      });
+     })
+   );
+$("#uservalue").html("<b>No of users:- </b><span id=usercount>" + <%= $gUserLimitData.limit.nil? ? 2 : $gUserLimitData.limit%>
+	+"</span>");
+	$((function() {
+		$("#userlimitbutton").click(function() {
+			var currentvalue = $("#usercount").html();
+			var answer = prompt("Enter new Value", currentvalue);
+			answer = jQuery.trim(answer);
+			if (answer != '' && answer <= 24 && answer >= 0 && (answer % 2) ==0) {
+				if (answer != currentvalue) {
+					changeuserlimits(answer);
+				}
+			} else {
+				if (answer!=''){
+				alert("Please enter Valid even number.. i.e 1 to 24")
+				}
+			}
+		});
+	}));
+	function changetime(newtime) {
+		var time = newtime;
+		values = "time=" + time;
+		$.ajax({
+			url : "/changetime",
+			data : values,
+			type : 'get',
+			success : function(html) {
+				$("#timevalue").html("<b>Time:- </b><span id=timecount>" + newtime + "</span>");
+			}
+		});
+	}
 
+	function changeuserlimits(newlimit) {
+		var limit = newlimit;
+		values = "limit=" + limit;
+		$.ajax({
+			url : "/changelimit",
+			data : values,
+			type : 'get',
+			success : function(html) {
+				$("#uservalue").html("<b>No of users:- </b><span id=usercount>" + newlimit + "</span>");
+				//if (newlimit == $("#user_limit").val()) {
+				//	$("#enable").removeAttr("disabled");
+				//}
+			}
+		});
+	}
 </script>
-
-<%= render :partial => "popup" %>
+<style>
+input[type="submit"] {
+border-radius: 5px;
+border: 0;
+width: 100px;
+height:40px;
+width: 100px;
+height: 40px;
+color: green;
+margin-top: 28px;
+margin-left: 1px;
+}
+</style>

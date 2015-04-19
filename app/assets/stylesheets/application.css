@@ -14,340 +14,320 @@
  *= require_self
  *= require_bootstrap
  *= require_bootstrap.min
-*/
-#waitmsg{
-    height: 220px;
-    left: 270px;
-    position: absolute;
-    top: 220px;
-    width: 782px;
+ */
+#waitmsgone {
+	margin-top: 100px;
 }
-
-#waitmsg{
-    z-index: 1;
-    background-color: #99ccff;
-    border-right-style: outset;
-    border-left-style: outset;
-    border-bottom-style: outset;
-    border-top-style: outset;
-    border-right-width: 4px;
-    border-left-width: 4px;
-    border-bottom-width: 4px;
-    border-top-width: 4px;
-    border-right-color: black;
-    border-left-color: black;
-    border-bottom-color: black;
-    border-top-color: black;
-    font-family: Arial,Helvetica,sans-serif;
-    font-size: 36px;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 100px;
-    -webkit-user-select: none;
+#waitmsg {
+	height: 220px;
+	margin: 0 auto;
+	width: 782px;
+	z-index: 1;
+	background-color: #99ccff;
+	border-right-style: outset;
+	border-left-style: outset;
+	border-bottom-style: outset;
+	border-top-style: outset;
+	border-right-width: 4px;
+	border-left-width: 4px;
+	border-bottom-width: 4px;
+	border-top-width: 4px;
+	border-right-color: black;
+	border-left-color: black;
+	border-bottom-color: black;
+	border-top-color: black;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 36px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 100px;
+	-webkit-user-select: none;
 }
-
-
-
+.demo {
+	margin-top: 50px;
+}
+.que-ans {
+	text-align: left;
+}
+ul li {
+	list-style: none;
+}
+.save_button {
+	text-align: center;
+}
 :root {
-    display: block;
+	display: block;
 }
-#videotime{
-    font-size: 24px;
-    width: 50px;
+#videotime {
+	font-size: 24px;
+	width: 50px;
 }
-#startbutton{
-    position: absolute;
-    bottom: 70px;
-    left: 10px;
-    font-size: 24px;
-    -webkit-user-select: none;
+#startbutton {
+	position: absolute;
+	bottom: 70px;
+	left: 10px;
+	font-size: 24px;
+	-webkit-user-select: none;
 }
-#stopbutton{
-    font-size: 24px;
-    -webkit-user-select: none;
-    visibility: hidden;
+#stopbutton {
+	font-size: 24px;
+	-webkit-user-select: none;
+	visibility: hidden;
 }
-#counter{
-    font-size: 24px;
-    -webkit-user-select: none;
-    position: absolute;
-    top: 30px;
-    left: 700px;
+#counter {
+	font-size: 24px;
+	-webkit-user-select: none;
+	position: absolute;
+	top: 30px;
+	left: 700px;
 }
-
-#videodiv{
-    position: absolute;
-    top: 130px;
-    left: 150px;
-    width: 612px;
-    height: 461px;
-    -webkit-user-select: none;
-    border-right-style: solid;
-    border-left-style: solid;
-    border-bottom-style: solid;
-    border-top-style: solid;
-    border-right-width: 1px;
-    border-left-width: 1px;
-    border-bottom-width: 1px;
-    border-top-width: 1px;
-    border-right-color: black;
-    border-left-color: black;
-    border-bottom-color: black;
-    border-top-color: black;
-
+#videodiv {
+	position: absolute;
+	top: 130px;
+	left: 150px;
+	width: 612px;
+	height: 461px;
+	-webkit-user-select: none;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-bottom-style: solid;
+	border-top-style: solid;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-bottom-width: 1px;
+	border-top-width: 1px;
+	border-right-color: black;
+	border-left-color: black;
+	border-bottom-color: black;
+	border-top-color: black;
 }
-#video-playback{
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 612px;
-    height: 461px;
+#video-playback {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 612px;
+	height: 461px;
 }
-#label1{
-    font-size: 24px;
-    position: absolute;
-    top: 600px;
-    left: 150px;
-
+#label1 {
+	font-size: 24px;
+	position: absolute;
+	top: 600px;
+	left: 150px;
 }
-#label2{
-    font-size: 24px;
-    position: absolute;
-    top: 600px;
-    left: 375px;
-
+#label2 {
+	font-size: 24px;
+	position: absolute;
+	top: 600px;
+	left: 375px;
 }
-#videotime{
-    position: absolute;
-    top: 600px;
-    left: 320px;
-
+#videotime {
+	position: absolute;
+	top: 600px;
+	left: 320px;
 }
-#links{
-    position: absolute;
-    top: 130px;
-    left: 5px;
+#links {
+	position: absolute;
+	top: 130px;
+	left: 5px;
 }
-#views{
-    position: absolute;
-    top: 130px;
-    left: 780px;
+#views {
+	position: absolute;
+	top: 130px;
+	left: 780px;
 }
- #timebox{
-    width: 100%;
-    height: 40px;
-  }
-  
+#timebox {
+	width: 100%;
+	height: 40px;
+}
 .users_table {
-   border: 1px solid black;
-   table-layout: auto;
-   text-align: center;
-   border-collapse: separate;
-   border-spacing: 5px;
-} 
-.control{
+	border: 1px solid black;
+	table-layout: auto;
+	text-align: center;
+	border-collapse: separate;
+	border-spacing: 5px;
+}
+.control {
 	margin-left: 150px;
 	margin-top: 40px;
 }
-
 tr:nth-child(even) {
-    background-color: #F0F0F0;
+	background-color: #F0F0F0;
 }
-
 .header {
-height:50px;
-background:#F0F0F0;
-border:1px solid #CCC;
-width:960px;
-margin:0px auto;
+	background: #F0F0F0;
+	border: 1px solid #CCC;
 }
-
 .container {
-    max-width: 800px;
-    background-color: black;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-    font-weight:normal;
-  }
-  .container div {
-    background-color: white;
-    width: 100%;
-    display: inline-block;
-    display: none;
-  }
-  .container img {
-    width: 100%;
-    height: auto;
-  }
-
-  button {
-    position: absolute;
-  }
-
-  .next {
-    left: 680px;
-  }
-
-  .prev {
-    left: 5px;
-  }
-  
-  .split {
-    left: 620px;
-    width: 100px;
- 	height: 40px;
- 	color: green;
- 	margin-left: 89px;
- 	margin-top: 100px;
-  }
-
-  .takeall {
-    margin-left: 558px;
-    width: 100px;
- 	height: 40px;
- 	color: green;
- 	margin-top: 100px;
-  }
-  
-.animated_image{
+	max-width: 800px;
+	background-color: black;
+	margin: 0 auto;
+	text-align: center;
+	position: relative;
+	font-weight: normal;
+}
+.container div {
+	background-color: white;
+	width: 100%;
+	display: inline-block;
+	display: none;
+}
+.container img {
+	width: 100%;
+	height: auto;
+}
+button {
+	position: absolute;
+}
+.prev {
+	left: 5px;
+}
+.split {
+	left: 620px;
+	width: 100px;
+	height: 40px;
+	color: green;
+	margin-left: 89px;
+	margin-top: 100px;
+}
+.takeall {
+	margin-left: 558px;
+	width: 100px;
+	height: 40px;
+	color: green;
+	margin-top: 100px;
+}
+.animated_image {
 	margin-left: 450px;
 	background-color: #FFFFE0;
 }
-
-.score
-{
-color: rgb(255, 255, 255);
-font-size: 50px;
-margin-left: 505px;
-margin-top: 175px;
-text-shadow: rgb(255, 255, 255) 0px -1px 4px, rgb(255, 255, 0) 0px -2px 10px, rgb(255, 128, 0) 0px -10px 20px, rgb(255, 0, 0) 0px -18px 40px;
-text-decoration: blink;
-}
-
-.score {   
-  animation-duration: 600ms;
-  animation-name: blink;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+.score, .thanks {
+	color: rgb(200, 230, 155);
+	font-size: 50px;
+	position:relative;
+	top: 125px;
+	text-shadow: rgb(255, 255, 255) 0px -1px 4px, rgb(255, 255, 0) 0px -2px 10px, rgb(255, 128, 0) 0px -10px 20px, rgb(255, 0, 0) 0px -18px 40px;
+	text-decoration: blink;
 }
 
 @keyframes blink {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
+from {
+	opacity: 1;
 }
-
-.results,.exit {
- display: block;
- background: #62869b;
- width: 200px;
- height: 100px;
- text-align: center;
- padding: 0px 0 0 0;
- font: 1.2em/12px -moz-fixed,Arial,menu,sans-serif;
- color: #fff;
- text-decoration: none;
- -webkit-border-radius: 15px;
- -moz-border-radius: 15px;
- border-radius: 15px;
- margin-left: 581px;
- margin-top: 154px;
- }
- 
- #downloadanswers,#downloademotions,#downloadstatements,#watchpairing{
- 	width: 200px;
- 	height: 40px;
- 	color: red;
- }
- 
-#enable,#start,#stop,#reset,#timebutton,#userlimitbutton{
- 	width: 200px;
- 	height: 40px;
- 	color: green;
+to {
+	opacity: 0;
 }
-#timebutton,#userlimitbutton{
+}
+.exit {
+	display: block;
+	background: #62869b;
+	width: 330px;
+	height: 71px;
+	text-align: center;
+	padding: 0px 0 0 0;
+	font: 1.2em/12px -moz-fixed, Arial, menu, sans-serif;
+	color: #fff;
+	text-decoration: none;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	margin-left: 581px;
+	margin-top: 154px;
+}
+#downloadanswers, #downloademotions, #downloadstatements, #watchpairing,#downloadpayments {
 	width: 200px;
- 	height: 40px;
- 	color: blue;
+	height: 40px;
+	color: red;
 }
-
-#user_div{
+#enable, #start, #stop, #reset, #timebutton, #userlimitbutton {
+	width: 200px;
+	height: 40px;
+	color: green;
+}
+#timebutton, #userlimitbutton {
+	width: 200px;
+	height: 40px;
+	color: blue;
+}
+#user_div {
 	background-color: #FFFFE0;
 }
-
-#submit{
+#submit {
 	width: 180px;
- 	height: 40px;
- 	color: blue;
+	height: 40px;
+	color: blue;
 }
-
-#players{
+#players {
 	margin-left: 360px;
 }
 
-#adjust{
-	margin-left: 600px;
-}
-#r_buttons{
+#r_buttons {
 	height: 500px;
 }
-
-#upload{
+#upload {
 	margin-left: -27px;
 }
 
-.record{
-	width: 200px;
- 	height: 40px;
- 	color: blue;
- 	margin-left: 585px;
+.next-btn {
+	width: 100px;
+	height: 40px;
+	color: green;
+	margin-top: 35px;
 }
-
-.next{
-	margin-left: -49px;
-    width: 100px;
- 	height: 40px;
- 	color: green;
- 	margin-top: 35px;
+.que-ans input {
+	width: 20px;
 }
-
+.ans-label {
+	width: calc(100% - 30px);
+	display: inline-table;
+}
 input[type=submit] {
-    border-radius: 5px;
-    border: 0;
-    width: 100px;
-    height:40px;
-    margin-left: 633px;
-    width: 100px;
- 	height: 40px;
- 	color: green;
- 	margin-top: 35px;
+	border-radius: 5px;
+	border: 0;
+	width: 100px;
+	height: 40px;
+	margin-left: 633px;
+	width: 100px;
+	height: 40px;
+	color: green;
+	margin-top: 35px;
 }
-
-.survey{
-	margin-left: 500px;
+#survey {
 	margin-top: 200px;
 }
-.submit{
+.submit {
 	color: green;
 	margin-left: 146px;
 	margin-top: 30px;
 }
-
-#guesscol{
-
-    position: absolute;
-    font-family: Arial,Helvetica,sans-serif;
-    font-size: 14px;
-    top: 50px;
+#guesscol {
+	position: absolute;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	top: 50px;
+}
+#guesscol {
+	width: 250px;
+	left: 20px;
 }
 
-#guesscol{
+img.loaderimg{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 250px;
+  }
+  
+.pull-left{
+	font: bold;
+}
 
-    width: 250px;
-    left: 20px;
+.recorder{
+	margin-left: -148px;
+}
+
+.click_when_ready{
+	color: blue;
+}
+.scores{
+	margin-top: 200px;
 }

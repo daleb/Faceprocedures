@@ -2,45 +2,84 @@ require "csv"
 require "uuid"
 class ParticipantController < ApplicationController
   require "user"
+  require "computerid"
+  include Computerid
   respond_to :html, :js, :json
+  
+  before_filter :create_userdata
+  
+  
   def index
-    unless  $user_data.inject([]){|arr,h| arr << h[:computer_id]}.include?("#{session[:computerid]}")
-      $user_data.select do |user|
-        if user[:id] == $user_count
+    if params["coming_from"] == "page_update"
+      session[:computerid]=session[:computerid]
+      $user_count = $user_count
+    else
+      ids=$user_data.collect{|ud|ud[:computer_id] if ud[:computer_id]!="nil"}.compact
+      if !ids.include?(session[:computerid])
+        user=$user_data.select{|ud|ud[:computer_id]=="nil"}.first
           user[:computer_id] = "#{session[:computerid]}"
           user[:status] = "online"
           user_status="online"
-        end
       end
     end
+    
     @user = $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}
+    if (params["from"]=="picked_action" || params["from"]=="Waiting after emotion survey")  
+      @page="waiting"
+    end
     if @user[0] && @user[0][:connection] == "enabled" && $experiment_status!="start" && params["from"] != "adjust_page" && session[:status] !="adjusted"
       @page = "adjust webcam"
+      @from="adjsut_cam"
       user_status = "Adjusting Camera"
       session[:status] ="adjusted"
-    elsif $experiment_status == "start" && params["from"]!="quiz" && $round==1
+    elsif $experiment_status == "start" && params["from"]!="quiz" && session[:quiz_status]!="Quiz Completed"
       @page = "quiz"
-      user_status = "Doing Quiz"
+      session[:quiz_status]="Quiz Completed"
     else
+      if params["from"]!="picked_action" && params["from"]!="Waiting after emotion survey"
       @page = "waiting"
+      if params["from"]!="Waiting after emotion survey" && @user[0][:status]!="Completed Emotion Survey And Waiting"
       user_status = params["from"]=="quiz" ? @user[0][:status] : "On waiting screen"
+      end
+      end
     end
     
     if  params["from"] == "adjust_page"
       @page = "waiting"
       user_status = "On waiting screen"
     end
-    if (($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count) || ($user_count > 0 && $user_data.select{|user|user[:status]=="Waiting for Round 2"}.length == $user_count))
-       @page = "statement"
-       user_status = "On statement page"
+    if (params["from"]!="picked_action" && (($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count) || ($user_count > 0 && $user_data.select{|user|user[:status]=="Waiting for Round 2"}.length == $user_count)))
+       @page = "statement" 
+    elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Picked Action And Waiting"}.length == $user_count)
+       @page= "results"
+    elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Emotion Survey And Waiting"}.length == $user_count)
+      if session[:computerid]=="PART-001"
+      $result =calculate_round
+       if $result == "exit_poll"
+         #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
+         $user_data.select{|u|u[:computer_id]!="nil"}.each do |user|
+           user[:status]="On Result Page"
+         end
+         @page= "results"
+         @from="exit_poll"
+       elsif $result.class == Fixnum
+         #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$result}"
+         $user_data.select{|u|u[:computer_id]!="nil"}.each do |user|
+           user[:status]="Waiting for Round #{$result}"
+         end
+         @page= "statement"
+       end
+       end
+     elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("On Result Page")}.length == $user_count && $result=="exit_poll")
+       @page= "results"
+       @from="exit_poll"
+     elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("Waiting for Round #{$round}")}.length == $user_count)
+       @page= "statement"
     end
     
-    $user_data.select do |user|
-        if user[:id] == $user_count
-          user[:computer_id] = "#{session[:computerid]}"
-          user[:status] = user_status ? user_status : "not login"
-        end
-      end
+    if params["from"]!="picked_action" && params["from"]!="Waiting after emotion survey"
+    $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]=user_status ? user_status : "not login"
+    end
     
     respond_to do|format|
 			format.js
@@ -50,9 +89,7 @@ class ParticipantController < ApplicationController
   end
 
  def sample_video
-    @survey =  []
-    csv_que = CSV::parse(File.open('public/csv/survey.csv', 'r') {|f| f.read })
-    @survey = csv_que.collect{|f| f}[$round - 1]
+    @from=params["from"]
  end
  
  def save_survey_results
@@ -68,13 +105,14 @@ class ParticipantController < ApplicationController
     csv << [session[:computerid], $round, option]
     end  
     end
+    $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Completed Emotion Survey And Waiting"
     render json:{},status: :ok
  end
 
 def save
   uuid = UUID.generate
   video_type ="webm"# params['video'].content_type.split("/").last
-  video_name="#{session[:computerid]}_emotion.#{video_type}"
+  video_name="#{session[:computerid]}_emotion_#{$round}.#{video_type}"
   File.open("public/uploads/#{video_name}", "w") { |f| f.write(File.read(params['video-blob'].tempfile)) }
 
     
@@ -85,7 +123,7 @@ def save
 end
 
 def get_information
-  
+  $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Exit Survey!"
 end
 
 def save_user_information
@@ -102,6 +140,61 @@ def save_user_information
     end
     redirect_to root_path(:from=>"exit")
 end
+
+ def create_userdata
+    if session[:computerid].blank? && !request.url.split("/").include?("control")
+      puts "i am creating #{session[:computerid]}"
+      puts session[:computerid] 
+     mycomputerid = genseratecomputerid()
+    end
+  end
+  
+  def calculate_round
+    $result=nil
+    if $round==1
+      $round = 2
+      session[$round]=nil
+      #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$round}"
+      #redirect_to participant_path
+      return $round
+    elsif $round==2
+      if (1..4).to_a.sample == 4
+      $round = 3
+      session[$round]=nil
+      #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$round}"
+      #redirect_to participant_path
+      return $round
+      else
+       # $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
+       # redirect_to results_path(:flag=>"exit_poll")
+       return "exit_poll"
+      end
+    elsif $round==3
+      if (1..16).to_a.sample == 10
+       $round = 4
+       session[$round]=nil
+       #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$round}"       
+       #redirect_to participant_path
+       return $round 
+      else
+        #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
+        #redirect_to results_path(:flag=>"exit_poll")
+        return "exit_poll"
+      end
+    else $round==4
+      if (1..64).to_a.sample == 44
+       $round = 4
+       session[$round]=nil
+       #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$round}"
+      # redirect_to participant_path
+      return $round
+      else
+        #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
+        #redirect_to results_path(:flag=>"exit_poll")
+        return "exit_poll"
+      end
+    end
+  end
 
  
 end

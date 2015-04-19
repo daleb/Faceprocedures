@@ -10,15 +10,13 @@ class ApplicationController < ActionController::Base
   $valid_control = false if $valid_control.nil?
   $user_count = 0 if $user_count.nil?
   $userscore = 0 if $userscore.nil?
+  $round = 0 if $round.nil?
   $experiment_status = STOP if $experiment_status.nil?
+  $quiz_status="" if $quiz_status.nil?
 
-  require "computerid"
-  include Computerid
   require "faces"
 
 
-  before_filter :create_userdata
-  
   def check_control_login
 
   end
@@ -91,23 +89,6 @@ class ApplicationController < ActionController::Base
     Rails.logger.warn("Returning Nil session") if yoursession.nil?
     return yoursession
   end
-
-
-
-  def create_userdata
-    if session[:computerid].blank? && !request.url.split("/").include?("control")
-      puts "i am creating #{session[:computerid]}"
-      puts session[:computerid] 
-     mycomputerid = genseratecomputerid()
-      $user_count =  $user_count + 1
-    end
-  end
-
-
-    
-
- 
-
 
   
 end

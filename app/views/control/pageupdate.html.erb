@@ -4,7 +4,7 @@
           <th>Computer ID</th>
           <th>Status</th>
         </tr>
-        <% $user_data.each do |row| %>
+        <% @userdata.each do |row| %>
           <tr class="users">
             <td><%= row[:id] %></td>
             <td><%= row[:computer_id] %></td>

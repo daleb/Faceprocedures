@@ -67,6 +67,10 @@ Rails.application.routes.draw do
   
   get '/save_survey_details'=>'participant#save_survey_results'
   
+  match 'participant/pageupdate'=> 'participant#pageupdate', via: [:get, :post]
+  
+  get '/getpayments'=>'data#download_payments'
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -1,5 +1,5 @@
 <table>
-<%$paired_users.each do |pair|%>
+<%$paired_users && $paired_users.each do |pair|%>
 <tr>
 	<b> <%="#{pair[0]} <=> #{pair[1]}"%></b></br>
  </tr>

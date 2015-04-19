@@ -1,33 +1,34 @@
-<!DOCTYPE html>
-<html>
-  <head lang="en">
-    <meta charset="UTF-8">
-  </head>
-  <body>
+<div class="container-fluid">
 
 
+<%if @from!="result"%>
+<!--
 <div class="options">
   <button class="split" value="split" type="button">Split</button>
   <button class="takeall" value="takeall" type="button">Take All</button>
+</div>-->
+<div class="row">
+	<div class="action_note text-center"><b><h4>Press the button of the action you wish  to take.</h4></b></div>
+	<div class="col-md-6 col-md-offset-5" id="video-btn">
+		<a href="#" class="btn btn-success" id="split" value="split">Split</a> &nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="#" class="btn btn-success" id="takeall" value="takeall">Take All</a>
+	</div>
 </div>
-    
+<%end%>
+    <%=hidden_field 'coming','from', :value=>@from%>
     <div id="views">
 
     </div>
     
-    <div class="survey">
-    	<h2><%=@survey[1]%></h2>
-    	<input type="radio" id="strongly_agree" value="Strongly Agree" name="user_option"><label for="user_option" class="light">Strongly Agree</label>&nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="radio" id="mostly_agree" value="Mostly Agree" name="user_option"><label for="user_option" class="light">Mostly Agree</label>&nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="radio" id="strongly_disagree" value="Strongly Disagree" name="user_option"><label for="user_option" class="light">Strongly Disagree</label>&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
-        <button class="submit" value="submit" type="button">Continue</button>
-    </div>
-
+    <h1 class="score text-center" disabled="disabled">
+	<%= "Your Score is #{session[$round].to_i}"%>
+   </h1>
 
 <div id="videodiv">
   <video id="video-playback" ></video>
 </div>
-
+</div>
+<script src='/jquery-2.0.3.min.js'></script>
   <script>
 
     var counter;
@@ -79,7 +80,6 @@
     });
 
     function start() {
-    	alert("hid")
       navigator.getUserMedia(videoConstraints, startRecording, onfailure);
     }
 
@@ -169,6 +169,7 @@ $(document).ready(function(){
 	$('.exit_button').hide();
 	$('.options').hide();
 	$('.survey').hide();
+	$('#video-btn').hide();
 });
 
 $('button').click(function() {
@@ -184,6 +185,19 @@ $('button').click(function() {
         });
 	}
 });
+
+setTimeout(function() {
+    if ($('#coming_from').val() == "result"){
+        	$('.score').show();
+    }
+}, 5000);
+
+setTimeout(function() {
+    if ($('#coming_from').val() == "result"){
+        	window.location.href="/results?from=vdo";
+    }
+}, 10000);
+
 </script>
 
 </html>

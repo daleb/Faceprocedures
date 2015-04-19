@@ -2,21 +2,29 @@
 <html>
 <head>
   <title>PredictiveExperiment</title>
-  <div class="header">
-  <header>
-  	<h3 align="center">PredictiveExperiment</h3>
-  	</header>
-  </div>
-   <%= stylesheet_link_tag  'application',  media: 'all', 'data-turbolinks-track' => true %>
-      <%= javascript_include_tag 'application', 'recordrtc', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag  'application',  media: 'all', 'data-turbolinks-track' => true %>
   <%#= stylesheet_link_tag  'application', "bootstrap", "bootstrap.min", media: 'all', 'data-turbolinks-track' => true %>
   <%#= javascript_include_tag 'application', "jquery_v1.11.2", "bootstrap", "bootstrap.min", 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<div class="container-fluid">
+	<div class="row">
+	  	<div class="col-md-8 col-md-offset-2 text-center header">
+	    	<h3>PredictiveExperiment</h3>
+	   	</div>
+	   	
+	</div>
+	<div class="col-md-2 col-md-offset-9  pull-left">
+		  	 <%if session[:computerid]%>
+		  	<%="User : #{session[:computerid]}"%></br>
+		  	<%="Round : #{$round}"%>
+		  	<%end%>
+	  </div>
+  
+</div>
 <%= yield %>
-
+<%= javascript_include_tag 'application', 'recordrtc', 'data-turbolinks-track' => true %>
 </body>
 </html>
 <style>

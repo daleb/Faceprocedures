@@ -15,6 +15,10 @@ $((function (){
         window.open ("getpairing", "Data Files","resizable=1,scrollbars=1,width=900,height=600");
  });
  
+ $("#downloadpayments").click(function(){
+        window.open ("getpayments", "Data Files","resizable=1,scrollbars=1,width=900,height=600");
+ });
+ 
 }));
 
 
@@ -24,12 +28,12 @@ setInterval(function(){
        url: "/control/pageupdate",
        type: 'get',
        success: function(data){
-       	 $('.users_table').html(data);
+       	 $('.table').html(data);
         }
    })
   // location.reload();
   }
-}, 10000);
+}, 5000);
 
 
 function change_experiment_status(status){
@@ -44,6 +48,8 @@ function change_experiment_status(status){
     	$("#stop").attr("disabled", "disabled");
     	$("#reset").removeAttr("disabled");
     	$("#start").removeAttr("disabled");
+    	$("#stop").prop("value", "Experiment Stopped");
+    	$("#start").prop("value", "Start Experiment");
     }
     else{
     	$("#reset").attr("disabled", "disabled");
@@ -52,6 +58,7 @@ function change_experiment_status(status){
     	$("#enable").removeAttr("disabled");
     	$("#timebutton").removeAttr("disabled");
     	$("#userlimitbutton").removeAttr("disabled");
+    	$("#stop").prop("value", "Stop Experiment");
     }
     $.ajax({
         url: "/start_experiment?status="+exp_status,
@@ -64,6 +71,10 @@ function change_experiment_status(status){
 }
 
 function enable_users(status){
+	//if ($("#usercount").html()  != $('#user_count').val()){
+		//alert("Expected no.of users are not logged in!");
+		//return false;
+	//}
 	var enable_status = status
 	status = alert("The connections are disabled. Do you want to enable it?")
 	$.ajax({
@@ -85,12 +96,12 @@ $(document).ready(function(){
 	$("#reset").attr("disabled", "disabled");
     $("#start").attr("disabled", "disabled");
     $("#stop").attr("disabled", "disabled");
-    if ($("#usercount").html() != $("#user_limit").val()){
-    	$("#enable").attr("disabled", "disabled");
-    }
-    else
-    {
-    	$("#enable").removeAttr("disabled");
-    }
+   // if ($("#usercount").html() != $("#user_limit").val()){
+    //	$("#enable").attr("disabled", "disabled");
+    //}
+    //else
+    //{
+    $("#enable").removeAttr("disabled");
+    //}
 
 });

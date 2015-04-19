@@ -1,13 +1,37 @@
-<button class="results" value="results" type="button">See Result</button>
-
-<h1 class="score" disabled="disabled">
-	<%= "Your Score is #{$userscore}"%>
+<div class="row">
+<div class="col-md-12">
+	<!--div class="cli_when_ready text-center">
+	<button class="results" value="results" type="button">Click when ready to see results</button>
+	</div-->
+<h1 class="score text-center" disabled="disabled">
+	<%= "Your Score is #{session[$round].to_i}"%>
 </h1>
+<%if @flag!="exit_poll"%>
+<h3 class="alert text-center" disabled="disabled">
+	<%= "Please sit straight and don't put your hand near face. Once you are ready click below button!"%>
+</h3>
 
+<div class="click_when_ready text-center col-md-10">
+	<button class="results" value="results" type="button">Click when ready to see results</button>
+</div>
+<%end%>
+
+<%=hidden_field 'com','from',:value=>@from%>
+<%=hidden_field 'exit','flag',:value=>@flag%>
 <div class="exit_button">
 	<button class="exit" value="exit" type="button">Exit Now</button>
 </div> 
 
+<div class="survey text-center" id="survey">
+    	<h2><%=@survey[1]%></h2>
+    	<input type="radio" id="strongly_agree" value="Strongly Agree" name="user_option"><label for="user_option" class="light">Strongly Agree</label>&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="mostly_agree" value="Mostly Agree" name="user_option"><label for="user_option" class="light">Mostly Agree</label>&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="strongly_disagree" value="Strongly Disagree" name="user_option"><label for="user_option" class="light">Strongly Disagree</label>&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
+        <button class="submit" value="submit" type="button">Continue</button>
+    </div>
+</div>
+</div>
+<script src='/jquery-2.0.3.min.js'></script>
 <script>
 	$('button').click(function() {
        $('.score').show();
@@ -18,5 +42,30 @@
 	$(document).ready(function(){
 	$('.score').hide();
 	$('.exit_button').hide();
+	if($('#com_from').val()=="vdo"){
+	        $('.results').hide();
+	        $('.score').show();
+	        $('.click_when_ready').hide();
+	        $('.alert').hide();
+		}
+		else if($('#exit_flag').val()=="exit_poll"){
+	       $('.score').hide();
+	       $('.results').hide();
+	       $('.exit_button').show();
+	       $('.survey').hide();		
+		}
 });
 </script>
+<style>
+.submit {
+	border-radius: 5px;
+	border: 0;
+	width: 100px;
+	height: 40px;
+	width: 100px;
+	height: 40px;
+	color: blue;
+	margin-top: 35px;
+	margin-left: -53px;
+}
+</style>

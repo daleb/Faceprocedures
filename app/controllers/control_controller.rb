@@ -68,16 +68,29 @@ class ControlController < ApplicationController
     end
     if $experiment_status=="start"
       $round=1
+      session[$round]=nil
+    elsif $experiment_status=="reset"
+      $user_count = 0
+      $round=0
+      $user_data.each do |user|
+        user[0][:computer_id]=nil
+        user[0][:status]="online"
+      end
+      reset_session
     end
     render json:{},status: :ok
   end
   
   def save_upload
+    if params[:upload]
     name = params[:upload][:file].original_filename
     directory = "public/csv"
     path = File.join(directory, name)
     File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
     flash[:notice] = "File uploaded"
+    else
+      flash[:notice] = "Please select a file to upload!!"
+    end
     redirect_to control_path
   end
   
@@ -98,16 +111,17 @@ class ControlController < ApplicationController
   end
   
   def pageupdate
-    userdata=$user_data.group_by{|user|user[:computer_id]}.delete_if{|u|u.nil? || !u.include?("PART")}
-    userdata.each do |data|
-      if data[1].length > 1
-        (2 .. data[1].length.to_i).to_a.each do |ext_row|
-        id=data[1][ext_row - 1][:id]
-        $user_data[id - 1][:computer_id]=nil
-        $user_data[id - 1][:status]="not login"
-        end
-      end
-    end
+    @userdata = $user_data
+    # userdata=$user_data.group_by{|user|user[:computer_id]}.delete_if{|u|u.nil? || !u.include?("PART")}
+    # userdata.each do |data|
+      # if data[1].length > 1
+        # (2 .. data[1].length.to_i).to_a.each do |ext_row|
+        # id=data[1][ext_row - 1][:id]
+        # $user_data[id - 1][:computer_id]=nil
+        # $user_data[id - 1][:status]="not login"
+        # end
+      # end
+    # end
     render :layout=>false
   end
 
