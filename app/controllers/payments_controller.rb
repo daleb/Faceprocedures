@@ -4,13 +4,13 @@ class PaymentsController < ApplicationController
   def calculate
     $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On statement page"
     option=params["value"]
-    file = begin CSV.open("public/csv/score_details_#{Date.today}.csv", "r") rescue nil end
+    file = begin CSV.open("public/csv/statement_results_#{Date.today}.csv", "r") rescue nil end
     if file
-      CSV.open("public/csv/score_details_#{Date.today}.csv", "a+") do |csv|
+      CSV.open("public/csv/statement_results_#{Date.today}.csv", "a+") do |csv|
       csv << [session[:computerid], $round, option]
       end
     else
-    CSV.open("public/csv/score_details_#{Date.today}.csv", "wb") do |csv|
+    CSV.open("public/csv/statement_results_#{Date.today}.csv", "wb") do |csv|
     csv << ["computer_id", "round", "option"]
     csv << [session[:computerid], $round, option]
     end  
@@ -29,9 +29,9 @@ class PaymentsController < ApplicationController
     current_user = session[:computerid]
     partner_id = $paired_users.select{|pu| pu[0] == current_user || pu[1] == current_user}
     partner_id = partner_id.flatten.delete_if{|id| id == current_user}[0]
-    file = begin CSV.open("public/csv/score_details_#{Date.today}.csv", "r") rescue nil end
+    file = begin CSV.open("public/csv/statement_results_#{Date.today}.csv", "r") rescue nil end
     if file
-      CSV.foreach(File.path("public/csv/score_details_#{Date.today}.csv")) do |col|
+      CSV.foreach(File.path("public/csv/statement_results_#{Date.today}.csv")) do |col|
        if [current_user,partner_id].include?(col[0]) && col[1]== $round.to_s
          @userdata << col
        end

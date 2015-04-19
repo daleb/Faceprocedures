@@ -24,7 +24,7 @@ class DataController < ApplicationController
   def download_statement_answers
     @path = "csv"
     Dir.chdir("public/csv"){
-      @statements = Dir.glob("*score_details*")
+      @statements = Dir.glob("*statement_results*")
       @statements << Dir.glob("*survey_results*")
       @statements=@statements.flatten
       @statements.sort!.reverse!
