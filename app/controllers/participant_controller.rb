@@ -51,11 +51,8 @@ class ParticipantController < ApplicationController
     if (params["from"]!="picked_action" && (($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count) || ($user_count > 0 && $user_data.select{|user|user[:status]=="Waiting for Round 2"}.length == $user_count)))
       @page = "statement" 
       Dir.chdir("public/csv"){
-      @answers = Dir.glob("quiz_answers_#{Date.today}.csv")
-      if @answers.length > 0
-      File.rename(@answers.first, "quiz_answers_#{Time.now}.csv")
-      end
-      }
+      @answers = Dir.glob("quiz_answers_#{$filestamp}.csv")
+           }
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Picked Action And Waiting"}.length == $user_count)
        @page= "results"
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Emotion Survey And Waiting"}.length == $user_count)
@@ -100,13 +97,13 @@ class ParticipantController < ApplicationController
  
  def save_survey_results
    option=params["value"]
-   file = begin CSV.open("public/csv/survey_results_#{Date.today}.csv", "r") rescue nil end
+   file = begin CSV.open("public/csv/survey_results_#{$filestamp}.csv", "r") rescue nil end
     if file
-      CSV.open("public/csv/survey_results_#{Date.today}.csv", "a+") do |csv|
+      CSV.open("public/csv/survey_results_#{$filestamp}.csv", "a+") do |csv|
       csv << [session[:computerid], $round, option]
       end
     else
-    CSV.open("public/csv/survey_results_#{Date.today}.csv", "wb") do |csv|
+    CSV.open("public/csv/survey_results_#{$filestamp}.csv", "wb") do |csv|
     csv << ["computer_id", "round", "option"]
     csv << [session[:computerid], $round, option]
     end  
@@ -118,7 +115,7 @@ class ParticipantController < ApplicationController
 def save
   uuid = UUID.generate
   video_type ="webm"# params['video'].content_type.split("/").last
-  video_name="#{session[:computerid]}_emotion_#{$round}.#{video_type}"
+  video_name="#{session[:computerid]}_emotion_#{$round}_#{$filestamp}.#{video_type}"
   File.open("public/uploads/#{video_name}", "w") { |f| f.write(File.read(params['video-blob'].tempfile)) }
 
     
@@ -134,13 +131,13 @@ end
 
 def save_user_information
   name,age,firstlanguage,sex,fluency = params["user_name"],params["user_age"].to_i,params["user_language"],params["user_gender"],params["user_fluency"]
-  file = begin CSV.open("public/csv/user_information.csv", "r") rescue nil end
+  file = begin CSV.open("public/csv/user_information_#{$filestamp}.csv", "r") rescue nil end
     if file
-      CSV.open("public/csv/user_information.csv", "a+") do |csv|
+      CSV.open("public/csv/user_information_#{$filestamp}.csv", "a+") do |csv|
       csv << [name,age,firstlanguage,sex,fluency]
       end
     else
-      CSV.open("public/csv/user_information.csv", "wb") do |csv|
+      CSV.open("public/csv/user_information_#{$filestamp}.csv", "wb") do |csv|
       csv << [name,age,firstlanguage,sex,fluency]
       end  
     end
