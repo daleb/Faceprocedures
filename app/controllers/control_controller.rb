@@ -69,9 +69,6 @@ class ControlController < ApplicationController
     if $experiment_status=="start"
       $round=1
       session[$round]=nil
-      $filestamp = Time.now.strftime("%Y-%m-%d-%H-%M")
-      Rails.logger.info("$filestamp = #{$filestamp}")
-
     elsif $experiment_status=="reset"
       $user_count = 0
       $round=0
