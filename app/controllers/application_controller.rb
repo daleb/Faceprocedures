@@ -14,6 +14,12 @@ class ApplicationController < ActionController::Base
   $experiment_status = STOP if $experiment_status.nil?
   $quiz_status="" if $quiz_status.nil?
 
+  # Adde the file stamp lock the file name to a min.  Since the
+  # previous implementation was getting the time evertime the file
+  # was accessed.  It will be set at the start of an experiment so it
+  # be accurate to the min for each experiment.
+  $filestamp = ""
+
   require "faces"
 
 
