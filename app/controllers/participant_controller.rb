@@ -5,9 +5,7 @@ class ParticipantController < ApplicationController
   require "computerid"
   include Computerid
   respond_to :html, :js, :json
-  
-  before_filter :create_userdata
-  
+  before_filter :create_userdata, :only=>[:index]
   
   def index
     if params["coming_from"] == "page_update"
@@ -50,9 +48,9 @@ class ParticipantController < ApplicationController
     end
     if (params["from"]!="picked_action" && (($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count) || ($user_count > 0 && $user_data.select{|user|user[:status]=="Waiting for Round 2"}.length == $user_count)))
       @page = "statement" 
-      Dir.chdir("public/csv"){
-      @answers = Dir.glob("quiz_answers_#{$filestamp}.csv")
-           }
+      #Dir.chdir("public/csv"){
+      #@answers = Dir.glob("quiz_answers_#{$filestamp}.csv")
+       #    }
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Picked Action And Waiting"}.length == $user_count)
        @page= "results"
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Emotion Survey And Waiting"}.length == $user_count)
@@ -134,18 +132,18 @@ def save_user_information
   file = begin CSV.open("public/csv/user_information_#{$filestamp}.csv", "r") rescue nil end
     if file
       CSV.open("public/csv/user_information_#{$filestamp}.csv", "a+") do |csv|
-      csv << [name,age,firstlanguage,sex,fluency]
+      csv << [session[:computerid],name,age,firstlanguage,sex,fluency]
       end
     else
       CSV.open("public/csv/user_information_#{$filestamp}.csv", "wb") do |csv|
-      csv << [name,age,firstlanguage,sex,fluency]
+      csv << [session[:computerid],name,age,firstlanguage,sex,fluency]
       end  
     end
     redirect_to root_path(:from=>"exit")
 end
 
  def create_userdata
-    if session[:computerid].blank? && !request.url.split("/").include?("control")
+    if session[:computerid].blank? && !request.url.split("/").include?("control") && $experiment_status!="start"
       puts "i am creating #{session[:computerid]}"
       puts session[:computerid] 
      mycomputerid = genseratecomputerid()

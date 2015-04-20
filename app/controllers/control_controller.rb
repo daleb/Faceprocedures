@@ -104,7 +104,7 @@ class ControlController < ApplicationController
       end      
       session[:status]= nil
     end
-    redirect_to control_path
+    render json:{},status: :ok
   end
   
   def changelimit
