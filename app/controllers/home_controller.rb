@@ -12,9 +12,9 @@ class HomeController < ApplicationController
     csv << [session[:computerid], @total_score]
     end  
     end
-    Dir.chdir("public/csv"){
-      @statements = Dir.glob("statement_results_#{$filestamp}.csv")
-    }
+    #Dir.chdir("public/csv"){
+     # @statements = Dir.glob("statement_results_#{$filestamp}.csv")
+    #}
     session[:status]=nil
     $userscore = 0
     $round=0

@@ -76,11 +76,11 @@ function enable_users(status){
 		//return false;
 	//}
 	var enable_status = status
-	status = alert("The connections are disabled. Do you want to enable it?")
+	status = alert("The connections are disabled. Do you want to enable it?");
 	$.ajax({
-        url: "/change_enable_status?status="+enable_status,
+        url: "/change_enable_status?status=enable",
         type: 'get',
-        success: function(html){
+        success: function(data){
         	$("#enable").attr('disabled','disabled');
         	$("#enable").prop('value', 'Connections are enabled');
         	$("#timebutton").attr("disabled", "disabled");
