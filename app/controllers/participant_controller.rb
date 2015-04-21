@@ -111,6 +111,7 @@ class ParticipantController < ApplicationController
  end
 
 def save
+  #raise params.inspect
   uuid = UUID.generate
   video_type ="webm"# params['video'].content_type.split("/").last
   video_name="#{session[:computerid]}_emotion_#{$round}_#{$filestamp}.#{video_type}"
@@ -155,43 +156,29 @@ end
     if $round==1
       $round = 2
       session[$round]=nil
-      #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$round}"
-      #redirect_to participant_path
       return $round
     elsif $round==2
       if (1..4).to_a.sample == 4
       $round = 3
       session[$round]=nil
-      #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$round}"
-      #redirect_to participant_path
       return $round
       else
-       # $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
-       # redirect_to results_path(:flag=>"exit_poll")
        return "exit_poll"
       end
     elsif $round==3
       if (1..16).to_a.sample == 10
        $round = 4
        session[$round]=nil
-       #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$round}"       
-       #redirect_to participant_path
        return $round 
       else
-        #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
-        #redirect_to results_path(:flag=>"exit_poll")
         return "exit_poll"
       end
     else $round==4
       if (1..64).to_a.sample == 44
        $round = 4
        session[$round]=nil
-       #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$round}"
-      # redirect_to participant_path
       return $round
       else
-        #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
-        #redirect_to results_path(:flag=>"exit_poll")
         return "exit_poll"
       end
     end
