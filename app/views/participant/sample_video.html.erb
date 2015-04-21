@@ -123,7 +123,7 @@
         var xhr = new XMLHttpRequest();
         var fd = new FormData();
         fd.append("video-blob", recordedBlob);
-        xhr.open("POST", "/participant/save", true);
+        xhr.open("POST", "/participant/save", false);
         xhr.send(fd);
         
          //var recordedBlob = recordRTC.getBlob();
