@@ -111,7 +111,6 @@ class ParticipantController < ApplicationController
  end
 
 def save
-  #raise params.inspect
   uuid = UUID.generate
   video_type ="webm"# params['video'].content_type.split("/").last
   video_name="#{session[:computerid]}_emotion_#{$round}_#{$filestamp}.#{video_type}"
@@ -122,6 +121,7 @@ def save
     `ffmpeg -i public/uploads/#{uuid}.mp4 -i public/uploads/#{uuid}.wav -c:v copy -c:a aac -strict experimental public/videos/#{uuid}.mp4`
 
     uuid
+    render json:{},status: :ok
 end
 
 def get_information

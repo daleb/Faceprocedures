@@ -10,10 +10,11 @@
 <body>
 <div class="container-fluid">
 	<div class="row">
+		<%if request.url.split("/").include?("control")%>
 	  	<div class="col-md-8 col-md-offset-2 text-center header">
 	    	<h3>PredictiveExperiment</h3>
 	   	</div>
-	   	
+	   	<%end%>
 	</div>
 	<div class="col-md-2 col-md-offset-9  pull-left">
 		  	 <%if session[:computerid]%>
