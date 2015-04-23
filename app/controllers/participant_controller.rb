@@ -60,7 +60,7 @@ class ParticipantController < ApplicationController
        if $result == "exit_poll"
          #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
          $user_data.select{|u|u[:computer_id]!="nil"}.each do |user|
-           user[:status]="On Result Page"
+           user[:status]="On Exit Survey!"
          end
          @page= "results"
          @from="exit_poll"
@@ -72,7 +72,7 @@ class ParticipantController < ApplicationController
          @page= "statement"
        end
        end
-     elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("On Result Page")}.length == $user_count && $result=="exit_poll")
+     elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("On Exit Survey!")}.length == $user_count && $result=="exit_poll")
        @page= "results"
        @from="exit_poll"
      elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("Waiting for Round #{$round}")}.length == $user_count)
@@ -92,6 +92,11 @@ class ParticipantController < ApplicationController
 
  def sample_video
     @from=params["from"]
+    if @from=="result"
+      $recording_for="feedback_recording"
+    else
+      $recording_for="statement_recording"
+    end
  end
  
  def save_survey_results
@@ -114,7 +119,7 @@ class ParticipantController < ApplicationController
 def save
   uuid = UUID.generate
   video_type ="webm"
-  video_name="#{session[:computerid]}_emotion_#{$round}_#{$filestamp}.#{video_type}"
+  video_name="#{session[:computerid]}_#{$recording_for}_for_round_#{$round}_#{$filestamp}.#{video_type}"
   output_file = File.open("public/uploads/#{video_name}", "w")
   FileUtils.copy_stream(params['video-blob'].tempfile, output_file)
   #File.open("public/uploads/#{video_name}", "w") { |f| f.write(File.read(params['video-blob'].tempfile)) }
@@ -128,11 +133,12 @@ def save
 end
 
 def get_information
-  $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Exit Survey!"
+  
 end
 
 def save_user_information
   name,age,firstlanguage,sex,fluency = params["user_name"],params["user_age"].to_i,params["user_language"],params["user_gender"],params["user_fluency"]
+  session[:part_name]=name
   file = begin CSV.open("public/csv/user_information_#{$filestamp}.csv", "r") rescue nil end
     if file
       CSV.open("public/csv/user_information_#{$filestamp}.csv", "a+") do |csv|

@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   $round = 0 if $round.nil?
   $experiment_status = STOP if $experiment_status.nil?
   $quiz_status="" if $quiz_status.nil?
+  $paired_users=[] if $paired_users.nil?
 
   # Adde the file stamp lock the file name to a min.  Since the
   # previous implementation was getting the time evertime the file

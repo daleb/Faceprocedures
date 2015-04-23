@@ -87,7 +87,7 @@ class ControlController < ApplicationController
   def save_upload
     if params[:upload]
     name = params[:upload][:file].original_filename
-    directory = "public/csv"
+    directory = "public/master"
     path = File.join(directory, name)
     File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
     flash[:notice] = "File uploaded"
