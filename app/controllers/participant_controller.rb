@@ -1,5 +1,6 @@
 require "csv"
 require "uuid"
+require 'fileutils'
 class ParticipantController < ApplicationController
   require "user"
   require "computerid"
@@ -112,9 +113,11 @@ class ParticipantController < ApplicationController
 
 def save
   uuid = UUID.generate
-  video_type ="webm"# params['video'].content_type.split("/").last
+  video_type ="webm"
   video_name="#{session[:computerid]}_emotion_#{$round}_#{$filestamp}.#{video_type}"
-  File.open("public/uploads/#{video_name}", "w") { |f| f.write(File.read(params['video-blob'].tempfile)) }
+  output_file = File.open("public/uploads/#{video_name}", "w")
+  FileUtils.copy_stream(params['video-blob'].tempfile, output_file)
+  #File.open("public/uploads/#{video_name}", "w") { |f| f.write(File.read(params['video-blob'].tempfile)) }
 
     
     `ffmpeg -i public/uploads/#{uuid}.webm public/uploads/#{uuid}.mp4`
