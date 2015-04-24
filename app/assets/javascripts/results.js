@@ -12,7 +12,7 @@ setTimeout(function() {
 			$('.survey').hide();
 		}
 		else{
-        if($('#com_from').val()!="waiting_after_pick"){
+        if($('#com_from').val()!="waiting_after_pick" || $('#com_from').val()=="vdo"){
 		$('.survey').show();
 		}
 		}
@@ -28,14 +28,26 @@ $('button').click(function() {
 	$('.score').hide();
 	$('.exit_button').hide();
 	if ($(this).val() == "submit"){
-		var option=($('input[name=user_option]:checked').val());
+		var survey_count= parseInt($('#survey_length').val())
+		flag=true
+		var options=[]
+		for(var i=1; i <= survey_count;i+=1){
+		var option=($('input[name=user_' + i + '_option]:checked').val());
 		if (option==undefined){
-			alert("Please choose an option to complete survey!")
+			flag=false
+		}
+		else{
+			options.push(option)
+		}
+		};
+		if (flag==false){
+			alert("Please choose option for all the statements to complete survey!")
             return false;			
 		}
+		
 		$.ajax({
         url: "/save_survey_details",
-        data: { value: option},
+        data: { value: options},
         type: 'get', 
         success: function(result){
            window.location.href="/participant?from=Waiting after emotion survey";

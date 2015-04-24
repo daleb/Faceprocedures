@@ -16,6 +16,7 @@
 </div>
 <%end%>
     <%=hidden_field 'coming','from', :value=>@from%>
+    <%=hidden_field 'part','id', :value=>session[:computerid]%>
     <div id="views">
 
     </div>
@@ -39,6 +40,7 @@
     var recordedBlob;
     var refid = 1;
     var videoList = new Array();
+    var record_time = parseInt('<%= $gConfigData.time %>')
 
     const MIME_TYPE = "video/webm";
 
@@ -95,7 +97,7 @@
 
 
     function startRecording(mediaStream){
-      setTimeout(stop, 5 * 1000);
+      setTimeout(stop, record_time * 1000);
       recordRTC = RecordRTC(mediaStream, record_options);
       starttimer();
       recordRTC.startRecording();
@@ -123,8 +125,9 @@
         var recordedBlob = recordRTC.getBlob(); 
         var xhr = new XMLHttpRequest();
         var fd = new FormData();
+        var part_id=$('#part_id').val()
         fd.append("video-blob", recordedBlob);
-        xhr.open("POST", "/participant/save", false);
+        xhr.open("POST", "/participant/save?part_id="+part_id, false);
         xhr.send(fd);
         
          //var recordedBlob = recordRTC.getBlob();
@@ -196,7 +199,7 @@ setTimeout(function() {
     if ($('#coming_from').val() == "result"){
         	$('.score').show();
     }
-}, 5000);
+}, (record_time / 2) * 1000);
 
 setTimeout(function() {
     if ($('#coming_from').val() == "result"){
