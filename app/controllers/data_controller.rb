@@ -14,7 +14,7 @@ class DataController < ApplicationController
   def download_videos
     @path = "uploads"
     Dir.chdir("public/uploads"){
-      @emotions = Dir.glob("*emotion*")
+      @emotions = Dir.glob("*.webm")
       @emotions.sort!.reverse!
     }
     @rowcount = @emotions.length - 1
@@ -34,7 +34,11 @@ class DataController < ApplicationController
   end
   
   def get_pairing_details
-    
+     @path = "csv"
+     Dir.chdir("public/csv"){
+      @pairing = Dir.glob("*pairing*")
+      @pairing.sort!.reverse!
+     }
   end
   
   def download_payments

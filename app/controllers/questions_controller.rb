@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
 skip_before_action :verify_authenticity_token, :only => :upload
   def index
     @questions =  []
-    csv_que = CSV::parse(File.open('public/csv/questions.csv', 'r') {|f| f.read })
+    csv_que = CSV::parse(File.open('public/master/questions.csv', 'r') {|f| f.read })
     fields = csv_que.shift
     @questions = csv_que.collect { |record| Hash[*fields.zip(record).flatten ] }
     @questions = @questions.group_by { |d| d["qid"].to_i }
@@ -31,7 +31,16 @@ skip_before_action :verify_authenticity_token, :only => :upload
     ### save the quiz answer details
     ### perform pairing
     computer_ids= $user_data.collect{|data|data[:computer_id] if data[:computer_id]!="nil"}.shuffle.compact
-    $paired_users=computer_ids.each_slice(2).to_a
+    $paired_users=computer_ids.each_slice(2).to_a if $paired_users.empty?
+    pairing_file = begin CSV.open("public/csv/pairing_details_#{$filestamp}.csv", "r") rescue nil end
+    if !pairing_file
+      CSV.open("public/csv/pairing_details_#{$filestamp}.csv", "wb") do |csv|
+       $paired_users.each do |pair|
+         csv << pair  
+       end
+      end
+    end
+   
     ###
    $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Completed Quiz And Waiting"
    redirect_to participant_path(:from=>"quiz")

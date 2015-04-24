@@ -4,12 +4,12 @@ class HomeController < ApplicationController
     file = begin CSV.open("public/csv/payment_details_#{$filestamp}.csv", "r") rescue nil end
     if file
       CSV.open("public/csv/payment_details_#{$filestamp}.csv", "a+") do |csv|
-      csv << [session[:computerid], @total_score]
+      csv << [session[:computerid],session[:part_name],@total_score]
       end
     else
     CSV.open("public/csv/payment_details_#{$filestamp}.csv", "wb") do |csv|
-    csv << ["computer_id","Earning"]
-    csv << [session[:computerid], @total_score]
+    csv << ["Participant_id","Name","Earning"]
+    csv << [session[:computerid],session[:part_name],@total_score]
     end  
     end
     #Dir.chdir("public/csv"){

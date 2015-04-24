@@ -24,7 +24,7 @@ class PaymentsController < ApplicationController
     @userdata=[]
     @survey =  []
     @flag=params["flag"]
-    csv_que = CSV::parse(File.open('public/csv/survey.csv', 'r') {|f| f.read })
+    csv_que = CSV::parse(File.open('public/master/survey.csv', 'r') {|f| f.read })
     @survey = csv_que.collect{|f| f}[$round - 1]
     current_user = session[:computerid]
     partner_id = $paired_users.select{|pu| pu[0] == current_user || pu[1] == current_user}
