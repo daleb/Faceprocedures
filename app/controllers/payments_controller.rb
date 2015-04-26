@@ -25,7 +25,7 @@ class PaymentsController < ApplicationController
     @survey =  []
     @flag=params["flag"]
     csv_que = CSV::parse(File.open('public/master/survey.csv', 'r') {|f| f.read })
-    @survey = csv_que.collect{|f| f}[$round - 1]
+    @survey = csv_que.collect{|f| f[1] if f[0].to_i==$round.to_i}.compact
     current_user = session[:computerid]
     partner_id = $paired_users.select{|pu| pu[0] == current_user || pu[1] == current_user}
     partner_id = partner_id.flatten.delete_if{|id| id == current_user}[0]

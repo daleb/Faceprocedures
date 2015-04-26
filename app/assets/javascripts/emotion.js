@@ -1,3 +1,3 @@
 setTimeout(function() {
     $('#video-btn').show();
-}, 10000);
+}, parseInt('<%= $gConfigData.time %>') * 1000);

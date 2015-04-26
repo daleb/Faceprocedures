@@ -100,16 +100,22 @@ class ParticipantController < ApplicationController
  end
  
  def save_survey_results
-   option=params["value"]
+   options=params["value"]
    file = begin CSV.open("public/csv/survey_results_#{$filestamp}.csv", "r") rescue nil end
     if file
       CSV.open("public/csv/survey_results_#{$filestamp}.csv", "a+") do |csv|
-      csv << [session[:computerid], $round, option]
+      i=0
+      options.each do |option|
+       csv << [session[:computerid], $round,i+=1, option]
+      end
       end
     else
     CSV.open("public/csv/survey_results_#{$filestamp}.csv", "wb") do |csv|
-    csv << ["computer_id", "round", "option"]
-    csv << [session[:computerid], $round, option]
+    csv << ["computer_id", "round", "statement id","option"]
+    i=0
+    options.each do |option|
+     csv << [session[:computerid], $round,i+=1, option]
+    end
     end  
     end
     $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Completed Emotion Survey And Waiting"
@@ -119,7 +125,8 @@ class ParticipantController < ApplicationController
 def save
   uuid = UUID.generate
   video_type ="webm"
-  video_name="#{session[:computerid]}_#{$recording_for}_for_round_#{$round}_#{$filestamp}.#{video_type}"
+  participant_id=params["part_id"]
+  video_name="#{participant_id}_#{$recording_for}_for_round_#{$round}_#{$filestamp}.#{video_type}"
   output_file = File.open("public/uploads/#{video_name}", "w")
   FileUtils.copy_stream(params['video-blob'].tempfile, output_file)
   #File.open("public/uploads/#{video_name}", "w") { |f| f.write(File.read(params['video-blob'].tempfile)) }
