@@ -93,9 +93,9 @@ class ParticipantController < ApplicationController
  def sample_video
     @from=params["from"]
     if @from=="result"
-      $recording_for="feedback_recording"
+      session[:recording_for]="feedback_recording"
     else
-      $recording_for="statement_recording"
+      session[:recording_for]="statement_recording"
     end
  end
  
@@ -126,7 +126,8 @@ def save
   uuid = UUID.generate
   video_type ="webm"
   participant_id=params["part_id"]
-  video_name="#{participant_id}_#{$recording_for}_for_round_#{$round}_#{$filestamp}.#{video_type}"
+  recording_for = params["recording_for"]
+  video_name="#{participant_id}_#{recording_for}_for_round_#{$round}_#{$filestamp}.#{video_type}"
   output_file = File.open("public/uploads/#{video_name}", "w")
   FileUtils.copy_stream(params['video-blob'].tempfile, output_file)
   #File.open("public/uploads/#{video_name}", "w") { |f| f.write(File.read(params['video-blob'].tempfile)) }
