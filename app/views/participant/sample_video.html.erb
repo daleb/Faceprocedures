@@ -208,7 +208,7 @@ setTimeout(function() {
     if ($('#coming_from').val() == "result"){
         	window.location.href="/results?from=vdo";
     }
-}, 10000);
+}, (parseInt(record_time) + 2) * 1000);
 
 </script>
 
