@@ -4,15 +4,15 @@
 	<button class="results" value="results" type="button">Click when ready to see results</button>
 	</div-->
 <h1 class="score text-center" disabled="disabled">
-	<%= "Your Score is #{session[$round].to_i}"%>
+	<%= "Your payoff is #{session[$round].to_i}"%>
 </h1>
 <%if @flag!="exit_poll"%>
 <h3 class="alert text-center" disabled="disabled">
-	<%= "Please sit straight and don't put your hand near face. Once you are ready click below button!"%>
+	<%= "Please sit up straight and keep your hands away from your face. When you are ready to view your results click the button below."%>
 </h3>
 
-<div class="click_when_ready text-center col-md-10">
-	<button class="results" value="results" type="button">Click when ready to see results</button>
+<div class="click_when_ready text-center col-md-9">
+	<button class="results" value="results" type="button"><h3>I'm ready, show me the results</h3></button>
 </div>
 <%end%>
 
