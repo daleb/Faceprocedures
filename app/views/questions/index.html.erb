@@ -14,7 +14,7 @@
 			<ul class="que-ans">
 			<% options.each do |opt| %>
 				<li>
-					<%= radio_button_tag("question_#{opt['qid']}", opt["ref"].to_i,checked =false, :class=>'question-label') %><%= label_tag(opt["qid"], opt["data"],:class=>'ans-label') %>
+					<h3><%= radio_button_tag("question_#{opt['qid']}", opt["ref"].to_i,checked =false, :class=>'question-label') %><%= label_tag(opt["qid"], opt["data"],:class=>'ans-label') %></h3>
 				</li>
 			
 			<% end %>
