@@ -130,7 +130,7 @@
         var part_id=$('#part_id').val()
         var recording_for=$('#recording_for').val()
         fd.append("video-blob", recordedBlob);
-        xhr.open("POST", "/participant/save?part_id="+part_id + "&recording_for=" + recording_for, false);
+        xhr.open("POST", "/participant/save?part_id="+part_id + "&recording_for=" + recording_for, true);
         xhr.send(fd);
         
          //var recordedBlob = recordRTC.getBlob();
