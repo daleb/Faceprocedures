@@ -17,6 +17,8 @@
 <%end%>
     <%=hidden_field 'coming','from', :value=>@from%>
     <%=hidden_field 'part','id', :value=>session[:computerid]%>
+    <%=hidden_field 'recording','for', :value=>session[:recording_for]%>
+    <%=hidden_field 'recording','time', :value=>$gConfigData.time%>
     <div id="views">
 
     </div>
@@ -126,8 +128,9 @@
         var xhr = new XMLHttpRequest();
         var fd = new FormData();
         var part_id=$('#part_id').val()
+        var recording_for=$('#recording_for').val()
         fd.append("video-blob", recordedBlob);
-        xhr.open("POST", "/participant/save?part_id="+part_id, false);
+        xhr.open("POST", "/participant/save?part_id="+part_id + "&recording_for=" + recording_for, false);
         xhr.send(fd);
         
          //var recordedBlob = recordRTC.getBlob();
@@ -205,7 +208,7 @@ setTimeout(function() {
     if ($('#coming_from').val() == "result"){
         	window.location.href="/results?from=vdo";
     }
-}, 10000);
+}, (parseInt(record_time) + 2) * 1000);
 
 </script>
 

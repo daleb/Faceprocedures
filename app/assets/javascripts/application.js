@@ -35,9 +35,9 @@ function change_status(id){
 }
 
 
-setTimeout(function() {
-    //$('.animated_image').fadeOut('fast');
-    //$('.score').show();
-    //$('.exit_button').show();
-    $('#video-btn').show();
-}, 10000);
+// setTimeout(function() {
+    // $('.animated_image').fadeOut('fast');
+    // $('.score').show();
+    // $('.exit_button').show();
+    // $('#video-btn').show();
+// }, 10000);
