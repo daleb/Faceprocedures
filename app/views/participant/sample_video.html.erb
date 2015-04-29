@@ -29,7 +29,9 @@
     </div>
     
     <h1 class="score text-center" disabled="disabled">
-	<%= "Your payoff is #{session[$round].to_i}"%>
+	<%= "Your payoff is #{session[$round].to_i}"%></br></br>
+	<%="You chose #{session[:myoption]}"%></br></br>
+	<%="The other person chose #{session[:partneroption]}"%>
    </h1>
 
 <div id="videodiv">
