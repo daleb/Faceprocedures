@@ -23,6 +23,11 @@
 
     </div>
     
+    <div class="hourclass text-center">
+    	<img src="<%= asset_path 'hourglass.gif' %>" class="hourclass" />
+    	<h3>Retrieving your result</h3>
+    </div>
+    
     <h1 class="score text-center" disabled="disabled">
 	<%= "Your payoff is #{session[$round].to_i}"%>
    </h1>
@@ -201,13 +206,14 @@ $('button').click(function() {
 
 setTimeout(function() {
     if ($('#coming_from').val() == "result"){
+    	    $('.hourclass').hide();
         	$('.score').show();
     }
 }, (record_time / 2) * 1000);
 
 setTimeout(function() {
     if ($('#coming_from').val() == "result"){
-        	window.location.href="/results?from=vdo";
+         window.location.href="/results?from=vdo";
     }
 }, (parseInt(record_time) + 2) * 1000);
 
