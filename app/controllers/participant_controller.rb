@@ -145,7 +145,7 @@ def get_information
 end
 
 def save_user_information
-  name,age,firstlanguage,sex,fluency = params["user_name"],params["user_age"].to_i,params["user_language"],params["user_gender"],params["user_fluency"]
+  name,age,firstlanguage,sex,fluency = params["first_name"].concat(" " + params["last_name"]).to_s,params["user_age"].to_i,params["user_language"],params["user_gender"],params["user_fluency"]
   session[:part_name]=name
   file = begin CSV.open("public/csv/user_information_#{$filestamp}.csv", "r") rescue nil end
     if file

@@ -23,8 +23,15 @@
 
     </div>
     
+    <div class="hourclass text-center disabled="disabled"">
+    	<img src="<%= asset_path 'hourglass.gif' %>" class="hourclass" />
+    	<h3>Retrieving your result</h3>
+    </div>
+    
     <h1 class="score text-center" disabled="disabled">
-	<%= "Your payoff is #{session[$round].to_i}"%>
+	<%= "Your payoff is #{session[$round].to_i}"%></br></br>
+	<%="You chose #{session[:myoption]}"%></br></br>
+	<%="The other person chose #{session[:partneroption]}"%>
    </h1>
 
 <div id="videodiv">
@@ -183,6 +190,10 @@ $(document).ready(function(){
 	$('.options').hide();
 	$('.survey').hide();
 	$('#video-btn').hide();
+	$('.hourclass').show();
+	if ($('#coming_from').val() != "result"){
+	$('.hourclass').hide();
+	}
 });
 
 $('button').click(function() {
@@ -201,13 +212,14 @@ $('button').click(function() {
 
 setTimeout(function() {
     if ($('#coming_from').val() == "result"){
+    	    $('.hourclass').hide();
         	$('.score').show();
     }
 }, (record_time / 2) * 1000);
 
 setTimeout(function() {
     if ($('#coming_from').val() == "result"){
-        	window.location.href="/results?from=vdo";
+         window.location.href="/results?from=vdo";
     }
 }, (parseInt(record_time) + 2) * 1000);
 

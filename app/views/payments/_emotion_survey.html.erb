@@ -1,0 +1,71 @@
+<link href="/survey.css" rel="stylesheet" type="text/css" media="all"/>
+	<div class="main-container">
+			<div class="header-container">
+			<p>The following scale consist of number of words that describe different feelings and emotions.Read each item and then mark the appropriate answer in the space next to that word. Indicate to what extent the experiment in which you participated made you feel</p><br/>
+			
+			<p>Use the following scale to record your answers</p><br/>
+			<p>(1)Very Slightly or not at all,(2) a little,(3) moderately,(4)quite a bit,(5)extremely</p> 
+			
+			</div>
+			<table>
+			<%i=0%>
+		      <%@survey.each do |survey|%>
+		      <%i+=1%>
+		      <%if i%2 == 1%>
+		      <tr>
+		      <%end%>
+				<td><%=survey%></td>
+				<td>
+				<label>1</label>
+				<input type="radio" id="very_slightly" title="Very Slightly" value="Very Slightly" name=<%="user_#{i}_option"%>><label for="user_option" class="light"></label>
+        		<input type="radio" id="little" title="Little" value="Little" name=<%="user_#{i}_option"%>><label for="user_option" class="light"></label>
+        		<input type="radio" id="moderately" title="Moderately" value="Moderately" name=<%="user_#{i}_option"%>><label for="user_option" class="light"></label>
+        		<input type="radio" id="quite_a_bit" title="Quite a bit" value="Quite a bit" name=<%="user_#{i}_option"%>><label for="user_option" class="light"></label>
+        		<input type="radio" id="extremely" title="Extremely" value="Extremely" name=<%="user_#{i}_option"%>><label for="user_option" class="light"></label>
+				<label>5</label>
+				</td>
+				<%if i % 2 ==0%>
+			  </tr>
+			  <%end%>
+		      <%end%>
+			</table>
+			
+			<div class="footer-area">
+			<button class="submit" value="submit" type="button">OK</button>
+			
+			</div>
+			
+			
+			
+    </div>
+    
+    <style>
+    .header-container {
+    border: 1px solid #6a6a6a;
+    margin-bottom: 6px;
+    margin-top: -136px;
+    padding-bottom: 22px;
+    padding-left: 4px;
+    padding-top: 22px;
+}
+
+.main-container {
+    margin: 0 auto;
+    width: 1110px;
+}
+
+.header-container p {
+    font-family: arial;
+    font-size: 13px;
+}
+.footer-area {
+    margin: 35px 0;
+}
+
+.footer-area input {
+    background: none repeat scroll 0 0 #df5a4b;
+    margin-left: 498px;
+    padding: 2px 16px 2px 14px;
+}
+
+    </style>

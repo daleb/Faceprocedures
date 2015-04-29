@@ -42,7 +42,9 @@ class PaymentsController < ApplicationController
     session[$round]=0
     @userdata.each do |data|
       currentuser_data = data[1].select{|data| data[0] == current_user}[0][2]
+      session[:myoption]=currentuser_data
       partner_data= data[1].select{|data| data[0] == partner_id}[0][2]
+      session[:partneroption]=partner_data
       if currentuser_data == "split" && partner_data == "split"
         session[$round] += 5
       elsif currentuser_data == "takeall" && partner_data == "split"
