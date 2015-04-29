@@ -23,7 +23,7 @@
 
     </div>
     
-    <div class="hourclass text-center">
+    <div class="hourclass text-center disabled="disabled"">
     	<img src="<%= asset_path 'hourglass.gif' %>" class="hourclass" />
     	<h3>Retrieving your result</h3>
     </div>
@@ -190,6 +190,10 @@ $(document).ready(function(){
 	$('.options').hide();
 	$('.survey').hide();
 	$('#video-btn').hide();
+	$('.hourclass').show();
+	if ($('#coming_from').val() != "result"){
+	$('.hourclass').hide();
+	}
 });
 
 $('button').click(function() {
