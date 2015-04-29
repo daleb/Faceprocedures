@@ -23,17 +23,18 @@
 </div> 
 
 <div class="survey text-center" id="survey">
-	<%i=0%>
+	<%= render :partial => 'emotion_survey' %>
 	<%=hidden_field 'survey','length',:value=>@survey.length%>
-	<%@survey.each do |survey|%>
-	<%i+=1%>
-    	<h2><%=survey%></h2>
-    	<input type="radio" id="strongly_agree" value="Strongly Agree" name=<%="user_#{i}_option"%>><label for="user_option" class="light">Strongly Agree</label>&nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="radio" id="agree" value="Agree" name=<%="user_#{i}_option"%>><label for="user_option" class="light">Agree</label>&nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="radio" id="disagree" value="Disagree" name=<%="user_#{i}_option"%>><label for="user_option" class="light">Disagree</label>&nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="radio" id="strongly_disagree" value="Strongly Disagree" name=<%="user_#{i}_option"%>><label for="user_option" class="light">Strongly Disagree</label>&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
-   <%end%>
-   <button class="submit" value="submit" type="button">Continue</button>
+	<!--%i=0%>
+	<%#@survey.each do |survey|%>
+	<%#i+=1%>
+    	<h2><%#=survey%></h2>
+    	<input type="radio" id="strongly_agree" value="Strongly Agree" name=<%#="user_#{i}_option"%>><label for="user_option" class="light">Strongly Agree</label>&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="agree" value="Agree" name=<%#="user_#{i}_option"%>><label for="user_option" class="light">Agree</label>&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="disagree" value="Disagree" name=<%#="user_#{i}_option"%>><label for="user_option" class="light">Disagree</label>&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="strongly_disagree" value="Strongly Disagree" name=<%#="user_#{i}_option"%>><label for="user_option" class="light">Strongly Disagree</label>&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
+   <%#end%>
+   <button class="submit" value="submit" type="button">Continue</button!-->
     </div>
 </div>
 </div>
