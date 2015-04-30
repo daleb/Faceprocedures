@@ -11,10 +11,8 @@ setTimeout(function() {
 			$('.exit_button').show();
 			$('.survey').hide();
 		}
-		else{
-        if($('#com_from').val()!="waiting_after_pick" || $('#com_from').val()=="vdo"){
+		else if($('#com_from').val()!="waiting_after_pick" || $('#com_from').val()=="vdo"){
 		$('.survey').show();
-		}
 		}
 }, 100);
 
