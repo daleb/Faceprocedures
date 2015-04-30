@@ -297,7 +297,7 @@ input[type=submit] {
 	margin-top: 35px;
 }
 #survey {
-	margin-top: 200px;
+	margin-top: 20px;
 }
 .submit {
 	color: green;
@@ -337,3 +337,4 @@ img.loaderimg{
 .hourclass{
 	margin-top: 100px;
 }
+

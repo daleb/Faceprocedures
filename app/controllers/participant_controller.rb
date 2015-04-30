@@ -2,7 +2,6 @@ require "csv"
 require "uuid"
 require 'fileutils'
 class ParticipantController < ApplicationController
-  require "user"
   require "computerid"
   include Computerid
   respond_to :html, :js, :json

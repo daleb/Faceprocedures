@@ -7,13 +7,31 @@
   <button class="split" value="split" type="button">Split</button>
   <button class="takeall" value="takeall" type="button">Take All</button>
 </div>-->
-<div class="row">
-	<div class="action_note text-center"><b><h3>Click your choice below. These are the choices that will affect payouts in the two-person interaction.</h3></b></div>
+<div class="note">
+	<div class="container2">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<h3 class="text-center">Statement</h3>
+		</div>
+
+		<b><h3 class="note col-md-12 text-left" style="font-size:200%">When you are ready, click the button below to start recording and speak out loud your chosen statement.  Remember, you will be free to choose either "Split" or "Take" regardless of your chosen statement.  Below are two statements about the action you intend to take in your upcoming interaction.  To proceed you need to make one of the following statements out loud.</br>
+        </h3></br>
+          <h3 class="note col-md-12 text-center" style="font-size:200%">
+            1) I intend to split</br></br>
+            2) I intend to take</h3></b>
+	</div>
+		<div class="text-center">
+			<a href="#" class="btn btn-default btn-primary btn-lg record-btn"> Recording statement...</a>
+		</div>
+		</div>
+</div>
+
+<div class="action_note text-center"><b><h3>Click your choice below. These are the choices that will affect payouts in the two-person interaction.</h3></b></div>
 	<div class="col-md-6 col-md-offset-5" id="video-btn">
 		<a href="#" class="btn btn-success" id="split" value="split">Split</a> &nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="#" class="btn btn-success" id="takeall" value="takeall">Take All</a>
-	</div>
 </div>
+
 <%end%>
     <%=hidden_field 'coming','from', :value=>@from%>
     <%=hidden_field 'part','id', :value=>session[:computerid]%>
@@ -194,6 +212,7 @@ $(document).ready(function(){
 	if ($('#coming_from').val() != "result"){
 	$('.hourclass').hide();
 	}
+	$('.action_note').hide();
 });
 
 $('button').click(function() {
