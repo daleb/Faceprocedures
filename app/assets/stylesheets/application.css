@@ -165,6 +165,14 @@ tr:nth-child(even) {
 	position: relative;
 	font-weight: normal;
 }
+.container2 {
+     max-width: 900px;
+     margin: 0 auto;
+     text-align: left;
+     position: relative;
+     font-weight: normal;
+ }
+
 .container div {
 	background-color: white;
 	width: 100%;
