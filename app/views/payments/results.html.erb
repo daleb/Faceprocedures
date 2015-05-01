@@ -7,12 +7,12 @@
 	<%= "Your payoff is #{session[$round].to_i}"%>
 </h1>
 <%if @flag!="exit_poll"%>
-<h3 class="alert text-center container2" style="font-size:200%" disabled="disabled">
+<h3 class="alert text-center container2" style="font-size: 36px" disabled="disabled">
 	<%= "Please sit up straight and keep your hands away from your face. When you are ready to view your results click the button below."%>
 </h3>
 
 <div class="click_when_ready text-center col-md-9">
-	<button class="results" value="results" type="button"><h3>I'm ready, show me the results</h3></button>
+	<button class="results" value="results" type="button"><h3 style="font-size: 36px">I'm ready, show me the results</h3></button>
 </div>
 <%end%>
 
@@ -62,7 +62,7 @@
 	width: 100px;
 	height: 40px;
 	color: blue;
-	margin-top: 35px;
+	margin-top: 10px;
 	margin-left: -53px;
 }
 </style>

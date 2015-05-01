@@ -55,9 +55,9 @@ $('button').click(function() {
 });
 
 $('input[type="submit"]').click(function() {
-	if($('#name').val()=='' || $('#name').val().length< 4)
+	if($('#name').val()=='' || $('#name').val().length< 1)
 	{
-		alert("Please enter atleast 4 characters for First Name!")
+		alert("Please enter your name!")
 		return false;
 	}
 	else if($('#age').val()=='' || $.isNumeric($('#age').val())==false)

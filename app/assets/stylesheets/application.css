@@ -209,7 +209,7 @@ button {
 	background-color: #FFFFE0;
 }
 .score, .thanks {
-	font-size: 50px;
+	font-size: 36px;
 	position:relative;
 	top: 125px;
 }
@@ -332,6 +332,7 @@ img.loaderimg{
 
 .scores{
 	margin-top: 200px;
+    font-size: 24px;
 }
 
 .hourclass{
