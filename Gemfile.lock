@@ -35,7 +35,7 @@ GEM
     coffee-script (2.3.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.9.1)
+    coffee-script-source (1.8.0)
     columnize (0.9.0)
     daemons (1.2.2)
     debugger (1.6.8)
@@ -135,6 +135,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
+  coffee-script-source (= 1.8.0)
   debugger
   jbuilder (~> 2.0)
   jquery-rails

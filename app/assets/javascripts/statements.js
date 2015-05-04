@@ -14,7 +14,7 @@ $('#split, #takeall').click(function() {
     }
         });
     });
-	
+     getcontrollername();
 	
   });
 

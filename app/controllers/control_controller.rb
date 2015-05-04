@@ -1,10 +1,12 @@
 require 'csv'
 class ControlController < ApplicationController
+  skip_before_filter  :verify_authenticity_token
 
   #before_filter :check_valid_control, :except => [:login, :validatecontroller]
   respond_to :html, :js, :json
   
   def index
+    @current_controller = controller_name
     respond_to do|format|
 			#format.js
       format.html
@@ -114,18 +116,17 @@ class ControlController < ApplicationController
   end
   
   def pageupdate
-    @userdata = $user_data
-    # userdata=$user_data.group_by{|user|user[:computer_id]}.delete_if{|u|u.nil? || !u.include?("PART")}
-    # userdata.each do |data|
-      # if data[1].length > 1
-        # (2 .. data[1].length.to_i).to_a.each do |ext_row|
-        # id=data[1][ext_row - 1][:id]
-        # $user_data[id - 1][:computer_id]=nil
-        # $user_data[id - 1][:status]="not login"
-        # end
-      # end
-    # end
+    @userdata= $user_data
     render :layout=>false
+  end
+
+  def autoplayenable
+    $Autoplay = true
+    render nothing: true
+  end
+  def autoplaydisable
+    $Autoplay = false
+    render nothing: true
   end
 
   

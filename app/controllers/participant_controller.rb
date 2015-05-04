@@ -8,6 +8,7 @@ class ParticipantController < ApplicationController
   before_filter :create_userdata, :only=>[:index]
   
   def index
+    @current_controller = controller_name
     if params["coming_from"] == "page_update"
       session[:computerid]=session[:computerid]
       $user_count = $user_count

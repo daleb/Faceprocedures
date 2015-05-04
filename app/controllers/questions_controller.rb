@@ -4,6 +4,7 @@ require "uuid"
 class QuestionsController < ApplicationController
 skip_before_action :verify_authenticity_token, :only => :upload
   def index
+    @current_controller = controller_name
     @questions =  []
     csv_que = CSV::parse(File.open('public/master/questions.csv', 'r') {|f| f.read })
     fields = csv_que.shift

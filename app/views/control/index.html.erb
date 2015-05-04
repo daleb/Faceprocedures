@@ -91,6 +91,13 @@
 		</div>
 	</div>
 </div>
+<div id="autoplaybox">
+  <div id="autoplaylabel">AutoPlay:</div>
+  <div id="autoplayvalue">Disabled</div>
+  <input id="autoplaybutton" type="button" value="Change AutoPlay" />
+</div>
+<%= render :partial => "shared/controllerinfo" %>
+
 <script src='/jquery-2.0.3.min.js'></script>
 <script type="text/javascript">
 	$("#timevalue").html("<b>Time:- </b><span id=timecount>" + <%= $gConfigData.time %>+"</span>");
