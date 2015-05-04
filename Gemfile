@@ -39,3 +39,4 @@ gem 'debugger', group: [:development, :test]
 gem 'thin'
 gem "sinatra"
 gem "uuid"
+gem 'coffee-script-source', '1.8.0'

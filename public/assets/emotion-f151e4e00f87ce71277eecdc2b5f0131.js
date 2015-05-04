@@ -1,0 +1,1 @@
+var recording_for=$("#recording_time").val();setTimeout(function(){$("#video-btn").show(),$(".action_note").show(),$(".note").hide()},1e3*(parseInt(recording_for)+1));

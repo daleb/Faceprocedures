@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  skip_before_filter  :verify_authenticity_token
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
@@ -14,6 +15,8 @@ class ApplicationController < ActionController::Base
   $experiment_status = STOP if $experiment_status.nil?
   $quiz_status="" if $quiz_status.nil?
   $paired_users=[] if $paired_users.nil?
+  $Autoplay = false
+
 
   # Adde the file stamp lock the file name to a min.  Since the
   # previous implementation was getting the time evertime the file

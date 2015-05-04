@@ -18,7 +18,7 @@
 //= require bootstrap
 //= require bootstrap.min
 
-
+var autoplay = true;
 
 
 
@@ -34,3 +34,8 @@ function change_status(id){
     
 }
 
+function getcontrollername(){
+    controllername = jQuery.trim($("#controllername").html());
+    if (controllername == null){controllername = ""}
+    //alert("controllername = [" + controllername + "]");
+}

@@ -59,7 +59,11 @@ Rails.application.routes.draw do
   get '/getemotions'=> 'data#download_videos' 
   
   match 'control/pageupdate'=> 'control#pageupdate', via: [:get, :post]
-  
+
+  post 'control/autoplayenable' => 'control#autoplayenable'
+
+  post 'control/autoplaydisable' => 'control#autoplaydisable'
+
   get '/calculate_round'=>'payments#calculate_round'
   
   get '/getstatements'=> 'data#download_statement_answers'
@@ -69,7 +73,7 @@ Rails.application.routes.draw do
   get '/save_survey_details'=>'participant#save_survey_results'
   
   match 'participant/pageupdate'=> 'participant#pageupdate', via: [:get, :post]
-  
+
   get '/getpayments'=>'data#download_payments'
   
   # Example of regular route:

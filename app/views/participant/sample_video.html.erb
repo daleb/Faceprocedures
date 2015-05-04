@@ -26,10 +26,10 @@
 		</div>
 </div>
 
-<div class="action_note text-center"><b><h3>Click your choice below. These are the choices that will affect payouts in the two-person interaction.</h3></b></div>
+<div class="action_note text-center container2" ><b><h3 style="font-size: 36px">Click your choice below. These are the choices that will affect payouts in the two-person interaction.</h3></b></div>
 	<div class="col-md-6 col-md-offset-5" id="video-btn">
-		<a href="#" class="btn btn-success" id="split" value="split">Split</a> &nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="#" class="btn btn-success" id="takeall" value="takeall">Take All</a>
+		<a href="#" class="btn btn-success" id="split" value="split" style="font-size: 24px">Split</a> &nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="#" class="btn btn-success" id="takeall" value="takeall" style="font-size: 24px">Take All</a>
 </div>
 
 <%end%>
@@ -56,6 +56,9 @@
   <video id="video-playback" ></video>
 </div>
 </div>
+<% @current_controller = "participant" %>
+<%= render :partial => "shared/controllerinfo" %>
+
 <script src='/jquery-2.0.3.min.js'></script>
   <script>
 

@@ -1,7 +1,7 @@
 <div align="center">
 	<h3>Quiz</h3>
 </div>
-<%= form_tag(save_quiz_answers_path, :method => "POST") do %>
+<%= form_tag(save_quiz_answers_path, :id => "quizform", :method => "POST") do %>
 <section class="demo">
 	<div class="container">
 		<%@questions.each do |question|%>
@@ -25,9 +25,11 @@
 </section>
  <button class="next" type="button">Next</button>
   <div class="save_button">
-    <%= submit_tag "Next" %>
+    <%= submit_tag "Next", :id => "submitbutton" %>
   </div>
 <% end %>
+<%= render :partial => "shared/controllerinfo" %>
+
 <script src='/jquery-2.0.3.min.js'></script>
 <script type="text/javascript">
 var currentIndex = 0;

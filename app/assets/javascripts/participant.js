@@ -21,5 +21,6 @@ $("#adjust").on('click', function(){
      	data : {"from" : "adjust_page"}
      	});
 })
+    getcontrollername();
 });
 

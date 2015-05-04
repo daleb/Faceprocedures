@@ -15,6 +15,8 @@ $(document).ready(function(){
     items.hide();
     item.css('display','inline-block');
   });
+    getcontrollername();
   });
-  
+
+
 

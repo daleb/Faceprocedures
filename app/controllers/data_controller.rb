@@ -1,6 +1,7 @@
 class DataController < ApplicationController
   
   def index
+    @current_controller = controller_name
     @path = "csv"
     Dir.chdir("public/csv"){
       @answers = Dir.glob("*answer*")

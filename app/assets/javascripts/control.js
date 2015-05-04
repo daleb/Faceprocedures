@@ -1,24 +1,42 @@
-$((function (){
- $("#downloadanswers").click(function(){
-        window.open ("getanswers", "Data Files","resizable=1,scrollbars=1,width=900,height=600");
- });
- 
- $("#downloademotions").click(function(){
-        window.open ("getemotions", "Data Files","resizable=1,scrollbars=1,width=900,height=600");
- });
- 
- $("#downloadstatements").click(function(){
-        window.open ("getstatements", "Data Files","resizable=1,scrollbars=1,width=900,height=600");
- });
- 
- $("#watchpairing").click(function(){
-        window.open ("getpairing", "Data Files","resizable=1,scrollbars=1,width=900,height=600");
- });
- 
- $("#downloadpayments").click(function(){
-        window.open ("getpayments", "Data Files","resizable=1,scrollbars=1,width=900,height=600");
- });
- 
+$((function () {
+    $("#downloadanswers").click(function () {
+        window.open("getanswers", "Data Files", "resizable=1,scrollbars=1,width=900,height=600");
+    });
+
+    $("#downloademotions").click(function () {
+        window.open("getemotions", "Data Files", "resizable=1,scrollbars=1,width=900,height=600");
+    });
+
+    $("#downloadstatements").click(function () {
+        window.open("getstatements", "Data Files", "resizable=1,scrollbars=1,width=900,height=600");
+    });
+
+    $("#watchpairing").click(function () {
+        window.open("getpairing", "Data Files", "resizable=1,scrollbars=1,width=900,height=600");
+    });
+
+    $("#downloadpayments").click(function () {
+        window.open("getpayments", "Data Files", "resizable=1,scrollbars=1,width=900,height=600");
+    });
+    $("#autoplaybutton").click(function () {
+        if($("#autoplayvalue").text() == "Disabled"){
+            $.post( "control/autoplayenable" );
+            $("#autoplayvalue").html("Enabled")
+        }
+        else{
+            $.post( "control/autoplaydisable" );
+            $("#autoplayvalue").html("Disabled")
+        }
+
+    });
+    $("#timebutton").removeAttr("disabled");
+    $("#userlimitbutton").removeAttr("disabled");
+    $("#reset").attr("disabled", "disabled");
+    $("#start").attr("disabled", "disabled");
+    $("#stop").attr("disabled", "disabled");
+    $("#enable").removeAttr("disabled");
+    $("#autoplaybutton").html("Disabled")
+    getcontrollername();
 }));
 
 
@@ -31,9 +49,8 @@ setInterval(function(){
        	 $('.table').html(data);
         }
    })
-  // location.reload();
   }
-}, 5000);
+}, 3000);
 
 
 function change_experiment_status(status){
@@ -63,20 +80,14 @@ function change_experiment_status(status){
     $.ajax({
         url: "/start_experiment?status="+exp_status,
         type: 'get'
-    //        success: function(html){
-    //            $("#dispaly_user_message_"+user_id).html(html);
-    //        }
-    });
+     });
 
 }
 
 function enable_users(status){
-	//if ($("#usercount").html()  != $('#user_count').val()){
-		//alert("Expected no.of users are not logged in!");
-		//return false;
-	//}
 	var enable_status = status
-	status = alert("The connections are disabled. Do you want to enable it?");
+	status = confirm("Are you sure you want to enable connections?");
+    if (status){
 	$.ajax({
         url: "/change_enable_status?status=enable",
         type: 'get',
@@ -88,20 +99,6 @@ function enable_users(status){
     	    $("#start").removeAttr("disabled");
         }
     });
+    }
 }
 
-$(document).ready(function(){
-	$("#timebutton").removeAttr("disabled");
-    $("#userlimitbutton").removeAttr("disabled");
-	$("#reset").attr("disabled", "disabled");
-    $("#start").attr("disabled", "disabled");
-    $("#stop").attr("disabled", "disabled");
-   // if ($("#usercount").html() != $("#user_limit").val()){
-    //	$("#enable").attr("disabled", "disabled");
-    //}
-    //else
-    //{
-    $("#enable").removeAttr("disabled");
-    //}
-
-});

@@ -1,16 +1,16 @@
-<div class="container-fluid">
+<div class="container2">
 	<div class="row">
 
 <%if @from=="exit"%>
 <div class="col-md-12">
-<h3 class="scores text-center">
-	<%= "Your total earning from today's experiment is #{@total_score} plus a $7 show-up payment."%>
+<h3 class="scores text-center container2">
+	<%= "Your total earning from today's experiment is $#{@total_score} plus a $7 show-up payment."%>
 </h3>
 
 <%end%>
 
 <h3 class="thanks text-center">
-	<%="Thank you for participating, please wait for your name to be called for payment."%>
+	Thank you for participating,</br>please wait for your name to be called for payment.
 </h3>
 </div>
 <div>

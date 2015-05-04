@@ -45,9 +45,11 @@ q:before, q:after {
 table {
     border-collapse: collapse;
 	width:100%;
+    align: center;
 }
 tr {
     text-align: center;
+    height: 40px;
 }
 td {
     padding: 20px;
@@ -67,7 +69,7 @@ background:#ddd;
 
 .main-container {
     margin: 0 auto;
-    width: 100%;
+    width: 70%;
 }
 .header-container {
     border: 1px solid #6a6a6a;
@@ -87,7 +89,7 @@ background:#ddd;
     width: 960px;
 }
 .footer-area {
-    margin: 35px 0;
+    margin: 0px;
 }
 
 .footer-area input {
