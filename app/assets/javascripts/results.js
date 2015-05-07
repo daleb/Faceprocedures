@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-	$('.survey').hide();
+	//$('.survey').hide();
 	$('.results').show();
 	$('.score').hide();
     getcontrollername();
@@ -8,11 +8,15 @@ $(document).ready(function(){
 
 setTimeout(function() {
 		$('.score').hide();
-		if($('#exit_flag').val()=="exit_poll"){
-			$('.exit_button').show();
+//		if ($('#com_from').val()=="vdo"){
+			//console.log($('#com_from').val());
+			//$('.survey').show();
+		//}
+		if($('#exit_flag').val()=="exit_poll" || $('#com_from').val()=="waiting_after_pick"){
 			$('.survey').hide();
 		}
-		else if($('#com_from').val()!="waiting_after_pick" || $('#com_from').val()=="vdo"){
+		else if($('#com_from').val()=="vdo" || window.location.search == "?from=vdo"){
+			console.log("i am going to show survey!!")
 		$('.survey').show();
 		}
 }, 100);
@@ -25,7 +29,6 @@ setTimeout(function() {
 
 $('button').click(function() {
 	$('.score').hide();
-	$('.exit_button').hide();
 	if ($(this).val() == "submit"){
 		var survey_count= parseInt($('#survey_length').val());
 		flag=true;
