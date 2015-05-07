@@ -3,9 +3,9 @@
 	<!--div class="cli_when_ready text-center">
 	<button class="results" value="results" type="button">Click when ready to see results</button>
 	</div-->
-<h1 class="score text-center" disabled="disabled">
+<!--h1 class="score text-center" disabled="disabled">
 	<%= "Your payoff is #{session[$round].to_i}"%>
-</h1>
+</h1-->
 <%if @flag!="exit_poll"%>
 <h3 class="alert text-center container2" style="font-size: 36px" disabled="disabled">
 	<%= "Please sit up straight and keep your hands away from your face. When you are ready to view your results click the button below."%>
@@ -18,9 +18,6 @@
 
 <%=hidden_field 'com','from',:value=>@from%>
 <%=hidden_field 'exit','flag',:value=>@flag%>
-<div class="exit_button">
-	<button class="exit" value="exit" type="button">Exit Now</button>
-</div> 
 
 <div class="survey text-center" id="survey">
 	<%= render :partial => 'emotion_survey' %>
@@ -35,13 +32,11 @@
 <script>
 	$('button').click(function() {
        $('.score').show();
-	   $('.exit_button').show();
 	   $('.results').hide();
 	});
 	
 	$(document).ready(function(){
 	$('.score').hide();
-	$('.exit_button').hide();
 	if($('#com_from').val()=="vdo"){
 	        $('.results').hide();
 	        $('.score').show();
@@ -51,7 +46,6 @@
 		else if($('#exit_flag').val()=="exit_poll"){
 	       $('.score').hide();
 	       $('.results').hide();
-	       $('.exit_button').show();
 	       $('.survey').hide();		
 		}
 });
