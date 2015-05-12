@@ -4,15 +4,37 @@
 
 var timerint;
 var controllername;
+var clickquiz;
+var clickrecord;
+var clicksplit;
+var takeall;
+var clickreadytosee;
+var clickreadytosee2;
+var clickreadytosee3;
+var clickokbutton;
+
 
 $((function () {
+    clickquiz = true;
+    clickrecord = true;
+    clicksplit = true;
+    takeall = true;
+    clickreadytosee = true;
+    clickreadytosee2 = true;
+    clickreadytosee3 = true;
+    clickokbutton = true;
+
     startautoplay();
 }));
 
 
 function startautoplay() {
-    var newtime = Math.floor(Math.random() * 5000) + 2;
-    setTimeout("autoplayscreen()", newtime);
+    //var newtime = Math.floor(Math.random() * 5000) + 2;
+    var newtime = 10000;
+    playtime = setTimeout("autoplayscreen()", newtime);
+}
+function stopautoplay() {
+    clearTimeout(playtime);
 }
 
 function autoplayscreen() {
@@ -61,7 +83,10 @@ function autoplayquiz() {
 
 function clickbtn() {
     if ($('.save_button').is(":visible")) {
-        $("#quizform").submit();
+        if (clickquiz){
+            $("#quizform").submit();
+            clickquiz = false;
+        }
     }
     else {
         $(".next").click();
@@ -70,7 +95,10 @@ function clickbtn() {
 
 function autoplaystatements() {
     if ($("#record").is(":visible")) {
-        $("#record").click();
+        if (clickrecord){
+            $("#record").click();
+            clickrecord = false;
+        }
     }
 }
 
@@ -78,13 +106,22 @@ function autoplayparticipant()
 {
 
     if ($("#split").is(":visible")) {
-        $("#split").click();
+        if (clicksplit){
+            $("#split").click();
+            clicksplit = false;
+        }
     }
     else if ($("#takeall").is(":visible")) {
-        $("#takeall").click();
+        if (clicktakeall){
+            $("#takeall").click();
+            clicktakeall = false;
+        }
     }
-    else if($("#readytosee").is(":visible")){
-        $("#readytosee").click();
+    else if($("#readytosee").is(":visible")) {
+        if (clickreadytosee) {
+            $("#readytosee").click();
+            clickreadytosee = false;
+        }
     }
 }
 
@@ -92,7 +129,10 @@ function autoplayresults()
 {
 
    if($("#readytosee").is(":visible")){
-        $("#readytosee").click();
+       if (clickreadytosee2) {
+           $("#readytosee").click();
+           clickreadytosee2 = false;
+       }
     }
 }
 
@@ -159,10 +199,16 @@ function autoplaysurvey(){
         $("#moderately_20").click();
     }
     if ($("#okbutton").is(":visible")){
-        $("#okbutton").click();
+        if (clickokbutton) {
+            $("#okbutton").click();
+            clickokbutton = false;
+        }
     }
     if($("#readytosee").is(":visible")){
-        $("#readytosee").click();
+        if (clickreadytosee3) {
+            $("#readytosee").click();
+            clickreadytosee3 = false;
+        }
     }
 
 }
