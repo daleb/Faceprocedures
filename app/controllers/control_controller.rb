@@ -70,6 +70,7 @@ class ControlController < ApplicationController
     end
     if $experiment_status=="start"
       $round=1
+      $recording_count=0
       session[$round]=nil
       $filestamp = Time.now.strftime("%Y-%m-%d-%H-%M")
       Rails.logger.info("$filestamp = #{$filestamp}")

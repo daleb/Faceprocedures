@@ -52,7 +52,7 @@ class ParticipantController < ApplicationController
       #Dir.chdir("public/csv"){
       #@answers = Dir.glob("quiz_answers_#{$filestamp}.csv")
        #    }
-    elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Picked Action And Waiting"}.length == $user_count)
+    elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Picked Action And Waiting"}.length == $user_count && $recording_count == $user_count)
        @page= "results"
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Emotion Survey And Waiting"}.length == $user_count)
       if session[:computerid]=="PART-001"
@@ -123,6 +123,7 @@ class ParticipantController < ApplicationController
  end
 
 def save
+  $recording_count+=1
   uuid = UUID.generate
   video_type ="webm"
   participant_id=params["part_id"]
@@ -172,11 +173,13 @@ end
     $result=nil
     if $round==1
       $round = 2
+      $recording_count = 0
       session[$round]=nil
       return $round
     elsif $round==2
       if (1..4).to_a.sample == 4
       $round = 3
+      $recording_count = 0
       session[$round]=nil
       return $round
       else
@@ -185,6 +188,7 @@ end
     elsif $round==3
       if (1..16).to_a.sample == 10
        $round = 4
+       $recording_count = 0
        session[$round]=nil
        return $round 
       else
@@ -192,7 +196,8 @@ end
       end
     else $round==4
       if (1..64).to_a.sample == 44
-       $round = 4
+       $round = 5
+       $recording_count = 0
        session[$round]=nil
       return $round
       else
