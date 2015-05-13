@@ -1,6 +1,9 @@
  $(document).ready(function(){
 $('.container div').eq(0).css('display','inline-block');
 $('#split, #takeall').click(function() {
+	$('#video-btn').hide();
+	$('#waitmsgone').show();
+	$('.action_note').hide();
 	value = ($(this).attr("value"));
 	  $.ajax({
         url: "/payments",

@@ -25,7 +25,9 @@
 		</div>
 		</div>
 </div>
-
+<div id="waitmsgone">
+<%= render :partial => 'participant/waiting' %>
+</div>
 <div class="action_note text-center container2" ><b><h3 style="font-size: 36px">Click your choice below. These are the choices that will affect payouts in the two-person interaction.</h3></b></div>
 	<div class="col-md-6 col-md-offset-5" id="video-btn">
 		<a href="#" class="btn btn-success" id="split" value="split" style="font-size: 24px">Split</a> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -210,6 +212,7 @@ $(document).ready(function(){
 	$('.options').hide();
 	$('.survey').hide();
 	$('#video-btn').hide();
+	$('#waitmsgone').hide();
 	$('.hourclass').show();
 	if ($('#coming_from').val() != "result"){
 	$('.hourclass').hide();
@@ -240,6 +243,7 @@ setTimeout(function() {
 
 setTimeout(function() {
     if ($('#coming_from').val() == "result"){
+    	$('#waitmsgone').show();
          window.location.href="/results?from=vdo";
     }
 }, (parseInt(record_time) + 2) * 1000);
