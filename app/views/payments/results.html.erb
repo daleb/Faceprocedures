@@ -19,7 +19,7 @@
 <%=hidden_field 'com','from',:value=>@from%>
 <%=hidden_field 'exit','flag',:value=>@flag%>
 
-<div class="survey text-center" id="survey">
+<div class="survey text-center" id="survey" disabled="disabled">
 	<%= render :partial => 'emotion_survey' %>
 	<%=hidden_field 'survey','length',:value=>@survey.length%>
     </div>

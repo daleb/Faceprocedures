@@ -160,7 +160,7 @@
         var part_id=$('#part_id').val()
         var recording_for=$('#recording_for').val()
         fd.append("video-blob", recordedBlob);
-        sync = $('#coming_from').val() == "result" ? false : true
+        sync = $('#coming_from').val() == "result" ? true : true
         xhr.open("POST", "/participant/save?part_id="+part_id + "&recording_for=" + recording_for, sync);
         xhr.send(fd);
         
@@ -244,7 +244,8 @@ setTimeout(function() {
 setTimeout(function() {
     if ($('#coming_from').val() == "result"){
     	$('#waitmsgone').show();
-         window.location.href="/results?from=vdo";
+         //window.location.href="/results?from=vdo";
+         window.location.href="/participant?from=vdo";
     }
 }, (parseInt(record_time) + 2) * 1000);
 
