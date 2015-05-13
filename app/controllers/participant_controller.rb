@@ -26,6 +26,7 @@ class ParticipantController < ApplicationController
     if (params["from"]=="picked_action" || params["from"]=="Waiting after emotion survey")  
       @page="waiting"
     end
+    
     if @user[0] && @user[0][:connection] == "enabled" && $experiment_status!="start" && params["from"] != "adjust_page" && session[:status] !="adjusted"
       @page = "adjust webcam"
       @from="adjsut_cam"
@@ -48,7 +49,7 @@ class ParticipantController < ApplicationController
       user_status = "On waiting screen"
     end
     if (params["from"]!="picked_action" && (($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count) || ($user_count > 0 && $user_data.select{|user|user[:status]=="Waiting for Round 2"}.length == $user_count)))
-      @page = "statement" 
+      @page = "statement"
       #Dir.chdir("public/csv"){
       #@answers = Dir.glob("quiz_answers_#{$filestamp}.csv")
        #    }
@@ -81,6 +82,14 @@ class ParticipantController < ApplicationController
     
     if params["from"]!="picked_action" && params["from"]!="Waiting after emotion survey"
     $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]=user_status ? user_status : "not login"
+    end
+    
+     if params["from"]=="vdo"
+      if $user_count == $feedback_recording
+      @page = "result_after_feedback"
+      else
+      @page = "waiting"
+      end
     end
     
     respond_to do|format|
@@ -123,11 +132,11 @@ class ParticipantController < ApplicationController
  end
 
 def save
-  $recording_count+=1
   uuid = UUID.generate
   video_type ="webm"
   participant_id=params["part_id"]
   recording_for = params["recording_for"]
+  recording_for == "statement_recording" ? $recording_count+=1 : $feedback_recording+=1 
   video_name="#{participant_id}_#{recording_for}_for_round_#{$round}_#{$filestamp}.#{video_type}"
   output_file = File.open("public/uploads/#{video_name}", "w")
   FileUtils.copy_stream(params['video-blob'].tempfile, output_file)
@@ -174,12 +183,14 @@ end
     if $round==1
       $round = 2
       $recording_count = 0
+      $feedback_recording = 0
       session[$round]=nil
       return $round
     elsif $round==2
       if (1..4).to_a.sample == 4
       $round = 3
       $recording_count = 0
+      $feedback_recording = 0
       session[$round]=nil
       return $round
       else
@@ -189,6 +200,7 @@ end
       if (1..16).to_a.sample == 10
        $round = 4
        $recording_count = 0
+       $feedback_recording = 0
        session[$round]=nil
        return $round 
       else
@@ -198,6 +210,7 @@ end
       if (1..64).to_a.sample == 44
        $round = 5
        $recording_count = 0
+       $feedback_recording = 0
        session[$round]=nil
       return $round
       else
