@@ -21,41 +21,10 @@ class PaymentsController < ApplicationController
   
   def results
     @from=params["from"]
-    @userdata=[]
     @survey =  []
     @flag=params["flag"]
     csv_que = CSV::parse(File.open('public/master/survey.csv', 'r') {|f| f.read })
     @survey = csv_que.collect{|f| f[1] if f[0].to_i==$round.to_i}.compact
-    current_user = session[:computerid]
-    partner_id = $paired_users.select{|pu| pu[0] == current_user || pu[1] == current_user}
-    partner_id = partner_id.flatten.delete_if{|id| id == current_user}[0]
-    file = begin CSV.open("public/csv/statement_results_#{$filestamp}.csv", "r") rescue nil end
-    if file
-      CSV.foreach(File.path("public/csv/statement_results_#{$filestamp}.csv")) do |col|
-       if [current_user,partner_id].include?(col[0]) && col[1]== $round.to_s
-         @userdata << col
-       end
-    end
-    end
-    @userdata = @userdata.group_by{|u|$round}
-    if session[$round].nil?
-    session[$round]=0
-    @userdata.each do |data|
-      currentuser_data = data[1].select{|data| data[0] == current_user}[0][2]
-      session[:myoption]=currentuser_data
-      partner_data= data[1].select{|data| data[0] == partner_id}[0][2]
-      session[:partneroption]=partner_data
-      if currentuser_data == "split" && partner_data == "split"
-        session[$round] += 5
-      elsif currentuser_data == "takeall" && partner_data == "split"
-        session[$round] += 10
-      elsif currentuser_data == "split" && partner_data == "takeall"
-        session[$round] += 0
-      elsif currentuser_data == "takeall" && partner_data == "takeall"
-        session[$round] += 0
-      end
-    end
-    end
   end
   
 end

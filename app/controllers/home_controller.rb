@@ -30,6 +30,7 @@ class HomeController < ApplicationController
     session.delete(:computerid)
     session.delete(:status)
     end
+    reset_session
   end
 
   def experiment
