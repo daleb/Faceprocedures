@@ -18,6 +18,9 @@ $((function () {
     $("#downloadpayments").click(function () {
         window.open("getpayments", "Data Files", "resizable=1,scrollbars=1,width=900,height=600");
     });
+    $("#downloaduserinfo").click(function () {
+        window.open("getuserinfo", "Data Files", "resizable=1,scrollbars=1,width=900,height=600");
+    });
     $("#autoplaybutton").click(function () {
         if($("#autoplayvalue").text() == "Disabled"){
             $.post( "control/autoplayenable" );
