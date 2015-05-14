@@ -1,0 +1,12 @@
+
+
+<div id="guesscol" >
+  <% count=0 %>
+<% for user in @user_info  %>
+  <a class="line<%=count%2%>" href="<%=@path + "/" + user%>"><%=user%></a><br /><br />
+    <% count+=1 %>
+
+<% end %>
+</div>
+
+

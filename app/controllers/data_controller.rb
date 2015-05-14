@@ -51,5 +51,15 @@ class DataController < ApplicationController
     @rowcount = @payments.length - 1
     @rowcount = 0 if @rowcount < 0
   end
+  
+  def download_userinfo
+    @path = "csv"
+    Dir.chdir("public/csv"){
+      @user_info = Dir.glob("*user_information*")
+      @user_info.sort!.reverse!
+    }
+    @rowcount = @user_info.length - 1
+    @rowcount = 0 if @rowcount < 0
+  end
  
 end

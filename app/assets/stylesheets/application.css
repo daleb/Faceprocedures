@@ -238,7 +238,7 @@ to {
 	margin-left: 581px;
 	margin-top: 154px;
 }
-#downloadanswers, #downloademotions, #downloadstatements, #watchpairing,#downloadpayments {
+#downloadanswers, #downloademotions, #downloadstatements, #watchpairing,#downloadpayments,#downloaduserinfo {
 	width: 200px;
 	height: 40px;
 	color: red;

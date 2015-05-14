@@ -76,6 +76,8 @@ Rails.application.routes.draw do
 
   get '/getpayments'=>'data#download_payments'
   
+  get '/getuserinfo'=>'data#download_userinfo'
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
