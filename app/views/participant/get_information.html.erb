@@ -11,9 +11,9 @@
         <%= form_tag 'save_user_info' do %>
         <fieldset>
           <label for="first_name">First Name:</label>
-          <input type="text" id="name" name="first_name">
+          <input type="text" id="namef" name="first_name">
           <label for="last_name">Last Name:</label>
-          <input type="text" id="name" name="last_name">
+          <input type="text" id="namel" name="last_name">
           <label>Gender:</label>
           <input type="radio" id="male" value="male" name="user_gender"><label for="gender" class="light" checked="checked">Male</label>
           <input type="radio" id="female" value="female" name="user_gender"><label for="gender" class="light">Female</label>
@@ -41,11 +41,12 @@
         </select>
         
         </fieldset>
-      
+        <% @current_controller = "participantinfo" %>
+
     </body>
 </html>
 <div class="next_btn">
-<h3><%= submit_tag "Next" %></h3>
+<h3><%= submit_tag "Next" , :id => "submitbutton" %></h3>
 </div>
 <%end%>
 
