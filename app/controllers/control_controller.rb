@@ -123,11 +123,11 @@ class ControlController < ApplicationController
   end
 
   def autoplayenable
-    $Autoplay = true
+    $Autoplay = "true"
     render nothing: true
   end
   def autoplaydisable
-    $Autoplay = false
+    $Autoplay = "false"
     render nothing: true
   end
 
