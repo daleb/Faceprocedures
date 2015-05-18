@@ -3,7 +3,7 @@
 
 <%if @from=="exit"%>
 <div class="col-md-12">
-<h3 class="scores text-center container2">
+<h3 class="score_details text-center container2">
 	<%= "Your total earning from today's experiment is $#{@total_score} plus a $7 show-up payment."%>
 </h3>
 
@@ -27,7 +27,7 @@ $(document).ready(function(){
 });
 
 	setTimeout(function() {
-		$('.scores').hide();
+		$('.score_details').hide();
 		$('.thanks').show();
 }, 10000);
 </script>

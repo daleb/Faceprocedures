@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
-        <h1>Experiment has ended.Please fill out the following form.</h1>
+        <h1>Experiment has ended. Please fill out the following form.</h1>
         <%= form_tag 'save_user_info' do %>
         <fieldset>
           <label for="first_name">First Name:</label>
@@ -17,6 +17,7 @@
           <label>Gender:</label>
           <input type="radio" id="male" value="male" name="user_gender"><label for="gender" class="light" checked="checked">Male</label>
           <input type="radio" id="female" value="female" name="user_gender"><label for="gender" class="light">Female</label>
+          <input type="radio" id="other" value="other" name="user_gender"><label for="gender" class="light">Other</label>
         </fieldset>
         
         <fieldset>
@@ -116,7 +117,7 @@ input[type="submit"] {
 }
 
 label {
-  font-size: 16px;
+  font-size: 18px;
 } 
 
 </style>

@@ -159,7 +159,7 @@ tr:nth-child(even) {
 }
 .container {
 	max-width: 800px;
-	background-color: black;
+	background-color: white;
 	margin: 0 auto;
 	text-align: center;
 	position: relative;
@@ -203,6 +203,12 @@ button {
 	height: 40px;
 	color: green;
 	margin-top: 100px;
+}
+
+#readytosee{
+	width: 400px;
+	height: 40px;
+	color: green;
 }
 .animated_image {
 	margin-left: 450px;
@@ -333,6 +339,11 @@ img.loaderimg{
 .scores{
 	margin-top: 200px;
     font-size: 24px;
+}
+
+.score_details{
+	margin-top: 200px;
+    font-size: 32px;
 }
 
 .hourclass{
