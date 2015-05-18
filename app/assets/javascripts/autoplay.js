@@ -12,6 +12,9 @@ var clickreadytosee;
 var clickreadytosee2;
 var clickreadytosee3;
 var clickokbutton;
+var clickadjust;
+var autoplay;
+
 
 
 $((function () {
@@ -23,18 +26,27 @@ $((function () {
     clickreadytosee2 = true;
     clickreadytosee3 = true;
     clickokbutton = true;
+    clickadjust = true;
+    var autoplayraw = jQuery.trim($("#autoplayflag").html());
+    if (autoplayraw == null){
+        autoplay = false;
+    }else if (autoplayraw == "false"){
+        autoplay = false;
+    }else if (autoplayraw == "true"){
+        autoplay = true;
+    }else{
+        autoplay = false;
+    }
 
     startautoplay();
 }));
 
 
 function startautoplay() {
-    //var newtime = Math.floor(Math.random() * 5000) + 2;
+
+    //var newtime = Math.floor(Math.random() * 8000) + 2;
     var newtime = 10000;
-    playtime = setTimeout("autoplayscreen()", newtime);
-}
-function stopautoplay() {
-    clearTimeout(playtime);
+    setTimeout("autoplayscreen()", newtime);
 }
 
 function autoplayscreen() {
@@ -53,6 +65,9 @@ function autoplayscreen() {
         }
         if (controllername == "survey"){
             autoplaysurvey();
+        }
+        if (controllername == "participantinfo"){
+            autoplayinfo();
         }
     }
     startautoplay();
@@ -104,6 +119,12 @@ function autoplaystatements() {
 
 function autoplayparticipant()
 {
+    if ($("#adjust").is(":visible")){
+        if (clickadjust){
+            $("#adjbtn")[0].click()
+            clickadjust = false;
+        }
+     }
 
     if ($("#split").is(":visible")) {
         if (clicksplit){
@@ -209,6 +230,17 @@ function autoplaysurvey(){
             $("#readytosee").click();
             clickreadytosee3 = false;
         }
+    }
+
+}
+
+function autoplayinfo()
+{
+    if($("#submitbutton").is(":visible")){
+        $("#namef").val("USERS FIRST NAME");
+        $("#namel").val("USERS LAST NAME");
+        $("#age").val("25");
+        $("#submitbutton").click();
     }
 
 }

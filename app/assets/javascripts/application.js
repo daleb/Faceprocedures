@@ -18,7 +18,6 @@
 //= require bootstrap
 //= require bootstrap.min
 
-var autoplay = true;
 
 
 
