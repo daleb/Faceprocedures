@@ -166,7 +166,7 @@ class ParticipantController < ApplicationController
  end
 
 def save
-  uuid = UUID.generate
+ # uuid = UUID.generate
   video_type ="webm"
   participant_id=params["part_id"]
   recording_for = params["recording_for"]
@@ -177,10 +177,10 @@ def save
   #File.open("public/uploads/#{video_name}", "w") { |f| f.write(File.read(params['video-blob'].tempfile)) }
 
     
-    `ffmpeg -i public/uploads/#{uuid}.webm public/uploads/#{uuid}.mp4`
-    `ffmpeg -i public/uploads/#{uuid}.mp4 -i public/uploads/#{uuid}.wav -c:v copy -c:a aac -strict experimental public/videos/#{uuid}.mp4`
+   # `ffmpeg -i public/uploads/#{uuid}.webm public/uploads/#{uuid}.mp4`
+   # `ffmpeg -i public/uploads/#{uuid}.mp4 -i public/uploads/#{uuid}.wav -c:v copy -c:a aac -strict experimental public/videos/#{uuid}.mp4`
 
-    uuid
+   # uuid
     render json:{},status: :ok
 end
 
