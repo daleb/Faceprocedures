@@ -198,6 +198,7 @@ def save_user_information
       end
     else
       CSV.open("public/csv/user_information_#{$filestamp}.csv", "wb") do |csv|
+      csv << ["Part_id", "Name", "Age","Language","Sex","Fluency"]
       csv << [session[:computerid],name,age,firstlanguage,sex,fluency]
       end  
     end
