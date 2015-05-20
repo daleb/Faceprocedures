@@ -17,8 +17,10 @@ skip_before_action :verify_authenticity_token, :only => :upload
 
   def save_quiz_answers
     ### save the quiz answer details
+    ques_arr=[]
     answers= params.select{|key,val| key.include?("question")}
     ans_collection = [session[:computerid]] << answers.collect{|ans|ans[1]}
+    (1 .. ans_collection.flatten.length - 1).each {|i|ques_arr << "Question_#{i}"}
     file = begin CSV.open("public/csv/quiz_answers_#{$filestamp}.csv", "r") rescue nil end
     if file
      CSV.open("public/csv/quiz_answers_#{$filestamp}.csv", "a+") do |csv|
@@ -26,6 +28,7 @@ skip_before_action :verify_authenticity_token, :only => :upload
      end
     else
      CSV.open("public/csv/quiz_answers_#{$filestamp}.csv", "wb") do |csv|
+     csv << ["Part ID",ques_arr].flatten
      csv << ans_collection.flatten
     end
     end

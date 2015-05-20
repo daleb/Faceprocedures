@@ -14,11 +14,11 @@
 			<h3 class="text-center">Statement</h3>
 		</div>
 
-		<b><h3 class="note col-md-12 text-left" style="font-size:200%">When you are ready, click the button below to start recording and speak out loud your chosen statement.  Remember, you will be free to choose either "Split" or "Take" regardless of your chosen statement.  Below are two statements about the action you intend to take in your upcoming interaction.  To proceed you need to make one of the following statements out loud.</br>
+		<b><h3 class="note col-md-12 text-left" style="font-size:200%">When you are ready, click the button below to start a recording of you as you speak out loud your chosen statement. Remember, you will be free to choose either “Split” or “Take All” regardless of what you are recorded speaking out loud. Below are two statements about the action you intend to take in your upcoming interaction. To proceed you need click the “Record statement” button and read one of the following statements out loud.</br>
         </h3></br>
           <h3 class="note col-md-12 text-center" style="font-size:200%">
             1) I intend to split</br></br>
-            2) I intend to take</h3></b>
+            2) I intend to take all</h3></b>
 	</div>
 		<div class="text-center">
 			<a href="#" class="btn btn-default btn-primary btn-lg record-btn"> Recording statement...</a>
@@ -29,7 +29,7 @@
 <%= render :partial => 'participant/waiting' %>
 </div>
 <div class="action_note text-center container2" ><b><h3 style="font-size: 36px">Click your choice below. These are the choices that will affect payouts in the two-person interaction.</h3></b></div>
-	<div class="col-md-6 col-md-offset-5" id="video-btn">
+	<div class="col-md-6 col-md-offset-3 text-center" id="video-btn">
 		<a href="#" class="btn btn-success" id="split" value="split" style="font-size: 24px">Split</a> &nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="#" class="btn btn-success" id="takeall" value="takeall" style="font-size: 24px">Take All</a>
 </div>
@@ -49,9 +49,9 @@
     </div>
     
     <h1 class="score text-center" disabled="disabled">
-	<%= "Your payoff is #{session[$round].to_i}"%></br></br>
-	<%="You chose #{session[:myoption]}"%></br></br>
-	<%="The other person chose #{session[:partneroption]}"%>
+	<%= "Your payoff is $#{session[$round].to_i}"%></br></br>
+	<%="You chose \"#{session[:myoption]}\""%></br></br>
+	<%="The other person chose \"#{session[:partneroption]}\""%>
    </h1>
 
 <div id="videodiv">

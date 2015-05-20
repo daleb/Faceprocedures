@@ -126,11 +126,11 @@ class ParticipantController < ApplicationController
       session[:partneroption]=partner_data
       if currentuser_data == "split" && partner_data == "split"
         session[$round] += 5
-      elsif currentuser_data == "takeall" && partner_data == "split"
+      elsif currentuser_data == "take all" && partner_data == "split"
         session[$round] += 10
-      elsif currentuser_data == "split" && partner_data == "takeall"
+      elsif currentuser_data == "split" && partner_data == "take all"
         session[$round] += 0
-      elsif currentuser_data == "takeall" && partner_data == "takeall"
+      elsif currentuser_data == "take all" && partner_data == "take all"
         session[$round] += 0
       end
     end
@@ -166,7 +166,7 @@ class ParticipantController < ApplicationController
  end
 
 def save
-  uuid = UUID.generate
+ # uuid = UUID.generate
   video_type ="webm"
   participant_id=params["part_id"]
   recording_for = params["recording_for"]
@@ -177,10 +177,10 @@ def save
   #File.open("public/uploads/#{video_name}", "w") { |f| f.write(File.read(params['video-blob'].tempfile)) }
 
     
-    `ffmpeg -i public/uploads/#{uuid}.webm public/uploads/#{uuid}.mp4`
-    `ffmpeg -i public/uploads/#{uuid}.mp4 -i public/uploads/#{uuid}.wav -c:v copy -c:a aac -strict experimental public/videos/#{uuid}.mp4`
+   # `ffmpeg -i public/uploads/#{uuid}.webm public/uploads/#{uuid}.mp4`
+   # `ffmpeg -i public/uploads/#{uuid}.mp4 -i public/uploads/#{uuid}.wav -c:v copy -c:a aac -strict experimental public/videos/#{uuid}.mp4`
 
-    uuid
+   # uuid
     render json:{},status: :ok
 end
 
@@ -198,6 +198,7 @@ def save_user_information
       end
     else
       CSV.open("public/csv/user_information_#{$filestamp}.csv", "wb") do |csv|
+      csv << ["Part_id", "Name", "Age","Language","Sex","Fluency"]
       csv << [session[:computerid],name,age,firstlanguage,sex,fluency]
       end  
     end
