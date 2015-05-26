@@ -2,11 +2,7 @@
 
 
 <%if @from!="result"%>
-<!--
-<div class="options">
-  <button class="split" value="split" type="button">Split</button>
-  <button class="takeall" value="takeall" type="button">Take All</button>
-</div>-->
+
 <div class="note">
 	<div class="container2">
 	<div class="row">
@@ -163,15 +159,9 @@
         sync = $('#coming_from').val() == "result" ? true : true
         xhr.open("POST", "/participant/save?part_id="+part_id + "&recording_for=" + recording_for, sync);
         xhr.send(fd);
-        
-         //var recordedBlob = recordRTC.getBlob();
-        //var formData = new FormData();  formData.append(fileType + '-filename', fileName);formData.append(fileType + '-blob', recordRTC.getBlob()); xhr('save', formData, function (fName) { window.open(location.href + fName); }); function xhr(url, data, callback) { var request = new XMLHttpRequest(); request.onreadystatechange = function () { if (request.readyState == 4 && request.status == 200) { callback(location.href + request.responseText); } }; request.open('POST', url,{timeout: 3000}); request.send(data); }
-     // $("#links").append("<a id=lk" + refid + " href=" + stream +  "  download= " + fileName + "> Download Video " + refid + " </a> <br>" );
-      //videoList[refid]= stream;
-      //var bname = "Replay_Video_" + refid;
-     // $("#views").append("<input type=button id=vw" + refid + " onclick=replay(" + refid + ") value=" + bname + "> <br>");
-      refid += 1;
+        refid += 1;
     }
+    
     function playvideo(stream){
       videoPlayback.src = stream;
       videoPlayback.play();

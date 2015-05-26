@@ -50,23 +50,18 @@ class ParticipantController < ApplicationController
     end
     if (params["from"]!="picked_action" && (($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count) || ($user_count > 0 && $user_data.select{|user|user[:status]=="Waiting for Round 2"}.length == $user_count)))
       @page = "statement"
-      #Dir.chdir("public/csv"){
-      #@answers = Dir.glob("quiz_answers_#{$filestamp}.csv")
-       #    }
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Picked Action And Waiting"}.length == $user_count && $recording_count == $user_count)
        @page= "results"
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Emotion Survey And Waiting"}.length == $user_count)
       if session[:computerid]=="PART-001"
       $result =calculate_round
        if $result == "exit_poll"
-         #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="On Result Page"
          $user_data.select{|u|u[:computer_id]!="nil"}.each do |user|
            user[:status]="On Exit Survey!"
          end
          @page= "results"
          @from="exit_poll"
        elsif $result.class == Fixnum
-         #$user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Waiting for Round #{$result}"
          $user_data.select{|u|u[:computer_id]!="nil"}.each do |user|
            user[:status]="Waiting for Round #{$result}"
          end
@@ -166,7 +161,6 @@ class ParticipantController < ApplicationController
  end
 
 def save
- # uuid = UUID.generate
   video_type ="webm"
   participant_id=params["part_id"]
   recording_for = params["recording_for"]
@@ -174,13 +168,6 @@ def save
   video_name="#{participant_id}_#{recording_for}_for_round_#{$round}_#{$filestamp}.#{video_type}"
   output_file = File.open("public/uploads/#{video_name}", "w")
   FileUtils.copy_stream(params['video-blob'].tempfile, output_file)
-  #File.open("public/uploads/#{video_name}", "w") { |f| f.write(File.read(params['video-blob'].tempfile)) }
-
-    
-   # `ffmpeg -i public/uploads/#{uuid}.webm public/uploads/#{uuid}.mp4`
-   # `ffmpeg -i public/uploads/#{uuid}.mp4 -i public/uploads/#{uuid}.wav -c:v copy -c:a aac -strict experimental public/videos/#{uuid}.mp4`
-
-   # uuid
     render json:{},status: :ok
 end
 
