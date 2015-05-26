@@ -13,6 +13,7 @@ class ParticipantController < ApplicationController
       session[:computerid]=session[:computerid]
       $user_count = $user_count
     else
+      ## whenever a user clicks participant in browser, below code is used to set his details
       ids=$user_data.collect{|ud|ud[:computer_id] if ud[:computer_id]!="nil"}.compact
       if !ids.include?(session[:computerid])
         user=$user_data.select{|ud|ud[:computer_id]=="nil"}.first
@@ -23,15 +24,21 @@ class ParticipantController < ApplicationController
     end
     
     @user = $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}
-    if (params["from"]=="picked_action" || params["from"]=="Waiting after emotion survey")  
+    ##setting wait screen after adjusting camera, picked action and after servey and for the first time
+    if (params["from"]=="picked_action" || params["from"]=="Waiting after emotion survey" || params["from"] == "adjust_page")  
       @page="waiting"
+      if params["from"] == "adjust_page"
+        user_status = "On waiting screen"
+      end
     end
     
+    ## below is the code to check whether the connection enabled, if its enabled go to adjusting screen
     if @user[0] && @user[0][:connection] == "enabled" && $experiment_status!="start" && params["from"] != "adjust_page" && session[:status] !="adjusted"
       @page = "adjust webcam"
       @from="adjsut_cam"
       user_status = "Adjusting Camera"
       session[:status] ="adjusted"
+      ## redirect to quiz once the experiment started  
     elsif $experiment_status == "start" && params["from"]!="quiz" && session[:quiz_status]!="Quiz Completed"
       @page = "quiz"
       session[:quiz_status]="Quiz Completed"
@@ -43,16 +50,14 @@ class ParticipantController < ApplicationController
       end
       end
     end
-    
-    if  params["from"] == "adjust_page"
-      @page = "waiting"
-      user_status = "On waiting screen"
-    end
+    ## after quiz, if all the participants completed quiz, it goes to statement
     if (params["from"]!="picked_action" && (($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count) || ($user_count > 0 && $user_data.select{|user|user[:status]=="Waiting for Round 2"}.length == $user_count)))
       @page = "statement"
+      ## after picking action, if all the participants recorded videos it goes to result
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Picked Action And Waiting"}.length == $user_count && $recording_count == $user_count)
        @page= "results"
     elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Emotion Survey And Waiting"}.length == $user_count)
+      ##below code is used to calcluate next round
       if session[:computerid]=="PART-001"
       $result =calculate_round
        if $result == "exit_poll"
@@ -71,15 +76,17 @@ class ParticipantController < ApplicationController
      elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("On Exit Survey!")}.length == $user_count && $result=="exit_poll")
        @page= "results"
        @from="exit_poll"
+       ## if next round possibility available, go to statement
      elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("Waiting for Round #{$round}")}.length == $user_count)
        @page= "statement"
     end
-    
+     ## code is used to set the status
     if params["from"]!="picked_action" && params["from"]!="Waiting after emotion survey"
     $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]=user_status ? user_status : "not login"
     end
     
      if params["from"]=="vdo"
+        ##code to check all the participants done recording
       if $user_count == $feedback_recording
       @page = "result_after_feedback"
       else
