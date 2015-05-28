@@ -2,11 +2,7 @@
 
 
 <%if @from!="result"%>
-<!--
-<div class="options">
-  <button class="split" value="split" type="button">Split</button>
-  <button class="takeall" value="takeall" type="button">Take All</button>
-</div>-->
+
 <div class="note">
 	<div class="container2">
 	<div class="row">
@@ -124,10 +120,6 @@
 
 
 
-
-  
-
-
     function startRecording(mediaStream){
       setTimeout(stop, record_time * 1000);
       recordRTC = RecordRTC(mediaStream, record_options);
@@ -146,12 +138,8 @@
       $("#stopbutton").attr("disabled", "disabled");
       //("#views").hide()
     }
-    function replay(idx){
-      playvideo(videoList[idx]);
-    }
 
     function playback(stream){
-      //playvideo(stream);
         var fileType = 'video';
         var fileName = 'ABCDEF.webm';
         var recordedBlob = recordRTC.getBlob(); 
@@ -160,43 +148,22 @@
         var part_id=$('#part_id').val()
         var recording_for=$('#recording_for').val()
         fd.append("video-blob", recordedBlob);
-        sync = $('#coming_from').val() == "result" ? true : true
+        sync = $('#coming_from').val() == "result" ? false : true
         xhr.open("POST", "/participant/save?part_id="+part_id + "&recording_for=" + recording_for, sync);
         xhr.send(fd);
-        
-         //var recordedBlob = recordRTC.getBlob();
-        //var formData = new FormData();  formData.append(fileType + '-filename', fileName);formData.append(fileType + '-blob', recordRTC.getBlob()); xhr('save', formData, function (fName) { window.open(location.href + fName); }); function xhr(url, data, callback) { var request = new XMLHttpRequest(); request.onreadystatechange = function () { if (request.readyState == 4 && request.status == 200) { callback(location.href + request.responseText); } }; request.open('POST', url,{timeout: 3000}); request.send(data); }
-     // $("#links").append("<a id=lk" + refid + " href=" + stream +  "  download= " + fileName + "> Download Video " + refid + " </a> <br>" );
-      //videoList[refid]= stream;
-      //var bname = "Replay_Video_" + refid;
-     // $("#views").append("<input type=button id=vw" + refid + " onclick=replay(" + refid + ") value=" + bname + "> <br>");
-      refid += 1;
+        refid += 1;
     }
-    function playvideo(stream){
-      videoPlayback.src = stream;
-      videoPlayback.play();
-    }
+    
 
     function starttimer(){
       counter = 0;
       enableCounter = true;
-      updateCounterDisplay();
-      setTimeout(ticktock, 100);
     }
     function stoptimer(){
       enableCounter = false;
     }
 
-    function ticktock() {
-      if(enableCounter){
-        counter += .1;
-        updateCounterDisplay();
-        setTimeout(ticktock, 100);
-      }
-    }
-    function updateCounterDisplay(){
-      $("#counter").html(Math.round(counter * 10) / 10);
-    }
+   
     function recordtimer(timevalue){
       recordtime = $("#videotime").val();
       setTimeout(stop, recordtime * 1000);
@@ -219,35 +186,6 @@ $(document).ready(function(){
 	}
 	$('.action_note').hide();
 });
-
-$('button').click(function() {
-	if ($(this).val() == "submit"){
-		var option=($('input[name=user_option]:checked').val());
-		$.ajax({
-        url: "/save_survey_details",
-        data: { value: option},
-        type: 'get', 
-        success: function(result){
-           window.location.href="/calculate_round";
-    }
-        });
-	}
-});
-
-setTimeout(function() {
-    if ($('#coming_from').val() == "result"){
-    	    $('.hourclass').hide();
-        	$('.score').show();
-    }
-}, (record_time / 2) * 1000);
-
-setTimeout(function() {
-    if ($('#coming_from').val() == "result"){
-    	$('#waitmsgone').show();
-         window.location.href="/participant?from=vdo";
-    }
-}, (parseInt(record_time) + 2) * 1000);
-
 </script>
 
 </html>
