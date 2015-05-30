@@ -111,6 +111,39 @@ $(document).ready(function(){
     }
   });
 
+  // stop playback
+  var stopPlayback = function() {
+    // controlling
+    video = $("#video-player")[0];
+    video.pause();
+    video.currentTime = 0;
+    audio = $("#audio-player")[0];
+    audio.pause();
+    audio.currentTime = 0;
+
+    // update ui
+    $("#play_button").text("Play");
+
+    // toggle boolean
+    playing = false;
+  }
+
+  // start playback
+  var startPlayback = function() {
+    // video controlling
+    video = $("#video-player")[0];
+    video.play();
+    audio = $("#audio-player")[0];
+    audio.play();
+    $("#video-player").bind("ended", stopPlayback);
+
+    // Update UI
+    $("#play_button").text("Stop");
+
+    // toggle boolean
+    playing = true;
+  }
+
   // handle playback
   $("#play_button").click(function(){
     if (playing) {
