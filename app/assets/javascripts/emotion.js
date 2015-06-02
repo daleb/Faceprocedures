@@ -6,20 +6,6 @@ setTimeout(function() {
 }, (parseInt(recording_for) + 1) * 1000);
 
 
-$('#okbutton').click(function() {
-	if ($(this).val() == "submit"){
-		var option=($('input[name=user_option]:checked').val());
-		$.ajax({
-        url: "/save_survey_details",
-        data: { value: option},
-        type: 'get', 
-        success: function(result){
-           window.location.href="/calculate_round";
-    }
-        });
-	}
-});
-
 setTimeout(function() {
     if ($('#coming_from').val() == "result"){
     	    $('.hourclass').hide();
