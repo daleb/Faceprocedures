@@ -25,11 +25,11 @@ setTimeout(function() {
     	    $('.hourclass').hide();
         	$('.score').show();
     }
-}, (record_time / 2) * 1000);
+}, (recording_for / 2) * 1000);
 
 setTimeout(function() {
     if ($('#coming_from').val() == "result"){
     	$('#waitmsgone').show();
          window.location.href="/participant?from=vdo";
     }
-}, (parseInt(record_time) + 2) * 1000);
+}, (parseInt(recording_for) + 2) * 1000);
