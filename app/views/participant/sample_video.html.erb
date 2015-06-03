@@ -56,8 +56,6 @@
 </div>
 <% @current_controller = "participant" %>
 <%= render :partial => "shared/controllerinfo" %>
-
-<script src='/jquery-2.0.3.min.js'></script>
   <script>
 
     var counter;
@@ -69,7 +67,6 @@
     var refid = 1;
     var videoList = new Array();
     var record_time = parseInt('<%= $gConfigData.time %>')
-
     const MIME_TYPE = "video/webm";
 
     var videoConstraints = {

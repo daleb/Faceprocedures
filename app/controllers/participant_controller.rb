@@ -128,11 +128,11 @@ class ParticipantController < ApplicationController
       session[:partneroption]=partner_data
       if currentuser_data == "split" && partner_data == "split"
         session[$round] += 5
-      elsif currentuser_data == "take all" && partner_data == "split"
+      elsif currentuser_data == "takeall" && partner_data == "split"
         session[$round] += 10
-      elsif currentuser_data == "split" && partner_data == "take all"
+      elsif currentuser_data == "split" && partner_data == "takeall"
         session[$round] += 0
-      elsif currentuser_data == "take all" && partner_data == "take all"
+      elsif currentuser_data == "takeall" && partner_data == "takeall"
         session[$round] += 0
       end
     end
