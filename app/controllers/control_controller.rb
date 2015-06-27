@@ -114,6 +114,7 @@ class ControlController < ApplicationController
   def changelimit
     newlimit = params[:limit].to_i
     $limit = $gUserLimitData.newlimit(newlimit.to_i)
+    $partcount = newlimit.to_i
     render json:{limit: $gUserLimitData.limit},status: :ok
   end
   

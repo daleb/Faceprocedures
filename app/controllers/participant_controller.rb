@@ -9,6 +9,9 @@ class ParticipantController < ApplicationController
   
   def index
     @current_controller = controller_name
+    @part_id=session[:computerid]
+    session[:count_no] = 0 if session[:count_no].nil?
+    Rails.logger.debug("Participant index  params[coming_from] = " + params["coming_from"].inspect)
     if params["coming_from"] == "page_update"
       session[:computerid]=session[:computerid]
       $user_count = $user_count
@@ -101,50 +104,52 @@ class ParticipantController < ApplicationController
 		end
   end
 
- def sample_video
+  def sample_video
     @from=params["from"]
     if @from=="result"
-    @userdata=[]
-    session[:recording_for]="feedback_recording"
-    ## payment calc --start
-    current_user = session[:computerid]
-    partner_id = $paired_users.select{|pu| pu[0] == current_user || pu[1] == current_user}
-    partner_id = partner_id.flatten.delete_if{|id| id == current_user}[0]
-    file = begin CSV.open("public/csv/statement_results_#{$filestamp}.csv", "r") rescue nil end
-    if file
-      CSV.foreach(File.path("public/csv/statement_results_#{$filestamp}.csv")) do |col|
-       if [current_user,partner_id].include?(col[0]) && col[1]== $round.to_s
-         @userdata << col
-       end
-    end
-    end
-    @userdata = @userdata.group_by{|u|$round}
-    if session[$round].nil?
-    session[$round]=0
-    @userdata.each do |data|
-      currentuser_data = data[1].select{|data| data[0] == current_user}[0][2]
-      session[:myoption]=currentuser_data
-      partner_data= data[1].select{|data| data[0] == partner_id}[0][2]
-      session[:partneroption]=partner_data
-      if currentuser_data == "split" && partner_data == "split"
-        session[$round] += 5
-      elsif currentuser_data == "takeall" && partner_data == "split"
-        session[$round] += 10
-      elsif currentuser_data == "split" && partner_data == "takeall"
-        session[$round] += 0
-      elsif currentuser_data == "takeall" && partner_data == "takeall"
-        session[$round] += 0
+      @userdata=[]
+      session[:recording_for]="feedback_recording"
+      ## payment calc --start
+      current_user = session[:computerid]
+      partner_id = $paired_users.select { |pu| pu[0] == current_user || pu[1] == current_user }
+      partner_id = partner_id.flatten.delete_if { |id| id == current_user }[0]
+      file = begin
+        CSV.open("public/csv/statement_results_#{$filestamp}.csv", "r") rescue nil
       end
-    end
-    end
+      if file
+        CSV.foreach(File.path("public/csv/statement_results_#{$filestamp}.csv")) do |col|
+          if [current_user, partner_id].include?(col[0]) && col[1]== $round.to_s
+            @userdata << col
+          end
+        end
+      end
+      @userdata = @userdata.group_by { |u| $round }
+      if session[$round].nil?
+        session[$round]=0
+        @userdata.each do |data|
+          currentuser_data = data[1].select { |data| data[0] == current_user }[0][2]
+          session[:myoption]=currentuser_data
+          partner_data= data[1].select { |data| data[0] == partner_id }[0][2]
+          session[:partneroption]=partner_data
+          if currentuser_data == "split" && partner_data == "split"
+            session[$round] += 5
+          elsif currentuser_data == "take all" && partner_data == "split"
+            session[$round] += 10
+          elsif currentuser_data == "split" && partner_data == "take all"
+            session[$round] += 0
+          elsif currentuser_data == "take all" && partner_data == "take all"
+            session[$round] += 0
+          end
+        end
+      end
 
       ## payment calc --end
     else
       session[:recording_for]="statement_recording"
     end
- end
- 
- def save_survey_results
+  end
+
+  def save_survey_results
    options=params["value"]
    file = begin CSV.open("public/csv/survey_results_#{$filestamp}.csv", "r") rescue nil end
     if file
@@ -168,15 +173,28 @@ class ParticipantController < ApplicationController
  end
 
 def save
+  Rails.logger.info("Save called.")
   video_type ="webm"
   participant_id=params["part_id"]
   recording_for = params["recording_for"]
-  recording_for == "statement_recording" ? $recording_count+=1 : $feedback_recording+=1 
-  video_name="#{participant_id}_#{recording_for}_for_round_#{$round}_#{$filestamp}.#{video_type}"
+  round = params["round"]
+  video_name="#{participant_id}_#{recording_for}_for_round_#{round}_#{$filestamp}.#{video_type}"
+  Rails.logger.info("Saving file - " + video_name.inspect)
+  puts "Saving file - " + video_name.inspect
   output_file = File.open("public/uploads/#{video_name}", "w")
   FileUtils.copy_stream(params['video-blob'].tempfile, output_file)
     render json:{},status: :ok
 end
+
+  def savedfilelocal
+    # uuid = UUID.generate
+    participant_id=params["part_id"]
+    recording_for = params["recording_for"]
+    recording_for == "statement_recording" ? $recording_count+=1 : $feedback_recording+=1
+    Rails.logger.info("Saving local file - Participant = " + participant_id.inspect + " recording for = " + recording_for.inspect)
+    render json:{},status: :ok
+  end
+
 
 def get_information
   
@@ -206,7 +224,7 @@ end
      mycomputerid = genseratecomputerid()
     end
   end
-  
+
   def calculate_round
     $result=nil
     if $round==1
@@ -217,36 +235,85 @@ end
       return $round
     elsif $round==2
       if (1..4).to_a.sample == 4
-      $round = 3
-      $recording_count = 0
-      $feedback_recording = 0
-      session[$round]=nil
-      return $round
-      else
-       return "exit_poll"
-      end
-    elsif $round==3
-      if (1..16).to_a.sample == 10
-       $round = 4
-       $recording_count = 0
-       $feedback_recording = 0
-       session[$round]=nil
-       return $round 
+        $round = 3
+        $recording_count = 0
+        $feedback_recording = 0
+        session[$round]=nil
+        return $round
       else
         return "exit_poll"
       end
-    else $round==4
+    elsif $round==3
+      if (1..16).to_a.sample == 10
+        $round = 4
+        $recording_count = 0
+        $feedback_recording = 0
+        session[$round]=nil
+        return $round
+      else
+        return "exit_poll"
+      end
+    else
+      $round==4
       if (1..64).to_a.sample == 44
-       $round = 5
-       $recording_count = 0
-       $feedback_recording = 0
-       session[$round]=nil
-      return $round
+        $round = 5
+        $recording_count = 0
+        $feedback_recording = 0
+        session[$round]=nil
+        return $round
       else
         return "exit_poll"
       end
     end
   end
 
- 
+  ################################################################################
+  def fileupload()
+    ##############################################################################
+    returnhash = Hash.new
+
+    partid = params[:partid].to_s
+    uploadcomplete = params[:done].to_s == "true"? true:false
+    Rails.logger.debug("partid = " + partid.inspect)
+    Rails.logger.debug("uploadcomplete = " + uploadcomplete.inspect)
+    Rails.logger.debug("$processing[0] = " + $processing[0].inspect)
+
+    # If ready we send the part id to start upload
+    if $uploadready
+      if partid == $processing[0]
+        if uploadcomplete
+          # This indicates the part has uploaded all files and is done.
+          # We move on to the next part.
+          if $partsready.length == 0
+            $processing = ['Part-999',true]
+          else
+            $processing = $partsready.shift
+          end
+          # We are going to send Part-999 to tell everyone they can shutdown or
+          # whatever they want to do.  As od now nothing.
+        end
+      end
+    else
+      # This section is count the number of parts ready to upload
+      Rails.logger.info("Number parts ready = " + $partsready.length.to_s + " of total = " + $partcount)
+      $partsready[partid] = uploadcomplete
+      if $partsready.length == $partcount
+        # Everyone is ready so we can start the upload
+        $uploadready = true
+        $processing = $partsready.shift
+      end
+    end
+    Rails.logger.debug("On exit $processing[0] = " + $processing[0].inspect)
+
+    # We send the partid of the part we want to start uploading
+    returnhash[:partid] = $processing[0].to_s
+    jsonreturn = returnhash.to_json
+
+    render :json => jsonreturn
+
+  end
+
+
+
+
 end

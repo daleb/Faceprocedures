@@ -37,16 +37,15 @@ $((function () {
     }else{
         autoplay = false;
     }
+    console.log("autoplay loaded");
 
     startautoplay();
 }));
 
 
 function startautoplay() {
-
-    //var newtime = Math.floor(Math.random() * 8000) + 2;
-    var newtime = 10000;
-    setTimeout("autoplayscreen()", newtime);
+    var newtime = 5000;
+    setTimeout(autoplayscreen, newtime);
 }
 
 function autoplayscreen() {
@@ -75,6 +74,7 @@ function autoplayscreen() {
 
 
 function autoplayquiz() {
+    console.log("autoplayquiz called");
     if ($("#question_1_1").is(":visible")) {
         $("#question_1_1").click();
         clickbtn();
@@ -109,6 +109,7 @@ function clickbtn() {
 }
 
 function autoplaystatements() {
+    console.log("autoplaystatement called");
     if ($("#record").is(":visible")) {
         if (clickrecord){
             $("#record").click();
@@ -119,9 +120,10 @@ function autoplaystatements() {
 
 function autoplayparticipant()
 {
+    console.log("autoplayparticipant called");
     if ($("#adjust").is(":visible")){
         if (clickadjust){
-            $("#adjbtn")[0].click()
+            $("#adjbtn")[0].click();
             clickadjust = false;
         }
      }
@@ -149,6 +151,7 @@ function autoplayparticipant()
 function autoplayresults()
 {
 
+    console.log("autoplayresults called");
    if($("#readytosee").is(":visible")){
        if (clickreadytosee2) {
            $("#readytosee").click();
@@ -159,6 +162,7 @@ function autoplayresults()
 
 
 function autoplaysurvey(){
+    console.log("autoplaysurvey called");
     if ($("#moderately_1").is(":visible")){
         $("#moderately_1").click();
     }
@@ -236,6 +240,7 @@ function autoplaysurvey(){
 
 function autoplayinfo()
 {
+    console.log("autoplayinfo called");
     if($("#submitbutton").is(":visible")){
         $("#namef").val("USERS FIRST NAME");
         $("#namel").val("USERS LAST NAME");

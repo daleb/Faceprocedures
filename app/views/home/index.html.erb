@@ -6,24 +6,20 @@
 <h3 class="score_details text-center container2">
 	<%= "Your total earning from today's experiment is $#{@total_score} plus a $7 show-up payment."%>
 </h3>
-
+  <%=hidden_field 'part','id',:value=> @part_id%>
+  <%=hidden_field 'total','videos',:value=> @total_videos%>
 <%end%>
 
 <h3 class="thanks text-center">
 	Thank you for participating,</br>please wait for your name to be called for payment.
 </h3>
 </div>
+<!--div>
+  <img src="<%= asset_path 'loader.gif' %>" class="loaderimg" />
+</div-->
 
 </div>
 </div>
 
-<script>
-$(document).ready(function(){
-	$('.thanks').hide();
-});
-
-	setTimeout(function() {
-		$('.score_details').hide();
-		$('.thanks').show();
-}, 10000);
-</script>
+<script src="/root.js"></script>
+<script src="/fileupload.js"></script>

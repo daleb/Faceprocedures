@@ -1,0 +1,1 @@
+var recording_for=$("#recording_time").val();setTimeout(function(){},1e3*(parseInt(recording_for)+1));

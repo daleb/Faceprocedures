@@ -27,7 +27,7 @@
 <div class="action_note text-center container2" ><b><h3 style="font-size: 36px">Click your choice below. These are the choices that will affect payouts in the two-person interaction.</h3></b></div>
 	<div class="col-md-6 col-md-offset-3 text-center" id="video-btn">
 		<a href="#" class="btn btn-success" id="split" value="split" style="font-size: 24px">Split</a> &nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="#" class="btn btn-success" id="takeall" value="takeall" style="font-size: 24px">Take All</a>
+		<a href="#" class="btn btn-success" id="takeall" value="take all" style="font-size: 24px">Take All</a>
 </div>
 
 <%end%>
@@ -35,6 +35,7 @@
     <%=hidden_field 'part','id', :value=>session[:computerid]%>
     <%=hidden_field 'recording','for', :value=>session[:recording_for]%>
     <%=hidden_field 'recording','time', :value=>$gConfigData.time%>
+    <%=hidden_field 'part','id',:value=>@part_id%>
     <div id="views">
 
     </div>
@@ -54,135 +55,14 @@
   <video id="video-playback" ></video>
 </div>
 </div>
+<%=hidden_field 'count','number', :value=>session[:count_no] += 1%>
 <% @current_controller = "participant" %>
 <%= render :partial => "shared/controllerinfo" %>
-  <script>
 
-    var counter;
-    var enableCounter=false;
-    var recordRTC;
-    var videoPlayback;
-    var videoLive;
-    var recordedBlob;
-    var refid = 1;
-    var videoList = new Array();
-    var record_time = parseInt('<%= $gConfigData.time %>')
-    const MIME_TYPE = "video/webm";
-
-    var videoConstraints = {
-      video: {
-        mandatory: {
-          minWidth: 1280,
-          minHeight: 720
-        }
-      },
-      audio: true
-    };
-
-    var record_options = {
-      type: "video",
-      video: {
-        width: 1280,
-        height: 720,
-        framerate: 10
-      },
-      canvas: {
-        width: 1280,
-        height: 720
-      }
-    };
-
-    navigator.getUserMedia =    (navigator.getUserMedia ||
-      navigator.webkitGetUserMedia ||
-      navigator.mozGetUserMedia ||
-      navigator.msGetUserMedia);
+<script src='/video.js'></script>
 
 
-    // DOM ready for event hooking
-    $(function () {
-      navigator.getUserMedia(videoConstraints, startRecording, onfailure);
-      videoLive = document.getElementById("video-view");
-      videoPlayback = document.getElementById("video-playback");
-      $("#videodiv").hide();
-        
-    });
-
-    function start() {
-      navigator.getUserMedia(videoConstraints, startRecording, onfailure);
-    }
-
-    function onfailure(){
-      console.log("Failed to get camera");
-    }
-
-
-
-    function startRecording(mediaStream){
-      setTimeout(stop, record_time * 1000);
-      recordRTC = RecordRTC(mediaStream, record_options);
-      starttimer();
-      recordRTC.startRecording();
-      //recordRTC.startRecording();
-      $("#startbutton").attr("disabled", "disabled");
-      $("#stopbutton").removeAttr("disabled");
-       
-    }
-
-    function stop() {
-      stoptimer();
-      recordRTC.stopRecording(playback);
-      $("#startbutton").removeAttr("disabled");
-      $("#stopbutton").attr("disabled", "disabled");
-      //("#views").hide()
-    }
-
-    function playback(stream){
-        var fileType = 'video';
-        var fileName = 'ABCDEF.webm';
-        var recordedBlob = recordRTC.getBlob(); 
-        var xhr = new XMLHttpRequest();
-        var fd = new FormData();
-        var part_id=$('#part_id').val()
-        var recording_for=$('#recording_for').val()
-        fd.append("video-blob", recordedBlob);
-        sync = $('#coming_from').val() == "result" ? false : true
-        xhr.open("POST", "/participant/save?part_id="+part_id + "&recording_for=" + recording_for, sync);
-        xhr.send(fd);
-        refid += 1;
-    }
-    
-
-    function starttimer(){
-      counter = 0;
-      enableCounter = true;
-    }
-    function stoptimer(){
-      enableCounter = false;
-    }
-
-   
-    function recordtimer(timevalue){
-      recordtime = $("#videotime").val();
-      setTimeout(stop, recordtime * 1000);
-    }
-
-  </script>
 
 
 </body>
-<script>
-$(document).ready(function(){
-	$('.score').hide();
-	$('.options').hide();
-	$('.survey').hide();
-	$('#video-btn').hide();
-	$('#waitmsgone').hide();
-	$('.hourclass').show();
-	if ($('#coming_from').val() != "result"){
-	$('.hourclass').hide();
-	}
-	$('.action_note').hide();
-});
-</script>
-
 </html>

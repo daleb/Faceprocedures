@@ -19,5 +19,17 @@
       	<!-- Control buttons -->
    		
     </div>
-   
 
+    <%=hidden_field 'part','id',:value=> @part_id%>
+
+    <script>
+        $(document).ready(function () {
+            var indexedDB = window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+            indexedDB.deleteDatabase('videoFiles');
+            console.log("Deleted indexedDB videoFiles database");
+
+            localStorage.setItem('partid', $('#part_id').val());
+        });
+
+
+    </script>

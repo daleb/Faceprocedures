@@ -17,6 +17,14 @@ class ApplicationController < ActionController::Base
   $paired_users=[] if $paired_users.nil?
   $Autoplay = false
 
+  # The following is use by the fileupload at the end
+  $limit
+  $uploadcompleted = false if $uploadcompleted.nil?
+  $partsready = Hash.new if $partsready.nil?
+  $uploadready = false if $uploadready.nil?
+  $processing = ['Part-000',false] if $processing.nil?
+  $partcount = 2 if $partcount.nil?
+
 
   # Adde the file stamp lock the file name to a min.  Since the
   # previous implementation was getting the time evertime the file

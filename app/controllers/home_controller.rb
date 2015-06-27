@@ -1,6 +1,8 @@
 class HomeController < ApplicationController
   def index
     @current_controller = controller_name
+    @part_id=session[:computerid]
+    @total_videos = $round * 2
     @total_score = begin session["1"] + (session["2"].nil? ? 0 : session["2"])   + (session["3"].nil?? 0 : session["3"]) + (session["4"].nil?? 0 : session["4"]) + (session["5"].nil? ? 0 : session["5"]) rescue 0 end
     file = begin CSV.open("public/csv/payment_details_#{$filestamp}.csv", "r") rescue nil end
     if file
@@ -13,6 +15,9 @@ class HomeController < ApplicationController
     csv << [session[:computerid],session[:part_name],@total_score]
     end  
     end
+    #Dir.chdir("public/csv"){
+     # @statements = Dir.glob("statement_results_#{$filestamp}.csv")
+    #}
     session[:status]=nil
     $userscore = 0
     $round=0

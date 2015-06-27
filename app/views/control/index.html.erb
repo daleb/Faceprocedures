@@ -102,8 +102,8 @@
 <%= render :partial => "shared/controllerinfo" %>
 
 <script type="text/javascript">
-	$("#timevalue").html("<b>Time:- </b><span id=timecount>" + <%= $gConfigData.time %>+"</span>");
     $((function () {
+        $("#timevalue").html("<b>Time:- </b><span id=timecount>" + <%= $gConfigData.time %>+"</span>");
         $("#timebutton").click(function(){
         var currentvalue = $("#timecount").html();
         var answer = prompt("Enter new time",currentvalue);

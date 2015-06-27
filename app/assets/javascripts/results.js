@@ -16,7 +16,6 @@ setTimeout(function() {
 			$('.survey').hide();
 		}
 		else if($('#com_from').val()=="vdo" || window.location.search == "?from=vdo"){
-			console.log("i am going to show survey!!")
 		$('.survey').show();
 		}
 }, 100);
@@ -59,7 +58,7 @@ $('button').click(function() {
 });
 
 $('input[type="submit"]').click(function() {
-	if($('#name').val()=='' || $('#name').val().length< 1)
+	if($('#namef').val()=='' || $('#namef').val().length< 1)
 	{
 		alert("Please enter your name!");
 		return false;
