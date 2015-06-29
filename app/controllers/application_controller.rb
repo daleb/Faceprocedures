@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
   $uploadready = false if $uploadready.nil?
   $processing = ['Part-000',false] if $processing.nil?
   $partcount = 2 if $partcount.nil?
+  $uploadcount = 0 if $uploadcount.nil?
 
 
   # Adde the file stamp lock the file name to a min.  Since the

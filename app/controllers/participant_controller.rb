@@ -5,8 +5,8 @@ class ParticipantController < ApplicationController
   require "computerid"
   include Computerid
   respond_to :html, :js, :json
-  before_filter :create_userdata, :only=>[:index]
-  
+  before_filter :create_userdata, :only => [:index]
+
   def index
     @current_controller = controller_name
     @part_id=session[:computerid]
@@ -17,24 +17,24 @@ class ParticipantController < ApplicationController
       $user_count = $user_count
     else
       ## whenever a user clicks participant in browser, below code is used to set his details
-      ids=$user_data.collect{|ud|ud[:computer_id] if ud[:computer_id]!="nil"}.compact
+      ids=$user_data.collect { |ud| ud[:computer_id] if ud[:computer_id]!="nil" }.compact
       if !ids.include?(session[:computerid])
-        user=$user_data.select{|ud|ud[:computer_id]=="nil"}.first
-          user[:computer_id] = "#{session[:computerid]}"
-          user[:status] = "online"
-          user_status="online"
+        user=$user_data.select { |ud| ud[:computer_id]=="nil" }.first
+        user[:computer_id] = "#{session[:computerid]}"
+        user[:status] = "online"
+        user_status="online"
       end
     end
-    
-    @user = $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}
+
+    @user = $user_data.select { |user| user[:computer_id] == "#{session[:computerid]}" }
     ##setting wait screen after adjusting camera, picked action and after servey and for the first time
-    if (params["from"]=="picked_action" || params["from"]=="Waiting after emotion survey" || params["from"] == "adjust_page")  
+    if (params["from"]=="picked_action" || params["from"]=="Waiting after emotion survey" || params["from"] == "adjust_page")
       @page="waiting"
       if params["from"] == "adjust_page"
         user_status = "On waiting screen"
       end
     end
-    
+
     ## below is the code to check whether the connection enabled, if its enabled go to adjusting screen
     if @user[0] && @user[0][:connection] == "enabled" && $experiment_status!="start" && params["from"] != "adjust_page" && session[:status] !="adjusted"
       @page = "adjust webcam"
@@ -47,61 +47,61 @@ class ParticipantController < ApplicationController
       session[:quiz_status]="Quiz Completed"
     else
       if params["from"]!="picked_action" && params["from"]!="Waiting after emotion survey"
-      @page = "waiting"
-      if params["from"]!="Waiting after emotion survey" && @user[0][:status]!="Completed Emotion Survey And Waiting"
-      user_status = params["from"]=="quiz" ? @user[0][:status] : "On waiting screen"
-      end
+        @page = "waiting"
+        if params["from"]!="Waiting after emotion survey" && @user[0][:status]!="Completed Emotion Survey And Waiting"
+          user_status = params["from"]=="quiz" ? @user[0][:status] : "On waiting screen"
+        end
       end
     end
     ## after quiz, if all the participants completed quiz, it goes to statement
-    if (params["from"]!="picked_action" && (($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Quiz And Waiting"}.length == $user_count) || ($user_count > 0 && $user_data.select{|user|user[:status]=="Waiting for Round 2"}.length == $user_count)))
+    if (params["from"]!="picked_action" && (($user_count > 0 && $user_data.select { |user| user[:status]=="Completed Quiz And Waiting" }.length == $user_count) || ($user_count > 0 && $user_data.select { |user| user[:status]=="Waiting for Round 2" }.length == $user_count)))
       @page = "statement"
       ## after picking action, if all the participants recorded videos it goes to result
-    elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Picked Action And Waiting"}.length == $user_count && $recording_count == $user_count)
-       @page= "results"
-    elsif ($user_count > 0 && $user_data.select{|user|user[:status]=="Completed Emotion Survey And Waiting"}.length == $user_count)
+    elsif ($user_count > 0 && $user_data.select { |user| user[:status]=="Picked Action And Waiting" }.length == $user_count && $recording_count == $user_count)
+      @page= "results"
+    elsif ($user_count > 0 && $user_data.select { |user| user[:status]=="Completed Emotion Survey And Waiting" }.length == $user_count)
       ##below code is used to calcluate next round
       if session[:computerid]=="PART-001"
-      $result =calculate_round
-       if $result == "exit_poll"
-         $user_data.select{|u|u[:computer_id]!="nil"}.each do |user|
-           user[:status]="On Exit Survey!"
-         end
-         @page= "results"
-         @from="exit_poll"
-       elsif $result.class == Fixnum
-         $user_data.select{|u|u[:computer_id]!="nil"}.each do |user|
-           user[:status]="Waiting for Round #{$result}"
-         end
-         @page= "statement"
-       end
-       end
-     elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("On Exit Survey!")}.length == $user_count && $result=="exit_poll")
-       @page= "results"
-       @from="exit_poll"
-       ## if next round possibility available, go to statement
-     elsif ($user_count > 0 && $user_data.select{|user|user[:status].include?("Waiting for Round #{$round}")}.length == $user_count)
-       @page= "statement"
+        $result =calculate_round
+        if $result == "exit_poll"
+          $user_data.select { |u| u[:computer_id]!="nil" }.each do |user|
+            user[:status]="On Exit Survey!"
+          end
+          @page= "results"
+          @from="exit_poll"
+        elsif $result.class == Fixnum
+          $user_data.select { |u| u[:computer_id]!="nil" }.each do |user|
+            user[:status]="Waiting for Round #{$result}"
+          end
+          @page= "statement"
+        end
+      end
+    elsif ($user_count > 0 && $user_data.select { |user| user[:status].include?("On Exit Survey!") }.length == $user_count && $result=="exit_poll")
+      @page= "results"
+      @from="exit_poll"
+      ## if next round possibility available, go to statement
+    elsif ($user_count > 0 && $user_data.select { |user| user[:status].include?("Waiting for Round #{$round}") }.length == $user_count)
+      @page= "statement"
     end
-     ## code is used to set the status
+    ## code is used to set the status
     if params["from"]!="picked_action" && params["from"]!="Waiting after emotion survey"
-    $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]=user_status ? user_status : "not login"
+      $user_data.select { |user| user[:computer_id] == "#{session[:computerid]}" }[0][:status]=user_status ? user_status : "not login"
     end
-    
-     if params["from"]=="vdo"
-        ##code to check all the participants done recording
+
+    if params["from"]=="vdo"
+      ##code to check all the participants done recording
       if $user_count == $feedback_recording
-      @page = "result_after_feedback"
+        @page = "result_after_feedback"
       else
-      @page = "waiting"
+        @page = "waiting"
       end
     end
-    
-    respond_to do|format|
-			format.js
+
+    respond_to do |format|
+      format.js
       format.html
       format.json
-		end
+    end
   end
 
   def sample_video
@@ -150,41 +150,44 @@ class ParticipantController < ApplicationController
   end
 
   def save_survey_results
-   options=params["value"]
-   file = begin CSV.open("public/csv/survey_results_#{$filestamp}.csv", "r") rescue nil end
+    options=params["value"]
+    file = begin
+      CSV.open("public/csv/survey_results_#{$filestamp}.csv", "r") rescue nil
+    end
     if file
       CSV.open("public/csv/survey_results_#{$filestamp}.csv", "a+") do |csv|
-      i=0
-      options.each do |option|
-       csv << [session[:computerid], $round,i+=1, option]
-      end
+        i=0
+        options.each do |option|
+          csv << [session[:computerid], $round, i+=1, option]
+        end
       end
     else
-    CSV.open("public/csv/survey_results_#{$filestamp}.csv", "wb") do |csv|
-    csv << ["computer_id", "round", "statement id","option"]
-    i=0
-    options.each do |option|
-     csv << [session[:computerid], $round,i+=1, option]
+      CSV.open("public/csv/survey_results_#{$filestamp}.csv", "wb") do |csv|
+        csv << ["computer_id", "round", "statement id", "option"]
+        i=0
+        options.each do |option|
+          csv << [session[:computerid], $round, i+=1, option]
+        end
+      end
     end
-    end  
-    end
-    $user_data.select{|user| user[:computer_id] == "#{session[:computerid]}"}[0][:status]="Completed Emotion Survey And Waiting"
-    render json:{},status: :ok
- end
+    $user_data.select { |user| user[:computer_id] == "#{session[:computerid]}" }[0][:status]="Completed Emotion Survey And Waiting"
+    render json: {}, status: :ok
+  end
 
-def save
-  Rails.logger.info("Save called.")
-  video_type ="webm"
-  participant_id=params["part_id"]
-  recording_for = params["recording_for"]
-  round = params["round"]
-  video_name="#{participant_id}_#{recording_for}_for_round_#{round}_#{$filestamp}.#{video_type}"
-  Rails.logger.info("Saving file - " + video_name.inspect)
-  puts "Saving file - " + video_name.inspect
-  output_file = File.open("public/uploads/#{video_name}", "w")
-  FileUtils.copy_stream(params['video-blob'].tempfile, output_file)
-    render json:{},status: :ok
-end
+  def save
+    Rails.logger.info("Save called.")
+    video_type ="webm"
+    participant_id=params["part_id"]
+    recording_for = params["recording_for"]
+    round = params["round"]
+    video_name="#{participant_id}_#{recording_for}_for_round_#{round}_#{$filestamp}.#{video_type}"
+    $uploadcount += 1
+    Rails.logger.info("(" + $uploadcount.to_s + ")  Saving file - " + video_name.inspect)
+    puts "(" + $uploadcount.to_s + ")  Saving file - " + video_name.inspect
+    output_file = File.open("public/uploads/#{video_name}", "w")
+    FileUtils.copy_stream(params['video-blob'].tempfile, output_file)
+    render json: {}, status: :ok
+  end
 
   def savedfilelocal
     # uuid = UUID.generate
@@ -192,36 +195,37 @@ end
     recording_for = params["recording_for"]
     recording_for == "statement_recording" ? $recording_count+=1 : $feedback_recording+=1
     Rails.logger.info("Saving local file - Participant = " + participant_id.inspect + " recording for = " + recording_for.inspect)
-    render json:{},status: :ok
+    render json: {}, status: :ok
   end
 
 
-def get_information
-  
-end
+  def get_information
 
-def save_user_information
-  name,age,firstlanguage,sex,fluency = params["first_name"].concat(" " + params["last_name"]).to_s,params["user_age"].to_i,params["user_language"],params["user_gender"],params["user_fluency"]
-  session[:part_name]=name
-  file = begin CSV.open("public/csv/user_information_#{$filestamp}.csv", "r") rescue nil end
+  end
+
+  def save_user_information
+    name, age, firstlanguage, sex, fluency = params["first_name"].concat(" " + params["last_name"]).to_s, params["user_age"].to_i, params["user_language"], params["user_gender"], params["user_fluency"]
+    session[:part_name]=name
+    file = begin
+      CSV.open("public/csv/user_information_#{$filestamp}.csv", "r") rescue nil
+    end
     if file
       CSV.open("public/csv/user_information_#{$filestamp}.csv", "a+") do |csv|
-      csv << [session[:computerid],name,age,firstlanguage,sex,fluency]
+        csv << [session[:computerid], name, age, firstlanguage, sex, fluency]
       end
     else
       CSV.open("public/csv/user_information_#{$filestamp}.csv", "wb") do |csv|
-      csv << ["Part_id", "Name", "Age","Language","Sex","Fluency"]
-      csv << [session[:computerid],name,age,firstlanguage,sex,fluency]
-      end  
+        csv << ["Part_id", "Name", "Age", "Language", "Sex", "Fluency"]
+        csv << [session[:computerid], name, age, firstlanguage, sex, fluency]
+      end
     end
-    redirect_to root_path(:from=>"exit")
-end
+    redirect_to root_path(:from => "exit")
+  end
 
- def create_userdata
+  def create_userdata
     if session[:computerid].blank? && !request.url.split("/").include?("control") && $experiment_status!="start"
-      puts "i am creating #{session[:computerid]}"
-      puts session[:computerid] 
-     mycomputerid = genseratecomputerid()
+      mycomputerid = genseratecomputerid()
+      puts "Creating - " + mycomputerid.to_s
     end
   end
 
@@ -273,7 +277,7 @@ end
     returnhash = Hash.new
 
     partid = params[:partid].to_s
-    uploadcomplete = params[:done].to_s == "true"? true:false
+    uploadcomplete = params[:done].to_s == "true" ? true : false
     Rails.logger.debug("partid = " + partid.inspect)
     Rails.logger.debug("uploadcomplete = " + uploadcomplete.inspect)
     Rails.logger.debug("$processing[0] = " + $processing[0].inspect)
@@ -285,8 +289,8 @@ end
           # This indicates the part has uploaded all files and is done.
           # We move on to the next part.
           if $partsready.length == 0
-            $processing = ['Part-999',true]
-            puts "All Files uploaded"
+            $processing = ['Part-999', true]
+            puts "All files scheduled for upload."
           else
             $processing = $partsready.shift
           end
@@ -314,8 +318,6 @@ end
     render :json => jsonreturn
 
   end
-
-
 
 
 end
