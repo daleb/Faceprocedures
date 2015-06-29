@@ -286,6 +286,7 @@ end
           # We move on to the next part.
           if $partsready.length == 0
             $processing = ['Part-999',true]
+            puts "All Files uploaded"
           else
             $processing = $partsready.shift
           end
@@ -295,7 +296,8 @@ end
       end
     else
       # This section is count the number of parts ready to upload
-      Rails.logger.info("Number parts ready = " + $partsready.length.to_s + " of total = " + $partcount)
+      pcnt = $partsready.length
+      Rails.logger.info("Number parts ready = " + pcnt.to_s + " of total = " + $partcount.to_s)
       $partsready[partid] = uploadcomplete
       if $partsready.length == $partcount
         # Everyone is ready so we can start the upload
